@@ -12,7 +12,7 @@ import { COLOR_PRIMARY, COLOR_SECONDARY, COLOR_WHITE, FONT_FAMILY_PRIMARY } from
 let theme = createTheme({
   palette: {
     primary: {
-      main: COLOR_WHITE
+      main: COLOR_PRIMARY
     },
     secondary: {
       main: COLOR_SECONDARY

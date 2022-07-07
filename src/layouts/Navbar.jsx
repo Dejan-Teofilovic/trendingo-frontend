@@ -16,7 +16,7 @@ import { Icon } from '@iconify/react';
 import { grey } from '@mui/material/colors';
 import { Link as ScrollLink } from 'react-scroll';
 import { CustomDrawer } from '../components/styledComponents';
-import { COLOR_PRIMARY } from '../utils/constants';
+import { COLOR_PRIMARY, COLOR_WHITE } from '../utils/constants';
 
 const ROUTES = [
   {
@@ -35,7 +35,7 @@ export default function Navbar() {
   return (
     <AppBar
       position="sticky"
-      sx={{ py: { md: 1 } }}
+      sx={{ py: { md: 1 }, bgcolor: COLOR_WHITE }}
     >
       <Container maxWidth="xl">
         <Toolbar>
