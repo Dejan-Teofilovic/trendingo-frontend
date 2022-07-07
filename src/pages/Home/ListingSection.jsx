@@ -6,17 +6,22 @@ import {
   Link,
   MenuItem,
   Paper,
-  Stack,
-  Typography
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Icon as MuiIcon,
+  IconButton
 } from '@mui/material';
+import { Icon } from '@iconify/react';
 import {
-  COLOR_BLACK,
-  COLOR_GRAY_BRIGHT,
   COLOR_PRIMARY,
-  COLOR_SUCCESS,
-  FONT_FAMILY_SECONDARY
 } from '../../utils/constants';
 import { FilterTextField } from '../../components/styledComponents';
+import MHidden from '../../components/MHidden';
 
 const DATA = [
   {
@@ -67,102 +72,71 @@ export default function ListingSection({ sx }) {
           </FilterTextField>
         </Box>
 
-        <Paper elevation={24} sx={{ width: '100%', mt: 4, py: 4 }}>
-          {/* Table Head */}
-          <Stack direction="row" pb={2} px={8} spacing={6} alignItems="center">
-            <Box width="35%">
-              <Typography
-                variant="body1"
-                color={COLOR_PRIMARY}
-                textTransform="uppercase"
-                fontWeight={700}
-              >
-                Platform
-              </Typography>
-            </Box>
-            <Box width="15%">
-              <Typography
-                variant="body1"
-                color={COLOR_PRIMARY}
-                textTransform="uppercase"
-                fontWeight={700}
-              >
-                Listing Time
-              </Typography>
-            </Box>
-            <Box width="25%">
-              <Typography
-                variant="body1"
-                color={COLOR_PRIMARY}
-                textTransform="uppercase"
-                fontWeight={700}
-              >
-                Pricing
-              </Typography>
-            </Box>
-            <Box width="15%">
-              <Typography
-                variant="body1"
-                color={COLOR_PRIMARY}
-                textTransform="uppercase"
-                fontWeight={700}
-              >
-                Shop
-              </Typography>
-            </Box>
-          </Stack>
-
-          {/* Table body */}
-          <Stack spacing={2} px={4}>
-            {
-              DATA.map(dataItem => (
-                <Stack
-                  direction="row"
-                  px={4}
-                  py={1}
-                  spacing={6}
-                  alignItems="center"
-                  bgcolor={COLOR_GRAY_BRIGHT}
-                  borderRadius={2}
-                  key={dataItem.platform}
-                >
-                  <Box width="35%">
-                    <Typography
-                      variant="h6"
-                      color={COLOR_BLACK}
-                      fontFamily={FONT_FAMILY_SECONDARY}
-                    >{dataItem.platform}</Typography>
-                  </Box>
-                  <Box width="15%">
-                    <Typography
-                      variant="h6"
-                      color={COLOR_BLACK}
-                      fontFamily={FONT_FAMILY_SECONDARY}
-                    >{dataItem.listingTime}</Typography>
-                  </Box>
-                  <Box width="25%">
-                    <Typography
-                      variant="h6"
-                      color={COLOR_SUCCESS}
-                      fontFamily={FONT_FAMILY_SECONDARY}
-                      fontWeight={700}
-                    >{dataItem.pricing}</Typography>
-                  </Box>
-                  <Box width="15%">
-                    <Button
-                      variant="contained"
-                      component={Link}
-                      href={dataItem.shop}
-                      target="_blank"
-                    >
-                      Order Now
-                    </Button>
-                  </Box>
-                </Stack>
-              ))
-            }
-          </Stack>
-        </Paper>
+        <TableContainer
+          component={Paper}
+          elevation={24}
+          sx={{ mt: 4, p: { xs: 0, md: 2 } }}
+        >
+          <Table>
+            <TableHead sx={{ textTransform: 'uppercase' }}>
+              <TableRow>
+                <TableCell sx={{ color: COLOR_PRIMARY, fontWeight: 900 }} variant="head">
+                  Platform
+                </TableCell>
+                <TableCell sx={{ color: COLOR_PRIMARY, fontWeight: 900 }} variant="head">
+                  Listing Time
+                </TableCell>
+                <TableCell sx={{ color: COLOR_PRIMARY, fontWeight: 900 }} variant="head">
+                  Pricing
+                </TableCell>
+                <TableCell sx={{ color: COLOR_PRIMARY, fontWeight: 900 }} variant="head">
+                  Shop
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {
+                DATA.map(dataItem => (
+                  <TableRow key={dataItem.platform}>
+                    <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
+                      {dataItem.platform}
+                    </TableCell>
+                    <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
+                      {dataItem.listingTime}
+                    </TableCell>
+                    <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
+                      {dataItem.pricing}
+                    </TableCell>
+                    <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
+                      <MHidden width="smDown">
+                        <Button
+                          variant="contained"
+                          component={Link}
+                          href={dataItem.shop}
+                          target="_blank"
+                        >
+                          Order Now
+                        </Button>
+                      </MHidden>
+                      <MHidden width="smUp">
+                        <IconButton
+                          component={Link}
+                          href={dataItem.shop}
+                          target="_blank"
+                          sx={{ color: COLOR_PRIMARY }}
+                        >
+                          <MuiIcon>
+                            <Icon icon="icon-park-outline:transaction-order" />
+                          </MuiIcon>
+                        </IconButton>
+                      </MHidden>
+                    </TableCell>
+                  </TableRow>
+                ))
+              }
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Container>
     </Box>
   );
