@@ -1,4 +1,4 @@
-export const COLOR_PRIMARY = '#ffeab6';
+export const COLOR_PRIMARY = 'rgb(142, 20, 253)';
 export const COLOR_SECONDARY = 'rgb(40, 37, 48)';
 export const COLOR_SECONDARY_BRIGHT = 'rgb(61, 57, 67)';
 export const COLOR_SECONDARY_DARK = 'rgb(36, 33, 43)';

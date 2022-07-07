@@ -1,11 +1,10 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, Stack } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import {
   COLOR_SECONDARY_BRIGHT,
   COLOR_WHITE,
   COLOR_PRIMARY,
   FONT_FAMILY_SECONDARY,
-  COLOR_GRAY_BRIGHT,
   COLOR_GRAY
 } from '../../utils/constants';
 
@@ -62,7 +61,6 @@ export default function HeroSection() {
                 speed="1"
                 style={{ width: '100%', height: '100%' }}
                 loop
-
                 autoplay
               ></lottie-player>
             </Box>

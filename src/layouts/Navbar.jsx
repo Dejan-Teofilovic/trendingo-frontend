@@ -16,6 +16,7 @@ import { Icon } from '@iconify/react';
 import { grey } from '@mui/material/colors';
 import { Link as ScrollLink } from 'react-scroll';
 import { CustomDrawer } from '../components/styledComponents';
+import { COLOR_PRIMARY } from '../utils/constants';
 
 const ROUTES = [
   {
@@ -103,7 +104,8 @@ export default function Navbar() {
                 sx={{
                   mr: 4,
                   fontWeight: 600,
-                  display: { xs: 'none', md: 'flex' }
+                  display: { xs: 'none', md: 'flex' },
+                  color: COLOR_PRIMARY
                 }}
                 variant="text"
               >

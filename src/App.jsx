@@ -7,13 +7,12 @@ import "slick-carousel/slick/slick-theme.css";
 import Routes from './Routes';
 import { AlertMessageProvider } from './contexts/AlertMessageContext';
 import { LoadingProvider } from './contexts/LoadingContext';
-import { COLOR_PRIMARY, COLOR_SECONDARY, FONT_FAMILY_PRIMARY } from './utils/constants';
+import { COLOR_PRIMARY, COLOR_SECONDARY, COLOR_WHITE, FONT_FAMILY_PRIMARY } from './utils/constants';
 
 let theme = createTheme({
   palette: {
-    mode: 'dark',
     primary: {
-      main: COLOR_PRIMARY
+      main: COLOR_WHITE
     },
     secondary: {
       main: COLOR_SECONDARY
