@@ -15,7 +15,8 @@ import {
   Typography,
   Icon as MuiIcon,
   IconButton,
-  Stack
+  Stack,
+  Avatar
 } from '@mui/material';
 import { Icon } from '@iconify/react';
 import Flag from 'react-world-flags';
@@ -29,6 +30,7 @@ import { thoursandsSeparators } from '../../utils/functions';
 const DATA = [
   {
     platform: 'coingecko.com',
+    logo: 'coingecko.png',
     trafficIndex: 267,
     mainAudience: {
       country: 'us',
@@ -39,6 +41,7 @@ const DATA = [
   },
   {
     platform: 'coinmarketcap.com',
+    logo: 'coinmarketcap.png',
     trafficIndex: 57,
     mainAudience: {
       country: 'us',
@@ -114,7 +117,15 @@ export default function WatchlistSection({ sx }) {
                 DATA.map(dataItem => (
                   <TableRow key={dataItem.platform}>
                     <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
-                      {dataItem.platform}
+                      <Stack direction="row" alignItems="center" spacing={1}>
+                        <Avatar
+                          src={`assets/images/${dataItem.logo}`}
+                          alt=""
+                        />
+                        <Typography component="span" sx={{ display: { xs: 'none', md: 'block' } }}>
+                          {dataItem.platform}
+                        </Typography>
+                      </Stack>
                     </TableCell>
                     <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
                       {dataItem.trafficIndex && thoursandsSeparators(dataItem.trafficIndex)}

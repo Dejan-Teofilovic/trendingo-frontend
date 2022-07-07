@@ -14,7 +14,9 @@ import {
   TableRow,
   Typography,
   Icon as MuiIcon,
-  IconButton
+  IconButton,
+  Stack,
+  Avatar
 } from '@mui/material';
 import { Icon } from '@iconify/react';
 import {
@@ -26,18 +28,21 @@ import MHidden from '../../components/MHidden';
 const DATA = [
   {
     platform: 'coinmarketcap.com',
+    logo: 'coinmarketcap.png',
     listingTime: '12 - 24 H',
     pricing: '10,000 BUSD',
     shop: 'https://t.me/upvote.cc'
   },
   {
     platform: 'coingecko.com',
+    logo: 'coingecko.png',
     listingTime: '24 - 48 H',
     pricing: '4,000 BUSD',
     shop: 'https://t.me/upvote.cc'
   },
   {
-    platform: 'coinmarketcap.com',
+    platform: 'trustwallet.com',
+    logo: 'trustwallet.png',
     listingTime: '12 - 24 H',
     pricing: '1,500 BUSD',
     shop: 'https://t.me/upvote.cc'
@@ -99,7 +104,15 @@ export default function ListingSection({ sx }) {
                 DATA.map(dataItem => (
                   <TableRow key={dataItem.platform}>
                     <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
-                      {dataItem.platform}
+                      <Stack direction="row" alignItems="center" spacing={1}>
+                        <Avatar
+                          src={`assets/images/${dataItem.logo}`}
+                          alt=""
+                        />
+                        <Typography component="span" sx={{ display: { xs: 'none', md: 'block' } }}>
+                          {dataItem.platform}
+                        </Typography>
+                      </Stack>
                     </TableCell>
                     <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
                       {dataItem.listingTime}

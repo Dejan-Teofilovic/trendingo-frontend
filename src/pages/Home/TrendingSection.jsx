@@ -15,7 +15,8 @@ import {
   Typography,
   Icon as MuiIcon,
   IconButton,
-  Stack
+  Stack,
+  Avatar
 } from '@mui/material';
 import { Icon } from '@iconify/react';
 import Flag from 'react-world-flags';
@@ -29,6 +30,7 @@ import { thoursandsSeparators } from '../../utils/functions';
 const DATA = [
   {
     platform: 'crypto.com',
+    logo: 'crypto.webp',
     trafficIndex: 953,
     mainAudience: {
       country: 'us',
@@ -39,6 +41,7 @@ const DATA = [
   },
   {
     platform: 'pinksale.finance',
+    logo: 'pinksale.png',
     trafficIndex: 3619,
     mainAudience: {
       country: 'us',
@@ -49,6 +52,7 @@ const DATA = [
   },
   {
     platform: 'poocoin.app',
+    logo: 'poocoin.png',
     trafficIndex: 682,
     mainAudience: {
       country: 'us',
@@ -59,6 +63,7 @@ const DATA = [
   },
   {
     platform: 'dxsale.app',
+    logo: 'dxsale.png',
     trafficIndex: 17330,
     mainAudience: {
       country: 'us',
@@ -69,6 +74,7 @@ const DATA = [
   },
   {
     platform: 'coinmarketcal.com',
+    logo: 'coinmarketcal.png',
     trafficIndex: 6343,
     mainAudience: {
       country: 'in',
@@ -79,6 +85,7 @@ const DATA = [
   },
   {
     platform: 'dextools.io',
+    logo: 'dextools.jpg',
     mainAudience: {
       country: 'us',
       percentage: 26
@@ -153,7 +160,15 @@ export default function TrendingSection({ sx }) {
                 DATA.map(dataItem => (
                   <TableRow key={dataItem.platform}>
                     <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
-                      {dataItem.platform}
+                      <Stack direction="row" alignItems="center" spacing={1}>
+                        <Avatar
+                          src={`assets/images/${dataItem.logo}`}
+                          alt=""
+                        />
+                        <Typography component="span" sx={{ display: { xs: 'none', md: 'block' } }}>
+                          {dataItem.platform}
+                        </Typography>
+                      </Stack>
                     </TableCell>
                     <TableCell sx={{ maxWidth: { xs: 60, md: 'none' }, overflow: 'auto' }}>
                       {dataItem.trafficIndex && thoursandsSeparators(dataItem.trafficIndex)}
