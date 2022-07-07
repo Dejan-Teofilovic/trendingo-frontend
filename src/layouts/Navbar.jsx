@@ -15,17 +15,16 @@ import {
 import { Icon } from '@iconify/react';
 import { grey } from '@mui/material/colors';
 import { Link as ScrollLink } from 'react-scroll';
-import { PrimaryButton, TextButton, CustomDrawer } from '../components/styledComponents';
-import { COLOR_BLACK } from '../utils/constants';
+import { CustomDrawer } from '../components/styledComponents';
 
 const ROUTES = [
   {
-    name: 'foo',
-    path: 'foo'
+    name: 'Services',
+    path: '#services'
   },
   {
-    name: 'bar',
-    path: 'bar'
+    name: 'Contact',
+    path: '#contact'
   }
 ];
 
@@ -35,11 +34,8 @@ export default function Navbar() {
   return (
     <AppBar
       position="sticky"
-      sx={{
-        backgroundColor: 'rgba(10, 10, 10, 0.8)',
-        py: { md: 1 },
-        borderBottom: `1px solid ${COLOR_BLACK}`
-      }}>
+      sx={{ py: { md: 1 } }}
+    >
       <Container maxWidth="xl">
         <Toolbar>
           {/* For Mobile */}
@@ -89,7 +85,7 @@ export default function Navbar() {
 
           {/* Logo for desktop */}
           <Button component={RouterLink} to="/" sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Box component="img" src="/assets/images/logo.png" width={70} ml={1} />
+            <Box component="img" src="/assets/images/logo.png" width={120} ml={1} />
           </Button>
 
           <Box flexGrow={1}>
@@ -102,9 +98,14 @@ export default function Navbar() {
           </Box>
           {
             ROUTES.map(route => (
-              <TextButton
+              <Button
                 key={route.path}
-                sx={{ mr: 4, fontWeight: 600, color: grey[300], display: { xs: 'none', md: 'flex' } }}
+                sx={{
+                  mr: 4,
+                  fontWeight: 600,
+                  display: { xs: 'none', md: 'flex' }
+                }}
+                variant="text"
               >
                 <ScrollLink
                   to={route.path}
@@ -115,12 +116,9 @@ export default function Navbar() {
                 >
                   {route.name}
                 </ScrollLink>
-              </TextButton>
+              </Button>
             ))
           }
-          <PrimaryButton
-            variant="contained"
-          >Buy Now</PrimaryButton>
         </Toolbar>
       </Container>
     </AppBar>

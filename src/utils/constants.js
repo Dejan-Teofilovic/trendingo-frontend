@@ -1,8 +1,31 @@
-export const COLOR_PRIMARY = '#1c87ff';
-export const COLOR_SECONDARY = '#484A45';
+export const COLOR_PRIMARY = '#ffeab6';
+export const COLOR_SECONDARY = 'rgb(40, 37, 48)';
+export const COLOR_SECONDARY_BRIGHT = 'rgb(61, 57, 67)';
+export const COLOR_SECONDARY_DARK = 'rgb(36, 33, 43)';
 export const COLOR_INFO = '#05fff2';
 export const COLOR_SUCCESS = '#05ff07';
 export const COLOR_WARNING = '#fff900';
 export const COLOR_ERROR = '#ff1007';
 export const COLOR_WHITE = '#ffffff';
+export const COLOR_GRAY_BRIGHT = '#cccccc';
+export const COLOR_GRAY = '#999999';
+export const COLOR_GRAY_DARK = '#666666';
 export const COLOR_BLACK = '#000000';
+
+export const FONT_SIZE_H1_MD = 32;
+export const FONT_SIZE_H1_XS = 32;
+export const FONT_SIZE_H2_MD = 26;
+export const FONT_SIZE_H2_XS = 20;
+export const FONT_SIZE_H3_MD = 18;
+export const FONT_SIZE_H3_XS = 14;
+export const FONT_SIZE_H4_MD = 16;
+export const FONT_SIZE_H4_XS = 14;
+export const FONT_SIZE_H5_MD = 14;
+export const FONT_SIZE_H5_XS = 12;
+export const FONT_SIZE_BODY1_MD = 12;
+export const FONT_SIZE_BODY1_XS = 12;
+export const FONT_SIZE_BODY2_MD = 10;
+export const FONT_SIZE_BODY2_XS = 10;
+
+export const FONT_FAMILY_PRIMARY = "'Ubuntu', sans-serif";
+export const FONT_FAMILY_SECONDARY = "'Noto Sans', sans-serif";

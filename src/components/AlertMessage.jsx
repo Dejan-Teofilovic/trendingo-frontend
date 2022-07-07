@@ -13,6 +13,7 @@ export default function AlertMessage() {
     }
     closeAlert();
   };
+  
   return (
     <Snackbar
       open={isOpened}
