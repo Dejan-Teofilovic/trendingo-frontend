@@ -4,6 +4,7 @@ import HeroSection from './HeroSection';
 import ListingSection from './ListingSection';
 import TrendingSection from './TrendingSection';
 import WatchlistSection from './WatchlistSection';
+import UpvoteSection from './UpvoteSection';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <ListingSection sx={{ mt: 10 }} />
       <TrendingSection sx={{ mt: 10 }} />
       <WatchlistSection sx={{ mt: 10 }} />
+      <UpvoteSection sx={{ mt: 10 }} />
     </Box>
   );
 }
