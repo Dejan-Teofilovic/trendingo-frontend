@@ -1,6 +1,8 @@
 import { createContext, useReducer } from 'react';
 import { SUCCESS } from '../utils/constants';
+
 // ----------------------------------------------------------------------
+
 type TSeverity = 'success' | 'info' | 'warning' | 'error'
 
 interface IInitialState {
@@ -37,7 +39,6 @@ const initialState: IInitialState = {
 
 const handlers: IHandlers = {
   INITIALIZE: (state: object, action: IAction) => {
-    console.log('# action => ', action);
     return {
       ...state,
       ...action.payload
