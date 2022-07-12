@@ -54,11 +54,11 @@ const ArrowStyle = styled(IconButton)({
 export default function CarouselControlArrows({ onNext, onPrevious }: IProps) {
   return (
     <RootStyle>
-      <ArrowStyle size="small" onClick={() => onPrevious}>
+      <ArrowStyle size="small" onClick={() => onPrevious()}>
         <Icon icon="eva:arrow-ios-back-fill" {...ICON_SIZE} />
       </ArrowStyle>
 
-      <ArrowStyle size="small" onClick={() => onNext}>
+      <ArrowStyle size="small" onClick={() => onNext()}>
         <Icon icon="eva:arrow-ios-forward-fill" {...ICON_SIZE} />
       </ArrowStyle>
     </RootStyle>
