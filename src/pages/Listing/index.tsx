@@ -1,6 +1,7 @@
-import { Box, Container, Typography } from "@mui/material"
+import { Box, Container, Grid, Typography } from "@mui/material"
 import { useState } from "react"
 import Carousel from "../../components/Carousel"
+import MHidden from "../../components/MHidden"
 import ServiceCardItem, { IServiceCardDataItem } from "../../components/ServiceCardItem"
 
 /* ----------------------------------------------------------------- */
@@ -14,7 +15,7 @@ const SLIDE_SETTINGS = {
   arrows: false,
   infinite: true,
   speed: 500,
-  slidesToShow: 4,
+  slidesToShow: 3,
   slidesToScroll: 1,
   initialSlide: 0,
   autoplay: true,
@@ -22,7 +23,7 @@ const SLIDE_SETTINGS = {
   responsive: [
     {
       breakpoint: 1280,
-      settings: { slidesToShow: 4 }
+      settings: { slidesToShow: 3 }
     },
     {
       breakpoint: 1024,
@@ -41,90 +42,68 @@ const SLIDE_SETTINGS = {
 
 const INIT_SITES: TInitSites = [
   {
-    title: 'CoinAlpha Upvotes',
-    image: '/assets/images/coinalpha.webp',
-    path: '/upvoting/coinalpha',
-    price: 9,
-    priceHigh: undefined,
-    priceLow: undefined
-  },
-  {
-    title: 'CoinGecko Watchlists & Reactions',
+    title: 'CoinGecko Fast-Track Listing',
     image: '/assets/images/coingecko.webp',
-    path: '/upvoting/coingecko',
-    price: 15,
+    path: '/listing/coingecko',
+    price: 4500,
     priceHigh: undefined,
     priceLow: undefined
   },
   {
-    title: 'Coinhunt Upvotes',
-    image: '/assets/images/coinhunt.webp',
-    path: '/upvoting/coinhunt',
-    price: 9,
-    priceHigh: undefined,
-    priceLow: undefined
-  },
-  {
-    title: 'CoinMarketCap Watchlists',
+    title: 'CoinMarketCap Upvotes',
     image: '/assets/images/coinmarketcap.webp',
-    path: '/upvoting/coinmarketcap',
-    price: 20,
-    priceLow: undefined,
-    priceHigh: undefined
-  },
-  {
-    title: 'Coinmooner Upvotes',
-    image: '/assets/images/coinmooner.webp',
-    path: '/upvoting/coinmooner',
-    price: 9,
-    priceLow: undefined,
-    priceHigh: undefined
-  },
-  {
-    title: 'Coinscope Upvotes',
-    image: '/assets/images/coinscope.webp',
-    path: '/upvoting/coinscope',
-    price: 9,
-    priceLow: undefined,
-    priceHigh: undefined
-  },
-  {
-    title: 'CoinSniper Upvotes & Watchlists',
-    image: '/assets/images/dxsale.webp',
-    path: '/upvoting/dxsale',
-    price: 9,
+    path: '/listing/coinmarketcap',
+    price: 9500,
     priceHigh: undefined,
     priceLow: undefined
   },
+
   {
-    title: 'Watcher Upvotes',
-    image: '/assets/images/watcher.webp',
-    path: '/upvoting/watcher',
-    price: 9,
+    title: 'TrustWallet Logo',
+    image: '/assets/images/trustwallet.webp',
+    path: '/listing/trustwallet',
+    price: 1500,
     priceHigh: undefined,
     priceLow: undefined
   }
 ]
 
-export default function Upvoting() {
+export default function Listing() {
   const [sites, setSites] = useState(INIT_SITES)
 
   return (
     <Box mt={10}>
       <Container maxWidth="xl">
         <Typography textAlign="center" variant="h4">
-          Upvoting Services
+          Listing Services
         </Typography>
         <Typography textAlign="center" variant="h6">
           All-in-one crypto services with the most effective marketing solution from the marketplace.
         </Typography>
 
         <Box mt={6}>
-          <Carousel
-            slideSettings={SLIDE_SETTINGS}
-            carouselItemComponent={ServiceCardItem}
-            data={sites}
-          />
+          <MHidden breakpoint="md" direction="down">
+            <Grid container spacing={4}>
+              {
+                sites.map((dataItem, index) => (
+                  <Grid item md={4} key={index}>
+                    <ServiceCardItem
+                      key={index}
+                      dataItem={dataItem}
+                    />
+                  </Grid>
+                ))
+              }
+            </Grid>
+          </MHidden>
+
+          <MHidden breakpoint="md" direction="up">
+            <Carousel
+              slideSettings={SLIDE_SETTINGS}
+              carouselItemComponent={ServiceCardItem}
+              data={sites}
+            />
+          </MHidden>
         </Box>
       </Container>
     </Box>
