@@ -41,10 +41,26 @@ const SLIDE_SETTINGS = {
 
 const INIT_SITES: TInitSites = [
   {
-    title: 'Coin Gecko Fast-Track Listing',
+    title: 'Certik Trending',
+    image: '/assets/images/certik.webp',
+    path: '/trending/certik',
+    price: 900,
+    priceHigh: undefined,
+    priceLow: undefined
+  },
+  {
+    title: 'CoinGecko Trending',
     image: '/assets/images/coingecko.webp',
-    path: '/listing/coingecko',
-    price: 4500,
+    path: '/trending/coingecko',
+    price: undefined,
+    priceHigh: 1800,
+    priceLow: 2500
+  },
+  {
+    title: 'CoinMarketCal Trending',
+    image: '/assets/images/coinmarketcal.webp',
+    path: '/trending/coinmarketcal',
+    price: 400,
     priceHigh: undefined,
     priceLow: undefined
   },
@@ -55,14 +71,6 @@ const INIT_SITES: TInitSites = [
     price: undefined,
     priceLow: 2000,
     priceHigh: 12000
-  },
-  {
-    title: 'CoinSniper Upvotes & Watchlists',
-    image: '/assets/images/coinsniper.webp',
-    path: '/upvote/coinsniper',
-    price: 9,
-    priceHigh: undefined,
-    priceLow: undefined
   },
   {
     title: 'Cryptocom Trending',
@@ -81,6 +89,22 @@ const INIT_SITES: TInitSites = [
     priceHigh: 18000
   },
   {
+    title: 'Dxsale Trending',
+    image: '/assets/images/dxsale.webp',
+    path: '/trending/dxsale',
+    price: 400,
+    priceHigh: undefined,
+    priceLow: undefined
+  },
+  {
+    title: 'Poocoin Trending',
+    image: '/assets/images/poocoin.webp',
+    path: '/trending/poocoin',
+    price: 700,
+    priceHigh: undefined,
+    priceLow: undefined
+  },
+  {
     title: 'Pinksale Trending',
     image: '/assets/images/pinksale.webp',
     path: '/trending/pinksale',
@@ -90,14 +114,14 @@ const INIT_SITES: TInitSites = [
   }
 ]
 
-export default function Home() {
+export default function Trending() {
   const [sites, setSites] = useState(INIT_SITES)
 
   return (
     <Box mt={10}>
       <Container maxWidth="xl">
         <Typography textAlign="center" variant="h4">
-          Leading Marketing Services In The Crypto Industry
+          Trending Services
         </Typography>
         <Typography textAlign="center" variant="h6">
           All-in-one crypto services with the most effective marketing solution from the marketplace.

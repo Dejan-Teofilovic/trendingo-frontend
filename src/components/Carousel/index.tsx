@@ -2,14 +2,14 @@ import React, { useRef, createElement } from 'react';
 import { styled } from "@mui/material";
 import Slider from 'react-slick';
 import CarouselControlArrows from './CarouselControlArrows';
-import { ISiteDataItem } from '../../pages/Home';
+import { IServiceCardDataItem } from '../ServiceCardItem';
 
 /* -------------------------------------------------------------- */
 
 interface IProps {
-  data: Array<ISiteDataItem>,
+  data: Array<IServiceCardDataItem>,
   slideSettings: object,
-  carouselItemComponent: React.ComponentType<{ key: number, dataItem: ISiteDataItem }>
+  carouselItemComponent: React.ComponentType<{ key: number, dataItem: IServiceCardDataItem }>
 }
 
 /* -------------------------------------------------------------- */

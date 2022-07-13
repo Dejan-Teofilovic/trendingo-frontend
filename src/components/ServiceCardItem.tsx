@@ -1,21 +1,29 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material"
-import { ISiteDataItem } from "."
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 /* -------------------------------------------------------------- */
 
+export interface IServiceCardDataItem {
+  title: string,
+  image: string,
+  path: string,
+  price: number | undefined,
+  priceHigh: number | undefined,
+  priceLow: number | undefined
+}
+
 interface IProps {
   key: number,
-  dataItem: ISiteDataItem
+  dataItem: IServiceCardDataItem
 }
 
 /* -------------------------------------------------------------- */
 
-export default function CarouselItem({ dataItem }: IProps) {
+export default function ServiceCardItem({ dataItem }: IProps) {
   const navigate = useNavigate();
 
   const handleGotoRoute = () => {
-    navigate(`services/${dataItem.pathParam}`)
+    navigate(dataItem.path)
   }
 
   return (
