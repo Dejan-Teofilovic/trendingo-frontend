@@ -8,6 +8,7 @@ import CarouselItem from "./CarouselItem"
 export interface ISiteDataItem {
   title: string,
   image: string,
+  pathParam: string,
   price: number | undefined,
   priceHigh: number | undefined,
   priceLow: number | undefined
@@ -18,7 +19,7 @@ type TInitSites = Array<ISiteDataItem>
 /* ----------------------------------------------------------------- */
 
 const SLIDE_SETTINGS = {
-  dots: false,
+  dots: true,
   arrows: false,
   infinite: true,
   speed: 500,
@@ -51,6 +52,7 @@ const INIT_SITES: TInitSites = [
   {
     title: 'Coin Gecko Fast-Track Listing',
     image: '/assets/images/coingecko.webp',
+    pathParam: 'coin-gecko',
     price: 4500,
     priceHigh: undefined,
     priceLow: undefined
@@ -58,6 +60,7 @@ const INIT_SITES: TInitSites = [
   {
     title: 'CoinMarketCap Trending',
     image: '/assets/images/coinmarketcap.webp',
+    pathParam: 'coin-market-cap',
     price: undefined,
     priceLow: 2000,
     priceHigh: 12000
@@ -65,6 +68,7 @@ const INIT_SITES: TInitSites = [
   {
     title: 'CoinSniper Upvotes & Watchlists',
     image: '/assets/images/coinsniper.webp',
+    pathParam: 'coin-sniper',
     price: 9,
     priceHigh: undefined,
     priceLow: undefined
@@ -72,6 +76,7 @@ const INIT_SITES: TInitSites = [
   {
     title: 'Cryptocom Trending',
     image: '/assets/images/crypto.webp',
+    pathParam: 'crypto',
     price: undefined,
     priceLow: 600,
     priceHigh: 1000
@@ -79,6 +84,7 @@ const INIT_SITES: TInitSites = [
   {
     title: 'Dextools Trending',
     image: '/assets/images/dextools.webp',
+    pathParam: 'dextools',
     price: undefined,
     priceLow: 9000,
     priceHigh: 18000
@@ -86,6 +92,7 @@ const INIT_SITES: TInitSites = [
   {
     title: 'Pinksale Trending',
     image: '/assets/images/pinksale.webp',
+    pathParam: 'pinksale',
     price: 500,
     priceHigh: undefined,
     priceLow: undefined

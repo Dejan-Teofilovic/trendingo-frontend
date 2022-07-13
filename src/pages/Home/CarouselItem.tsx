@@ -1,5 +1,6 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material"
 import { ISiteDataItem } from "."
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 /* -------------------------------------------------------------- */
 
@@ -11,8 +12,14 @@ interface IProps {
 /* -------------------------------------------------------------- */
 
 export default function CarouselItem({ dataItem }: IProps) {
+  const navigate = useNavigate();
+
+  const handleGotoRoute = () => {
+    navigate(`services/${dataItem.pathParam}`)
+  }
+
   return (
-    <Card sx={{ height: '99%', mx: 1 }}>
+    <Card sx={{ height: '99%', mx: 1, cursor: 'pointer' }} onClick={handleGotoRoute}>
       <CardMedia
         component="img"
         image={dataItem.image}
