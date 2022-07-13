@@ -57,7 +57,6 @@ const INIT_SITES: TInitSites = [
     priceHigh: undefined,
     priceLow: undefined
   },
-
   {
     title: 'TrustWallet Logo',
     image: '/assets/images/trustwallet.webp',
