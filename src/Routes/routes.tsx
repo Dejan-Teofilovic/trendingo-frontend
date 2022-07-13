@@ -1,5 +1,6 @@
 import Home from "../pages/Home";
 import Trending from "../pages/Trending";
+import Upvoting from "../pages/Upvoting";
 
 export const routes = [
   {
@@ -11,5 +12,10 @@ export const routes = [
     name: 'Trending services',
     path: '/trending',
     element: <Trending />
+  },
+  {
+    name: 'Upvoting services',
+    path: '/upvoting',
+    element: <Upvoting />
   }
 ]
