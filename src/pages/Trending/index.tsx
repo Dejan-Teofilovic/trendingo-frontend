@@ -2,6 +2,7 @@ import { Box, Container, Typography, Grid } from "@mui/material"
 import { useState } from "react"
 // import Carousel from "../../components/Carousel"
 import ServiceCardItem, { IServiceCardDataItem } from "../../components/ServiceCardItem"
+import { COLOR_WHITE, COLOR_PRIMARY } from "../../utils/constants"
 
 /* ----------------------------------------------------------------- */
 
@@ -120,10 +121,10 @@ export default function Trending() {
   return (
     <Box my={{ xs: 5, md: 10 }}>
       <Container maxWidth="xl">
-        <Typography textAlign="center" variant="h4">
+        <Typography textAlign="center" variant="h4" color={COLOR_PRIMARY}>
           Trending Services
         </Typography>
-        <Typography textAlign="center" variant="h6">
+        <Typography textAlign="center" variant="h6" color={COLOR_WHITE}>
           All-in-one crypto services with the most effective marketing solution from the marketplace.
         </Typography>
 

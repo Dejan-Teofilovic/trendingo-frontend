@@ -2,6 +2,7 @@ import { Box, Container, Typography, Grid } from "@mui/material"
 import { useState } from "react"
 // import Carousel from "../../components/Carousel"
 import ServiceCardItem, { IServiceCardDataItem } from "../../components/ServiceCardItem"
+import { COLOR_PRIMARY, COLOR_WHITE } from "../../utils/constants"
 
 /* ----------------------------------------------------------------- */
 
@@ -112,10 +113,10 @@ export default function Upvoting() {
   return (
     <Box my={{ xs: 5, md: 10 }}>
       <Container maxWidth="xl">
-        <Typography textAlign="center" variant="h4">
+        <Typography textAlign="center" variant="h4" color={COLOR_PRIMARY}>
           Upvoting Services
         </Typography>
-        <Typography textAlign="center" variant="h6">
+        <Typography textAlign="center" variant="h6" color={COLOR_WHITE}>
           All-in-one crypto services with the most effective marketing solution from the marketplace.
         </Typography>
 

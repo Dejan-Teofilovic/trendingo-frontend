@@ -1,11 +1,23 @@
-import { Box, Button, Container, Grid, MenuItem, Paper, Stack, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  MenuItem,
+  Paper,
+  Stack,
+  TextField,
+  Typography
+} from '@mui/material';
+import { grey } from '@mui/material/colors';
+import { COLOR_PRIMARY, COLOR_WHITE } from '../../utils/constants';
 // import { useParams } from 'react-router';
 
 export default function Service() {
   // const { serviceType, siteName } = useParams();
 
   return (
-    <Box my={{ xs: 5, md: 10 }}>
+    <Box mt={{ xs: 5, md: 10 }}>
       <Container maxWidth="lg">
         <Stack spacing={{ xs: 6, md: 12 }}>
           <Box>
@@ -22,13 +34,22 @@ export default function Service() {
                 </Stack>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="h4" fontWeight={800} textAlign={{ xs: 'center', sm: 'left' }}>
+                <Typography 
+                  color={COLOR_PRIMARY}
+                  variant="h4" 
+                  fontWeight={800} 
+                  textAlign={{ xs: 'center', sm: 'left' }}
+                >
                   Certik Trending
                 </Typography>
-                <Typography variant="h6" textAlign={{ xs: 'center', sm: 'left' }}>
+                <Typography 
+                  variant="h6" 
+                  textAlign={{ xs: 'center', sm: 'left' }} 
+                  color={COLOR_WHITE}
+                >
                   900.00 BUSD
                 </Typography>
-                <Typography variant="body1" mt={3} textAlign="justify">
+                <Typography variant="body1" mt={3} textAlign="justify" color={grey[400]}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </Typography>
               </Grid>

@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useLocation } from 'react-router-dom'
 import {
   AppBar,
   Box,
@@ -27,6 +27,8 @@ const CustomizedDrawer = styled(Drawer)`
 
 export default function Navbar() {
   const [drawerOpened, setDrawerOpened] = useState(false);
+  const { pathname } = useLocation();
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -40,7 +42,7 @@ export default function Navbar() {
             <Box my={3}>
               <Stack direction="row" justifyContent="center" alignItems="center">
                 <Button component={RouterLink} to="/">
-                  <Box component="img" src="/assets/images/logo.webp" width={50} />
+                  <Box component="img" src="/assets/images/logo.png" width={100} />
                 </Button>
               </Stack>
               <List sx={{ mt: 2 }} onClick={() => setDrawerOpened(false)}>
@@ -59,7 +61,7 @@ export default function Navbar() {
                         </ListItem>
                       )
                     } else {
-                      <Fragment key={route.path} />
+                      return <Fragment key={route.path} />
                     }
                   })
                 }
@@ -69,7 +71,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Button component={RouterLink} to="/">
-            <Box component="img" src="/assets/images/logo.webp" width={130} />
+            <Box component="img" src="/assets/images/logo.png" width={130} />
           </Button>
 
           <Box flexGrow={1}>
@@ -95,8 +97,10 @@ export default function Navbar() {
                     sx={{
                       color: COLOR_WHITE,
                       textTransform: 'capitalize',
-                      display: { xs: 'none', sm: 'flex' }
+                      display: { xs: 'none', sm: 'flex' },
+                      mr: 3
                     }}
+                    variant={pathname === route.path ? 'contained' : 'text'}
                   >{route.name}</Button>
                 )
               } else {

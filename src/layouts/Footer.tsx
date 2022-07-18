@@ -4,7 +4,7 @@ import { COLOR_WHITE } from "../utils/constants";
 export default function Footer() {
   const theme = useTheme();
   return (
-    <Box py={2} bgcolor={theme.palette.primary.main}>
+    <Box py={2} bgcolor={theme.palette.background.paper}>
       <Typography textAlign="center" color={COLOR_WHITE}>
         © {new Date().getFullYear()} React
       </Typography>
