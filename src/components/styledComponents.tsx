@@ -1,4 +1,4 @@
-import { Dialog, styled, Toolbar } from "@mui/material";
+import { Button, Dialog, styled, Toolbar } from "@mui/material";
 
 export const ToolbarWithoutPaddingX = styled(Toolbar)({
   '&.MuiToolbar-root': {
@@ -12,3 +12,7 @@ export const LoadingDialog = styled(Dialog)({
     borderRadius: 10
   }
 });
+
+export const CapitalButton = styled(Button)`
+  text-transform: capitalize;
+`
