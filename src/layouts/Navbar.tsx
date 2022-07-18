@@ -17,7 +17,7 @@ import { grey } from '@mui/material/colors'
 import { Icon } from '@iconify/react'
 import { ToolbarWithoutPaddingX } from "../components/styledComponents"
 import { routes } from '../Routes/routes'
-import { COLOR_WHITE } from '../utils/constants'
+import { COLOR_PRIMARY, COLOR_WHITE } from '../utils/constants'
 
 const CustomizedDrawer = styled(Drawer)`
   .MuiPaper-root {
@@ -30,7 +30,7 @@ export default function Navbar() {
   const { pathname } = useLocation();
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="xl">
         <ToolbarWithoutPaddingX>
           {/* For Mobile */}
@@ -52,7 +52,10 @@ export default function Navbar() {
                       return (
                         <ListItem key={route.path}>
                           <ListItemButton
-                            sx={{ color: grey[300] }}
+                            sx={pathname === route.path ? {
+                              color: COLOR_PRIMARY,
+                              fontWeight: 700
+                            } : { color: grey[300] }}
                             component={RouterLink}
                             to={route.path}
                           >
@@ -94,13 +97,18 @@ export default function Navbar() {
                     key={route.path}
                     component={RouterLink}
                     to={route.path}
-                    sx={{
+                    sx={pathname === route.path ?{
+                      color: COLOR_PRIMARY,
+                      fontWeight: 700,
+                      textTransform: 'capitalize',
+                      display: { xs: 'none', sm: 'flex' },
+                      mr: 3
+                    } : {
                       color: COLOR_WHITE,
                       textTransform: 'capitalize',
                       display: { xs: 'none', sm: 'flex' },
                       mr: 3
                     }}
-                    variant={pathname === route.path ? 'contained' : 'text'}
                   >{route.name}</Button>
                 )
               } else {
