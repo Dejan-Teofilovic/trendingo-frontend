@@ -11,7 +11,7 @@ export default function Navbar() {
       <Container maxWidth="xl">
         <ToolbarWithoutPaddingX>
           <Button component={RouterLink} to="/">
-            <Box component="img" src="assets/images/logo.webp" width={130} />
+            <Box component="img" src="/assets/images/logo.webp" width={130} />
           </Button>
           <Box flexGrow={1} />
           {
