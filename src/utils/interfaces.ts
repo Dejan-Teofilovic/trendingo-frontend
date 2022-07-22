@@ -18,6 +18,17 @@ export interface ITrendingService {
   description: string;
   imageId: number;
   selectIds?: Array<number>;
+  prices: Array<IPrice>;
+}
+
+export interface IUpvotingService {
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  imageId: number;
+  selectIds?: Array<number>;
+  prices: Array<IPrice>;
 }
 
 export interface IImage {
@@ -26,13 +37,14 @@ export interface IImage {
 }
 
 export interface IPrice {
-  selectId: number;
-  optionValue: number;
-  trendingTypeValue?: string;
-  value: number;
+  trendingType?: string;
+  chain?: string;
+  amount?: number;
+  period?: number;
+  price: number;
 }
 
 export interface IServiceCardItem {
   key: number;
-  dataItem: ITrendingService;
+  dataItem: ITrendingService | IListService | IUpvotingService;
 }

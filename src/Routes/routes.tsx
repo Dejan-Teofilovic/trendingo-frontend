@@ -5,6 +5,7 @@ import Upvoting from "../pages/Upvoting";
 import Development from "../pages/Development";
 import TrendingService from "../pages/TrendingService";
 import ListingService from "../pages/ListingService";
+import UpvotingService from "../pages/UpvotingService";
 
 export const routes = [
   {
@@ -39,5 +40,9 @@ export const routes = [
   {
     path: '/listing/:serviceName',
     element: <ListingService />
+  },
+  {
+    path: '/upvoting/:serviceName',
+    element: <UpvotingService />
   }
 ]

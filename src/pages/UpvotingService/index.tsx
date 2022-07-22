@@ -6,8 +6,6 @@ import {
   Card,
   Container,
   Grid,
-  ListItemIcon,
-  ListItemText,
   MenuItem,
   Paper,
   Stack,
@@ -16,22 +14,18 @@ import {
   useTheme
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import Flag from 'react-world-flags'
 import parse from 'html-react-parser'
 import { COLOR_PRIMARY } from '../../utils/constants'
-import { IMAGES, SELECTS, TRENDING_SERVICES } from '../../utils/data'
+import { IMAGES, SELECTS, UPVOTING_SERVICES } from '../../utils/data'
 
-export default function TrendingService() {
+export default function UpvotingService() {
   const { serviceName } = useParams()
   const theme = useTheme()
 
-  const [trendingType, setTrendingType] = useState('')
-  const [period, setPeriod] = useState(0)
-  const [region, setRegion] = useState('')
-  const [chain, setChain] = useState('')
+  const [amount, setAmount] = useState(0)
 
   const serviceData = useMemo(() => {
-    let service = TRENDING_SERVICES.find(
+    let service = UPVOTING_SERVICES.find(
       element => element.name === serviceName
     )
     return service
@@ -44,54 +38,22 @@ export default function TrendingService() {
     }
   }, [serviceData?.imageId])
 
-  const regionSelect = useMemo(() => {
-    if (trendingType === 'trending_region') {
-      return SELECTS.find(element => element.id === 4)
-    }
-  }, [trendingType])
-
   const price = useMemo(() => {
     if (serviceData) {
-      let priceData = null;
-      if (period && trendingType) {
-        priceData = serviceData.prices.find(
-          priceItem => priceItem.trendingType === trendingType && priceItem.period === period
-        )
+      if (amount) {
+        let priceData = serviceData.prices.find(priceItem => priceItem.amount === amount)
 
         if (priceData) {
           return priceData.price
         }
-      } else if (period && !trendingType) {
-
-        if (chain) {
-          priceData = serviceData.prices.find(
-            priceItem => priceItem.period === period && priceItem.chain === chain
-          )
-
-          if (priceData) {
-            return priceData.price
-          }
-        } else {
-          priceData = serviceData.prices.find(priceItem => priceItem.period === period)
-
-          if (priceData) {
-            return priceData.price
-          }
-        }
       }
     }
 
-  }, [period, trendingType])
+  }, [amount])
 
   const handleChangeSelect = (selectId: number, value: string) => {
-    if (selectId === 1 || selectId === 5) {
-      setTrendingType(value)
-    } else if (selectId === 2 || selectId === 3) {
-      setPeriod(Number(value))
-    } else if (selectId === 4) {
-      setRegion(value)
-    } else if (selectId === 6) {
-      setChain(value)
+    if (selectId === 8) {
+      setAmount(Number(value))
     }
   }
 
@@ -193,40 +155,6 @@ export default function TrendingService() {
                         })
                       }
                     </>
-                  )
-                }
-                {
-                  regionSelect && (
-                    <TextField
-                      select
-                      name="chain"
-                      label={regionSelect.label}
-                      sx={{
-                        width: '28ch',
-                        '& .MuiSelect-select': {
-                          display: 'flex',
-                          alignItems: 'center',
-                        }
-                      }}
-                      onChange={(e) => handleChangeSelect(regionSelect.id, e?.target?.value)}
-                    >
-                      {
-                        regionSelect.options.map(optionItem => (
-                          <MenuItem value={optionItem.value} key={optionItem.value}>
-                            {
-                              typeof optionItem.value === 'string' && (
-                                <ListItemIcon sx={{ width: 40, mr: 2, height: 20 }}>
-                                  <Flag code={optionItem.value} />
-                                </ListItemIcon>
-                              )
-                            }
-                            <ListItemText>
-                              {optionItem.label}
-                            </ListItemText>
-                          </MenuItem>
-                        ))
-                      }
-                    </TextField>
                   )
                 }
               </Stack>

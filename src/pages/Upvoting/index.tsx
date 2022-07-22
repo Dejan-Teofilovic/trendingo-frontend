@@ -2,6 +2,7 @@ import { Box, Container, Typography, Grid } from "@mui/material"
 // import Carousel from "../../components/Carousel"
 import ServiceCardItem from "../../components/ServiceCardItem"
 import { COLOR_PRIMARY, COLOR_WHITE } from "../../utils/constants"
+import { UPVOTING_SERVICES } from "../../utils/data"
 
 /* ----------------------------------------------------------------- */
 
@@ -53,7 +54,11 @@ export default function Upvoting() {
             data={sites}
           /> */}
           <Grid container spacing={{ xs: 1, sm: 2, md: 4 }}>
-
+            {UPVOTING_SERVICES.map((dataItem, index) => (
+              <Grid item xs={6} sm={4} md={3} key={dataItem.title}>
+                <ServiceCardItem key={index} dataItem={dataItem} />
+              </Grid>
+            ))}
           </Grid>
         </Box>
       </Container>
