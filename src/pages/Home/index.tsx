@@ -2,6 +2,7 @@ import { Box, Container, Grid, Typography } from "@mui/material"
 import { useState } from "react"
 // import Carousel from "../../components/Carousel"
 import ServiceCardItem, { IServiceCardDataItem } from "../../components/ServiceCardItem"
+import { routes } from "../../Routes/routes"
 import { COLOR_PRIMARY, COLOR_WHITE } from "../../utils/constants"
 
 /* ----------------------------------------------------------------- */
@@ -116,6 +117,11 @@ export default function Home() {
                 <ServiceCardItem key={index} dataItem={dataItem} />
               </Grid>
             ))}
+            {
+              routes.map(routeItem => (
+                <Grid item xs={6} sm={4} md={3} key={routeItem.path}></Grid>
+              ))
+            }
           </Grid>
         </Box>
       </Container>

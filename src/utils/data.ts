@@ -1,21 +1,6 @@
-import { IImage, IPrice, IService, IServiceType } from "./interfaces";
+import { IImage, IListService, IPrice, ITrendingService } from "./interfaces";
 
-export const DATA_SERVICE_TYPES: Array<IServiceType> = [
-  {
-    id: 1,
-    value: "listing"
-  },
-  {
-    id: 2,
-    value: "trending"
-  },
-  {
-    id: 3,
-    value: "upvoting"
-  }
-];
-
-export const DATA_IMAGES: Array<IImage> = [
+export const IMAGES: Array<IImage> = [
   {
     id: 1,
     value: "/assets/images/certik.webp"
@@ -82,11 +67,10 @@ export const DATA_IMAGES: Array<IImage> = [
   }
 ];
 
-export const DATA_SERVICES: Array<IService> = [
+export const LISTING_SERVICES: Array<IListService> = [
   {
     id: 1,
     name: "coingecko",
-    dataServiceTypeId: 1,
     title: "Coingecko Listing",
     descriptions: [
       "Get your token or Coin listed on Coingecko.com",
@@ -99,7 +83,6 @@ export const DATA_SERVICES: Array<IService> = [
   {
     id: 2,
     name: "coinmarketcap",
-    dataServiceTypeId: 1,
     title: "CoinMarketCap listing",
     descriptions: [
       "Get your token or Coin listed on Coinmarketcap.com",
@@ -112,7 +95,6 @@ export const DATA_SERVICES: Array<IService> = [
   {
     id: 3,
     name: "trustwallet",
-    dataServiceTypeId: 1,
     title: "Trust Wallet logo",
     descriptions: [
       "Get your token or Coin logo displayed in Trustwallet.",
@@ -128,7 +110,6 @@ export const DATA_SERVICES: Array<IService> = [
   {
     id: 4,
     name: "cmc-cg-tw",
-    dataServiceTypeId: 1,
     title: "CMC + CG + TW Listing",
     descriptions: [
       "Discount Package for Listing on Coinmarketcap.com, Coingecko.com and Trustwallet.",
@@ -136,11 +117,13 @@ export const DATA_SERVICES: Array<IService> = [
     ],
     imageId: 3,
     pricing: 7500
-  },
+  }
+];
+
+export const TRENDING_SERVICES: Array<ITrendingService> = [
   {
-    id: 5,
+    id: 1,
     name: "certik",
-    dataServiceTypeId: 2,
     title: "Certik Trending",
     descriptions: [
       "CertiK is the leading security-focused ranking platform to analyze and monitor blockchain protocols and DeFi projects.",
@@ -151,8 +134,7 @@ export const DATA_SERVICES: Array<IService> = [
     selectIds: [3]
   },
   {
-    id: 6,
-    dataServiceTypeId: 2,
+    id: 2,
     name: "coingecko",
     title: "Coingecko Trending",
     descriptions: [
@@ -163,7 +145,7 @@ export const DATA_SERVICES: Array<IService> = [
   }
 ];
 
-export const DATA_SELECTS = [
+export const SELECTS = [
   {
     id: 1,
     label: "Trending types",
@@ -266,7 +248,7 @@ export const DATA_SELECTS = [
   }
 ];
 
-export const DATA_PRICES: Array<IPrice> = [
+export const PRICES: Array<IPrice> = [
   {
     selectId: 3,
     optionValue: 1,

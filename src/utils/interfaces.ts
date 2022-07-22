@@ -3,16 +3,23 @@ export interface IServiceType {
   value: string;
 }
 
-export interface IService {
+export interface IListService {
   id: number;
   name: string;
-  dataServiceTypeId: number;
+  title: string;
+  descriptions: Array<string>;
+  benefits?: Array<string>;
+  imageId: number;
+  timeFrame?: string;
+  pricing: number;
+}
+
+export interface ITrendingService {
+  id: number;
+  name: string;
   title: string;
   descriptions: Array<string>;
   imageId: number;
-  timeFrame?: string;
-  pricing?: number;
-  benefits?: Array<string>;
   selectIds?: Array<number>;
 }
 

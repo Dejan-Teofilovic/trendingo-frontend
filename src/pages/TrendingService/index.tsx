@@ -1,5 +1,5 @@
 import { useParams } from 'react-router';
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import {
   Box,
   Button,
@@ -16,45 +16,37 @@ import {
 import { grey } from '@mui/material/colors';
 import Flag from 'react-world-flags';
 import { COLOR_PRIMARY, COLOR_WHITE } from '../../utils/constants';
-import { DATA_IMAGES, DATA_PRICES, DATA_SELECTS, DATA_SERVICES, DATA_SERVICE_TYPES } from '../../utils/data';
+import { IMAGES, PRICES, SELECTS, TRENDING_SERVICES } from '../../utils/data';
 
-export default function Service() {
+export default function TrendingService() {
   const { serviceTypeName, serviceName } = useParams();
   const [trendingType, setTrendingType] = useState('');
   const [period, setPeriod] = useState(0);
   const [region, setRegion] = useState('');
 
-  const serviceTypeId = useMemo(() => {
-    let serviceType = DATA_SERVICE_TYPES.find(element => element.value === serviceTypeName)
-    if (serviceType) {
-      return serviceType.id
-    }
-    return 0
-  }, [serviceTypeName]);
-
   const serviceData = useMemo(() => {
-    let service = DATA_SERVICES.find(
-      element => element.dataServiceTypeId === serviceTypeId && element.name === serviceName
+    let service = TRENDING_SERVICES.find(
+      element => element.name === serviceName
     )
     return service
-  }, [serviceTypeId, serviceName])
+  }, [serviceName])
 
   const imageUrl = useMemo(() => {
     if (serviceData) {
-      let imageData = DATA_IMAGES.find(element => element.id === serviceData.imageId)
+      let imageData = IMAGES.find(element => element.id === serviceData.imageId)
       return imageData?.value
     }
   }, [serviceData?.imageId])
 
   const regionSelect = useMemo(() => {
     if (trendingType === 'region') {
-      return DATA_SELECTS.find(element => element.id === 4);
+      return SELECTS.find(element => element.id === 4);
     }
   }, [trendingType])
 
   const price = useMemo(() => {
     if (period && trendingType) {
-      let priceData = DATA_PRICES.find(priceItem => priceItem.trendingTypeValue === trendingType && priceItem.optionValue === period)
+      let priceData = PRICES.find(priceItem => priceItem.trendingTypeValue === trendingType && priceItem.optionValue === period)
 
       if (priceData) {
         return priceData.value
@@ -107,19 +99,6 @@ export default function Service() {
                   {serviceData?.title}
                 </Typography>
 
-                {/* Price */}
-                {
-                  serviceData?.pricing && (
-                    <Typography
-                      variant="h6"
-                      textAlign={{ xs: 'center', sm: 'left' }}
-                      color={COLOR_WHITE}
-                    >
-                      {serviceData.pricing}$
-                    </Typography>
-                  )
-                }
-
                 {/* Decription */}
                 <Box mt={3}>
                   {
@@ -135,34 +114,6 @@ export default function Service() {
                     ))
                   }
                 </Box>
-
-                {/* Benefits */}
-                {
-                  serviceData?.benefits && (
-                    <Box mt={3}>
-                      <Typography
-                        variant="body1"
-                        textAlign="justify"
-                        color={grey[400]}
-                        fontWeight={800}
-                      >
-                        Benefits:
-                      </Typography>
-                      {
-                        serviceData.benefits.map((benefit, index) => (
-                          <Typography
-                            variant="body1"
-                            textAlign="justify"
-                            color={grey[400]}
-                            key={benefit}
-                          >
-                            {index + 1}.{benefit}
-                          </Typography>
-                        ))
-                      }
-                    </Box>
-                  )
-                }
               </Grid>
             </Grid>
           </Box>
@@ -179,7 +130,7 @@ export default function Service() {
                   <>
                     {
                       serviceData.selectIds.map(id => {
-                        let selectData = DATA_SELECTS.find(element => element.id === id);
+                        let selectData = SELECTS.find(element => element.id === id);
                         if (selectData) {
                           return (
                             <TextField
