@@ -40,25 +40,23 @@ import { LISTING_SERVICES } from "../../utils/data"
 export default function Listing() {
 
   return (
-    <Box my={{ xs: 5, md: 10 }}>
-      <Container maxWidth="xl">
-        <Typography textAlign="center" variant="h4" color={COLOR_PRIMARY}>
-          Listing Services
-        </Typography>
-        <Typography textAlign="center" variant="h6" color={COLOR_WHITE}>
-          All-in-one crypto services with the most effective marketing solution from the marketplace.
-        </Typography>
+    <Container maxWidth="xl">
+      <Typography textAlign="center" variant="h4" color={COLOR_PRIMARY}>
+        Listing Services
+      </Typography>
+      <Typography textAlign="center" variant="h6" color={COLOR_WHITE}>
+        All-in-one crypto services with the most effective marketing solution from the marketplace.
+      </Typography>
 
-        <Box mt={{ xs: 3, md: 6 }}>
-          <Grid container spacing={{ xs: 1, sm: 2, md: 4 }}>
-            {LISTING_SERVICES.map((dataItem, index) => (
-              <Grid item xs={6} sm={4} md={3} key={index}>
-                <ServiceCardItem key={index} dataItem={dataItem} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Container>
-    </Box>
+      <Box mt={{ xs: 3, md: 6 }}>
+        <Grid container spacing={{ xs: 1, sm: 2, md: 4 }}>
+          {LISTING_SERVICES.map((dataItem, index) => (
+            <Grid item xs={6} sm={4} md={3} key={index}>
+              <ServiceCardItem key={index} dataItem={dataItem} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Container>
   )
 }

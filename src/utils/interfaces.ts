@@ -7,18 +7,15 @@ export interface IListService {
   id: number;
   name: string;
   title: string;
-  descriptions: Array<string>;
-  benefits?: Array<string>;
+  description: string;
   imageId: number;
-  timeFrame?: string;
-  pricing: number;
 }
 
 export interface ITrendingService {
   id: number;
   name: string;
   title: string;
-  descriptions: Array<string>;
+  description: string;
   imageId: number;
   selectIds?: Array<number>;
 }

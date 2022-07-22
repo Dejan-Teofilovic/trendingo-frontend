@@ -72,11 +72,11 @@ export const TRENDING_SERVICES: Array<ITrendingService> = [
     id: 1,
     name: "certik",
     title: "Certik Trending",
-    descriptions: [
-      "CertiK is the leading security-focused ranking platform to analyze and monitor blockchain protocols and DeFi projects.",
-      "Get your token or coin in Trending and Search on (Top #1-3) Certik.com.",
-      "Please Provide your telegram Username Correctly, We will reach out to you for more information."
-    ],
+    description: `
+      CertiK is the leading security-focused ranking platform to analyze and monitor blockchain protocols and DeFi projects.<br />
+      Get your token or coin in Trending and Search on (Top #1-3) <a href="https://certik.com" target="_blank">Certik.com</a>.<br />
+      Please Provide your telegram Username Correctly, We will reach out to you for more information. 
+    `,
     imageId: 1,
     selectIds: [3]
   },
@@ -84,9 +84,9 @@ export const TRENDING_SERVICES: Array<ITrendingService> = [
     id: 2,
     name: "coingecko",
     title: "Coingecko Trending",
-    descriptions: [
-      "Get Coingecko Trending to promote your token on either Trending Search Or Trending Region."
-    ],
+    description: `
+      Get Coingecko Trending to promote your token on either <a target="_blank" href="https://www.coingecko.com/en/watchlists">Trending Search</a> Or <a target="_blank" href="https://www.coingecko.com/en/watchlists/trending-crypto/united-states">Trending Region</a>.
+    `,
     imageId: 3,
     selectIds: [1, 2]
   }
@@ -97,51 +97,49 @@ export const LISTING_SERVICES: Array<IListService> = [
     id: 1,
     name: "coingecko",
     title: "Coingecko Listing",
-    descriptions: [
-      "Get your token or Coin listed on Coingecko.com",
-      "Please Provide your telegram Username Correctly, We will reach out to you for more information."
-    ],
-    imageId: 3,
-    timeFrame: "24-48 Hours",
-    pricing: 3500
+    description: `
+      Get your token or Coin listed on <a target="_blank" href="https://coingecko.com">Coingecko.com</a>.<br />
+      Time Frame: 24-48 Hours<br />
+      Please Provide your telegram Username Correctly, We will reach out to you for more information.<br />
+      Pricing: 3500$
+    `,
+    imageId: 3
   },
   {
     id: 2,
     name: "coinmarketcap",
     title: "CoinMarketCap listing",
-    descriptions: [
-      "Get your token or Coin listed on Coinmarketcap.com",
-      "Please Provide your telegram Username Correctly, We will reach out to you for more information."
-    ],
-    imageId: 6,
-    timeFrame: "24-48 Hours",
-    pricing: 4500
+    description: `
+      Get your token or Coin listed on <a target="_blank" href="https://coinmarketcap.com">Coinmarketcap.com</a>.<br />
+      Time Frame: 24-48 Hours<br />
+      Please Provide your telegram Username Correctly, We will reach out to you for more information.<br />
+      Pricing: 4500$
+    `,
+    imageId: 6
   },
   {
     id: 3,
     name: "trustwallet",
     title: "Trust Wallet logo",
-    descriptions: [
-      "Get your token or Coin logo displayed in Trustwallet.",
-      "Please Provide your telegram Username Correctly, We will reach out to you for more information."
-    ],
-    benefits: [
-      "Trending in multiple sites needs your trustwallet logo like PooCoin.",
-      "It will also be updated on Bscscan.com"
-    ],
-    imageId: 15,
-    pricing: 1500
+    description: `
+      Get your token or Coin logo displayed in Trustwallet.<br />
+      <b>Benefits</b>:<br />
+      1. Trending in multiple sites needs your trustwallet logo like PooCoin.<br />
+      2. It will also be updated on <a target="_blank" href="https://bscscan.com">Bscscan.com</a>.<br />
+      Please Provide your telegram Username Correctly, We will reach out to you for more information.
+    `,
+    imageId: 15
   },
   {
     id: 4,
     name: "cmc-cg-tw",
     title: "CMC + CG + TW Listing",
-    descriptions: [
-      "Discount Package for Listing on Coinmarketcap.com, Coingecko.com and Trustwallet.",
-      "Please Provide your telegram Username Correctly, We will reach out to you for more information."
-    ],
-    imageId: 3,
-    pricing: 7500
+    description: `
+      Discount Package for Listing on <a target="_blank" href="https://coinmarketcap.com">Coinmarketcap.com</a>, <a target="_blank" href="https://coingecko.com">Coingecko.com</a> and Trustwallet.<br />
+      Please Provide your telegram Username Correctly, We will reach out to you for more information.<br>
+      Pricing: 7500$
+    `,
+    imageId: 3
   }
 ];
 
