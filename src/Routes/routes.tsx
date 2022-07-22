@@ -16,7 +16,7 @@ export const routes = [
     element: <Trending />
   },
   {
-    path: '/:serviceType/:siteName',
+    path: '/:serviceTypeName/:serviceName',
     element: <Service />
   },
   {
