@@ -1,41 +1,32 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material"
-import { useNavigate } from 'react-router-dom'
+import { useMemo } from "react";
+import { useLocation, useNavigate } from 'react-router-dom'
+import { IMAGES } from "../utils/data";
+import { IServiceCardItem } from "../utils/interfaces";
 
-/* -------------------------------------------------------------- */
-
-export interface IServiceCardDataItem {
-  title: string,
-  image: string,
-  path: string,
-  price: number | undefined,
-  priceHigh: number | undefined,
-  priceLow: number | undefined
-}
-
-interface IProps {
-  key: number,
-  dataItem: IServiceCardDataItem
-}
-
-/* -------------------------------------------------------------- */
-
-export default function ServiceCardItem({ dataItem }: IProps) {
+export default function ServiceCardItem({ dataItem }: IServiceCardItem) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleGotoRoute = () => {
-    navigate(dataItem.path)
+    navigate(`${pathname}/${dataItem.name}`)
   }
+
+  const imageSrc = useMemo(() => {
+    let image = IMAGES.find(element => element.id === dataItem.imageId)
+    return image?.value
+  }, [dataItem.imageId])
 
   return (
     <Card sx={{ height: '99%', mx: 1, cursor: 'pointer' }} onClick={handleGotoRoute}>
       <CardMedia
         component="img"
-        image={dataItem.image}
+        image={imageSrc}
         alt={dataItem.title}
       />
       <CardContent>
         <Typography variant="h6">{dataItem.title}</Typography>
-        {
+        {/* {
           dataItem.price && (<Typography variant="body1">{dataItem.price} BUSD</Typography>)
         }
         {
@@ -44,7 +35,7 @@ export default function ServiceCardItem({ dataItem }: IProps) {
               {dataItem.priceLow} BUSD - {dataItem.priceHigh} BUSD
             </Typography>
           )
-        }
+        } */}
       </CardContent>
     </Card>
   )

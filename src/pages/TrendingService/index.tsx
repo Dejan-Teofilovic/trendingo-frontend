@@ -65,7 +65,7 @@ export default function TrendingService() {
   }
 
   return (
-    <Box my={{ xs: 5, md: 10 }}>
+    <Box>
       <Container maxWidth="lg">
         <Stack spacing={{ xs: 6, md: 12 }}>
           <Box>

@@ -34,3 +34,8 @@ export interface IPrice {
   trendingTypeValue?: string;
   value: number;
 }
+
+export interface IServiceCardItem {
+  key: number;
+  dataItem: ITrendingService;
+}
