@@ -15,11 +15,11 @@ import {
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import Flag from 'react-world-flags';
-import { COLOR_PRIMARY, COLOR_WHITE } from '../../utils/constants';
+import { COLOR_PRIMARY } from '../../utils/constants';
 import { IMAGES, PRICES, SELECTS, TRENDING_SERVICES } from '../../utils/data';
 
 export default function TrendingService() {
-  const { serviceTypeName, serviceName } = useParams();
+  const { serviceName } = useParams();
   const [trendingType, setTrendingType] = useState('');
   const [period, setPeriod] = useState(0);
   const [region, setRegion] = useState('');

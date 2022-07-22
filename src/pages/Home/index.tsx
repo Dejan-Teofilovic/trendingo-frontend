@@ -1,130 +1,57 @@
-import { Box, Container, Grid, Typography } from "@mui/material"
-import { useState } from "react"
-// import Carousel from "../../components/Carousel"
-import ServiceCardItem, { IServiceCardDataItem } from "../../components/ServiceCardItem"
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Container,
+  Grid,
+  Typography,
+  Stack
+} from "@mui/material"
+import { Fragment } from "react"
+import { useNavigate } from "react-router"
 import { routes } from "../../Routes/routes"
 import { COLOR_PRIMARY, COLOR_WHITE } from "../../utils/constants"
 
-/* ----------------------------------------------------------------- */
-
-type TInitSites = Array<IServiceCardDataItem>
-
-/* ----------------------------------------------------------------- */
-
-// const SLIDE_SETTINGS = {
-//   dots: true,
-//   arrows: false,
-//   infinite: true,
-//   speed: 500,
-//   slidesToShow: 4,
-//   slidesToScroll: 1,
-//   initialSlide: 0,
-//   autoplay: true,
-//   autoplaySpeed: 9000,
-//   responsive: [
-//     {
-//       breakpoint: 1280,
-//       settings: { slidesToShow: 4 }
-//     },
-//     {
-//       breakpoint: 1024,
-//       settings: { slidesToShow: 3 }
-//     },
-//     {
-//       breakpoint: 960,
-//       settings: { slidesToShow: 2 }
-//     },
-//     {
-//       breakpoint: 480,
-//       settings: { slidesToShow: 1, centerPadding: '0' }
-//     }
-//   ]
-// }
-
-const INIT_SITES: TInitSites = [
-  {
-    title: 'Coin Gecko Fast-Track Listing',
-    image: '/assets/images/coingecko.webp',
-    path: '/listing/coingecko',
-    price: 4500,
-    priceHigh: undefined,
-    priceLow: undefined
-  },
-  {
-    title: 'CoinMarketCap Trending',
-    image: '/assets/images/coinmarketcap.webp',
-    path: '/trending/coinmarketcap',
-    price: undefined,
-    priceLow: 2000,
-    priceHigh: 12000
-  },
-  {
-    title: 'CoinSniper Upvotes & Watchlists',
-    image: '/assets/images/coinsniper.webp',
-    path: '/upvote/coinsniper',
-    price: 9,
-    priceHigh: undefined,
-    priceLow: undefined
-  },
-  {
-    title: 'Cryptocom Trending',
-    image: '/assets/images/crypto.webp',
-    path: '/trending/crypto',
-    price: undefined,
-    priceLow: 600,
-    priceHigh: 1000
-  },
-  {
-    title: 'Dextools Trending',
-    image: '/assets/images/dextools.webp',
-    path: '/trending/dextools',
-    price: undefined,
-    priceLow: 9000,
-    priceHigh: 18000
-  },
-  {
-    title: 'Pinksale Trending',
-    image: '/assets/images/pinksale.webp',
-    path: '/trending/pinksale',
-    price: 500,
-    priceHigh: undefined,
-    priceLow: undefined
-  }
-]
-
 export default function Home() {
-  const [sites, setSites] = useState(INIT_SITES)
-
+  const navigate = useNavigate();
   return (
-    <Box my={{ xs: 5, md: 10 }}>
-      <Container maxWidth="xl">
-        <Typography textAlign="center" variant="h4" color={COLOR_PRIMARY}>
-          Leading Marketing Services In The Crypto Industry
-        </Typography>
-        <Typography textAlign="center" variant="h6" color={COLOR_WHITE}>
-          All-in-one crypto services with the most effective marketing solution from the marketplace.
-        </Typography>
+    <Container maxWidth="xl">
+      <Stack spacing={{ md: 12, xs: 6 }}>
+        <Stack spacing={1}>
+          <Typography textAlign="center" variant="h4" color={COLOR_PRIMARY}>
+            Leading Marketing Services In The Crypto Industry
+          </Typography>
+          <Typography textAlign="center" variant="h6" color={COLOR_WHITE}>
+            All-in-one crypto services with the most effective marketing solution from the marketplace.
+          </Typography>
+        </Stack>
 
-        <Box mt={{ xs: 3, md: 6 }}>
-          {/* <Carousel
-            slideSettings={SLIDE_SETTINGS}
-            carouselItemComponent={ServiceCardItem}
-            data={sites}
-          /> */}
+        <Box>
           <Grid container spacing={{ xs: 1, sm: 2, md: 4 }}>
-            {sites.map((dataItem, index) => (
-              <Grid item xs={6} sm={4} md={3} key={dataItem.title}>
-                <ServiceCardItem key={index} dataItem={dataItem} />
-              </Grid>
-            ))}
             {
-              routes.map(routeItem => (
-                <Grid item xs={6} sm={4} md={3} key={routeItem.path}></Grid>
-              ))
+              routes.map(routeItem => {
+                if (routeItem.name && routeItem.name !== 'Home') {
+                  return (
+                    <Grid item xs={6} sm={4} md={3} key={routeItem.path}>
+                      <Card sx={{ height: '100%' }}>
+                        <CardActionArea onClick={() => navigate(routeItem.path)}>
+                          <CardContent sx={{ py: { lg: 20, md: 15, sm: 15, xs: 10 } }}>
+                            <Typography variant="h5" textAlign="center">
+                              {routeItem.name}
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                      </Card>
+                    </Grid>
+                  )
+                }
+                return <Fragment key={routeItem.path} />
+              })
             }
           </Grid>
         </Box>
-      </Container>
-    </Box>
+      </Stack>
+    </Container>
   )
 }

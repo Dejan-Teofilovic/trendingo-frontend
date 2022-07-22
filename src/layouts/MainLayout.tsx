@@ -14,9 +14,9 @@ export default function MainLayout() {
         <Navbar />
 
         {/* Body */}
-        <Box flexGrow={1}>
+        <Stack justifyContent="center" flexGrow={1} py={{ xs: 5, md: 10 }}>
           <Outlet />
-        </Box>
+        </Stack>
 
         {/* Footer */}
         <Footer />

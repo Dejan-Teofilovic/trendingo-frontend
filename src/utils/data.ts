@@ -67,6 +67,31 @@ export const IMAGES: Array<IImage> = [
   }
 ];
 
+export const TRENDING_SERVICES: Array<ITrendingService> = [
+  {
+    id: 1,
+    name: "certik",
+    title: "Certik Trending",
+    descriptions: [
+      "CertiK is the leading security-focused ranking platform to analyze and monitor blockchain protocols and DeFi projects.",
+      "Get your token or coin in Trending and Search on (Top #1-3) Certik.com.",
+      "Please Provide your telegram Username Correctly, We will reach out to you for more information."
+    ],
+    imageId: 1,
+    selectIds: [3]
+  },
+  {
+    id: 2,
+    name: "coingecko",
+    title: "Coingecko Trending",
+    descriptions: [
+      "Get Coingecko Trending to promote your token on either Trending Search Or Trending Region."
+    ],
+    imageId: 3,
+    selectIds: [1, 2]
+  }
+];
+
 export const LISTING_SERVICES: Array<IListService> = [
   {
     id: 1,
@@ -117,31 +142,6 @@ export const LISTING_SERVICES: Array<IListService> = [
     ],
     imageId: 3,
     pricing: 7500
-  }
-];
-
-export const TRENDING_SERVICES: Array<ITrendingService> = [
-  {
-    id: 1,
-    name: "certik",
-    title: "Certik Trending",
-    descriptions: [
-      "CertiK is the leading security-focused ranking platform to analyze and monitor blockchain protocols and DeFi projects.",
-      "Get your token or coin in Trending and Search on (Top #1-3) Certik.com.",
-      "Please Provide your telegram Username Correctly, We will reach out to you for more information."
-    ],
-    imageId: 1,
-    selectIds: [3]
-  },
-  {
-    id: 2,
-    name: "coingecko",
-    title: "Coingecko Trending",
-    descriptions: [
-      "Get Coingecko Trending to promote your token on either Trending Search Or Trending Region."
-    ],
-    imageId: 3,
-    selectIds: [1, 2]
   }
 ];
 
