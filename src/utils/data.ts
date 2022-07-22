@@ -733,5 +733,34 @@ export const UPVOTING_SERVICES: Array<IUpvotingService> = [
         price: 1900
       }
     ]
+  },
+  {
+    id: 3,
+    name: "crypto",
+    title: "Crypto.com NFTs views",
+    description: `
+      <a target="_blank" href="https://crypto.com">Crypto.com</a> NFT is a highly-curated NFT marketplace where you can discover exclusive digital collectibles and their non-fungible tokens.<br />
+      Get more views on your <a target="_blank" href="https://crypto.com">crypto.com</a> minted NFTs, so you’ll get more bids and buyers for the NFT.
+    `,
+    imageId: 10,
+    selectIds: [8],
+    prices: [
+      {
+        amount: 1000,
+        price: 25
+      },
+      {
+        amount: 5000,
+        price: 90
+      },
+      {
+        amount: 10000,
+        price: 160
+      },
+      {
+        amount: 50000,
+        price: 600
+      }
+    ]
   }
 ];
