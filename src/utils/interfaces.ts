@@ -1,3 +1,5 @@
+import { RouteObject } from "react-router";
+
 export interface IServiceType {
   id: number;
   value: string;
@@ -47,4 +49,13 @@ export interface IPrice {
 export interface IServiceCardItem {
   key: number;
   dataItem: ITrendingService | IListService | IUpvotingService;
+}
+
+export interface IRoute extends RouteObject {
+  id?: number;
+  title?: string;
+}
+
+export interface IHandlers {
+  [key: string]: Function,
 }
