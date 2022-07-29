@@ -17,10 +17,13 @@ import { grey } from '@mui/material/colors'
 import parse from 'html-react-parser'
 import { COLOR_PRIMARY } from '../../utils/constants'
 import { IMAGES, SELECTS, UPVOTING_SERVICES } from '../../utils/data'
+import { IOrder } from '../../utils/interfaces'
+import useOrders from '../../hooks/useOrders'
 
 export default function UpvotingService() {
   const { serviceName } = useParams()
   const theme = useTheme()
+  const { cart, addOrderToCart } = useOrders()
 
   const [amount, setAmount] = useState(0)
 
@@ -51,9 +54,36 @@ export default function UpvotingService() {
 
   }, [amount])
 
+  const disableOrder = useMemo(() => {
+    if (!price) {
+      return true
+    }
+    if (cart) {
+      let orderExisted = cart.find(orderItem => orderItem.serviceTitle === serviceData?.title)
+      if (orderExisted) {
+        return true
+      }
+    }
+    return false
+  }, [cart, price])
+
   const handleChangeSelect = (selectId: number, value: string) => {
     if (selectId === 8) {
       setAmount(Number(value))
+    }
+  }
+
+  const handleOrder = () => {
+    if (serviceData && price) {
+      let order: IOrder = {
+        serviceTitle: serviceData.title,
+        price
+      };
+      if (amount) {
+        order.amount = `${amount} watchlist`
+      }
+
+      addOrderToCart(order)
     }
   }
 
@@ -167,7 +197,7 @@ export default function UpvotingService() {
                 )
               }
 
-              <Button variant="contained">
+              <Button variant="contained" onClick={handleOrder} disabled={disableOrder}>
                 Order
               </Button>
             </Stack>

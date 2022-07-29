@@ -9,6 +9,7 @@ export interface IListService {
   title: string;
   description: string;
   imageId: number;
+  price: number;
 }
 
 export interface ITrendingService {

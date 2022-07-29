@@ -635,7 +635,8 @@ export const LISTING_SERVICES: Array<IListService> = [
       Please Provide your telegram Username Correctly, We will reach out to you for more information.<br />
       Pricing: 3500$
     `,
-    imageId: 3
+    imageId: 3,
+    price: 3500
   },
   {
     id: 2,
@@ -647,7 +648,8 @@ export const LISTING_SERVICES: Array<IListService> = [
       Please Provide your telegram Username Correctly, We will reach out to you for more information.<br />
       Pricing: 4500$
     `,
-    imageId: 6
+    imageId: 6,
+    price: 4500
   },
   {
     id: 3,
@@ -660,7 +662,8 @@ export const LISTING_SERVICES: Array<IListService> = [
       2. It will also be updated on <a target="_blank" href="https://bscscan.com">Bscscan.com</a>.<br />
       Please Provide your telegram Username Correctly, We will reach out to you for more information.
     `,
-    imageId: 15
+    imageId: 15,
+    price: 5500
   },
   {
     id: 4,
@@ -671,7 +674,8 @@ export const LISTING_SERVICES: Array<IListService> = [
       Please Provide your telegram Username Correctly, We will reach out to you for more information.<br>
       Pricing: 7500$
     `,
-    imageId: 3
+    imageId: 3,
+    price: 7500
   }
 ];
 

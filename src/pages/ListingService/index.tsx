@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import {
   Box,
   Button,
-  Card,
   Container,
   Grid,
   Paper,
@@ -15,10 +14,13 @@ import { grey } from '@mui/material/colors'
 import parse from 'html-react-parser'
 import { COLOR_PRIMARY } from '../../utils/constants'
 import { IMAGES, LISTING_SERVICES } from '../../utils/data'
+import useOrders from '../../hooks/useOrders'
+import { IOrder } from '../../utils/interfaces'
 
 export default function ListingService() {
   const { serviceName } = useParams()
   const theme = useTheme();
+  const { cart, addOrderToCart } = useOrders()
 
   const serviceData = useMemo(() => {
     let service = LISTING_SERVICES.find(
@@ -27,12 +29,42 @@ export default function ListingService() {
     return service
   }, [serviceName])
 
+  const price = useMemo(() => {
+    if (serviceData) {
+      return serviceData.price
+    }
+  }, [serviceData])
+
   const imageUrl = useMemo(() => {
     if (serviceData) {
       let imageData = IMAGES.find(element => element.id === serviceData.imageId)
       return imageData?.value
     }
   }, [serviceData?.imageId])
+
+  const disableOrder = useMemo(() => {
+    if (!price) {
+      return true
+    }
+    if (cart) {
+      let orderExisted = cart.find(orderItem => orderItem.serviceTitle === serviceData?.title)
+      if (orderExisted) {
+        return true
+      }
+    }
+    return false
+  }, [cart, price])
+
+  const handleOrder = () => {
+    if (serviceData && price) {
+      let order: IOrder = {
+        serviceTitle: serviceData.title,
+        price
+      };
+
+      addOrderToCart(order)
+    }
+  }
 
   return (
     <Container maxWidth="lg">
@@ -98,7 +130,7 @@ export default function ListingService() {
           justifyContent="end"
           width="100%"
         >
-          <Button variant="contained">
+          <Button variant="contained" disabled={disableOrder} onClick={handleOrder}>
             Order
           </Button>
         </Stack>
