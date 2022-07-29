@@ -20,10 +20,13 @@ import Flag from 'react-world-flags'
 import parse from 'html-react-parser'
 import { COLOR_PRIMARY } from '../../utils/constants'
 import { IMAGES, SELECTS, TRENDING_SERVICES } from '../../utils/data'
+import useOrders from '../../hooks/useOrders'
+import { IOrder } from '../../utils/interfaces'
 
 export default function TrendingService() {
   const { serviceName } = useParams()
   const theme = useTheme()
+  const { cart, addOrderToCart } = useOrders()
 
   const [trendingType, setTrendingType] = useState('')
   const [period, setPeriod] = useState(0)
@@ -83,6 +86,19 @@ export default function TrendingService() {
 
   }, [period, trendingType])
 
+  const disableOrder = useMemo(() => {
+    if (!price) {
+      return true
+    }
+    if (cart) {
+      let orderExisted = cart.find(orderItem => orderItem.serviceTitle === serviceData?.title)
+      if (orderExisted) {
+        return true
+      }
+    }
+    return false
+  }, [cart, price])
+
   const handleChangeSelect = (selectId: number, value: string) => {
     if (selectId === 1 || selectId === 5) {
       setTrendingType(value)
@@ -92,6 +108,29 @@ export default function TrendingService() {
       setRegion(value)
     } else if (selectId === 6) {
       setChain(value)
+    }
+  }
+
+  const handleOrder = () => {
+    if (serviceData && price) {
+      let order: IOrder = {
+        serviceTitle: serviceData.title,
+        price
+      };
+      if (trendingType) {
+        order.trendingType = trendingType
+      }
+      if (period) {
+        order.period = `${period} days`
+      }
+      if (region) {
+        order.region = region
+      }
+      if (chain) {
+        order.chain = chain
+      }
+
+      addOrderToCart(order)
     }
   }
 
@@ -173,7 +212,6 @@ export default function TrendingService() {
                             return (
                               <TextField
                                 select
-                                name="chain"
                                 label={selectData.label}
                                 sx={{ width: '25ch' }}
                                 key={id}
@@ -199,7 +237,7 @@ export default function TrendingService() {
                   regionSelect && (
                     <TextField
                       select
-                      name="chain"
+                      name="region"
                       label={regionSelect.label}
                       sx={{
                         width: '28ch',
@@ -239,7 +277,7 @@ export default function TrendingService() {
                 )
               }
 
-              <Button variant="contained">
+              <Button variant="contained" onClick={handleOrder} disabled={disableOrder}>
                 Order
               </Button>
             </Stack>

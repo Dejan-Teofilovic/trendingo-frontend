@@ -1,5 +1,3 @@
-import { RouteObject } from "react-router";
-
 export interface IServiceType {
   id: number;
   value: string;
@@ -51,11 +49,17 @@ export interface IServiceCardItem {
   dataItem: ITrendingService | IListService | IUpvotingService;
 }
 
-export interface IRoute extends RouteObject {
-  id?: number;
-  title?: string;
+export interface IOrder {
+  serviceTitle: string;
+  trendingType?: string;
+  period?: string;
+  region?: string;
+  chain?: string;
+  amount?: string;
+  price: number;
 }
 
-export interface IHandlers {
-  [key: string]: Function,
+export interface IOrderRequest extends IOrder {
+  walletAddress: string;
+  telegramUsername: string;
 }

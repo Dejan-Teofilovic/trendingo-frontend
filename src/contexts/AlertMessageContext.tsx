@@ -70,7 +70,7 @@ const reducer = (state: object, action: IAction) =>
 //  Context
 const AlertMessageContext = createContext({
   ...initialState,
-  openAlert: () => Promise.resolve(),
+  openAlert: ({ severity, message }: IParamsOfOpenAlert) => Promise.resolve(),
   closeAlert: () => Promise.resolve()
 });
 

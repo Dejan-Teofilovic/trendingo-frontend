@@ -8,6 +8,7 @@ import { AlertMessageProvider } from './contexts/AlertMessageContext'
 import Loading from './components/Loading'
 import AlertMessage from './components/AlertMessage'
 import { COLOR_BACKGROUND, COLOR_BLACK, COLOR_PRIMARY } from './utils/constants'
+import { OrdersProvider } from './contexts/OrdersContext';
 
 let theme = createTheme({
   palette: {
@@ -27,11 +28,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <AlertMessageProvider>
-        <BrowserRouter>
-          <Routes />
-          <Loading />
-          <AlertMessage />
-        </BrowserRouter>
+        <OrdersProvider>
+          <BrowserRouter>
+            <Routes />
+            <Loading />
+            <AlertMessage />
+          </BrowserRouter>
+        </OrdersProvider>
       </AlertMessageProvider>
     </ThemeProvider>
   )
