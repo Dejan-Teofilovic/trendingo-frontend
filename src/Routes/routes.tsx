@@ -6,6 +6,8 @@ import Development from "../pages/Development";
 import TrendingService from "../pages/TrendingService";
 import ListingService from "../pages/ListingService";
 import UpvotingService from "../pages/UpvotingService";
+import Cart from "../pages/Cart";
+import { Navigate } from "react-router";
 
 export const routes = [
   {
@@ -44,5 +46,13 @@ export const routes = [
   {
     path: '/upvoting/:serviceName',
     element: <UpvotingService />
+  },
+  {
+    path: '/cart',
+    element: <Cart />
+  },
+  {
+    path: '*',
+    element: <Navigate to="/" replace />
   }
 ]

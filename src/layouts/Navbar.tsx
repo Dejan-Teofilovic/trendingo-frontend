@@ -1,7 +1,8 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 import {
   AppBar,
+  Badge,
   Box,
   Button,
   Container,
@@ -18,6 +19,7 @@ import { Icon } from '@iconify/react'
 import { ToolbarWithoutPaddingX } from "../components/styledComponents"
 import { routes } from '../Routes/routes'
 import { COLOR_PRIMARY, COLOR_WHITE } from '../utils/constants'
+import useOrders from '../hooks/useOrders'
 
 const CustomizedDrawer = styled(Drawer)`
   .MuiPaper-root {
@@ -28,6 +30,14 @@ const CustomizedDrawer = styled(Drawer)`
 export default function Navbar() {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const { pathname } = useLocation();
+  const { cart } = useOrders();
+
+  const quantityOfCart = useMemo((): number => {
+    if (cart) {
+      return cart.length
+    }
+    return 0
+  }, [cart])
 
   return (
     <AppBar position="sticky">
@@ -82,11 +92,13 @@ export default function Navbar() {
               {/* For Mobile */}
               <IconButton
                 size="large"
-                sx={{ color: '#FFFFFF', ml: { xs: 2, md: 0 }, display: { xs: 'flex', sm: 'none' } }}
+                sx={{ color: '#FFFFFF', ml: { xs: 2, md: 0 }, display: { xs: 'flex', md: 'none' } }}
                 onClick={() => setDrawerOpened(true)}
               >
                 <Icon icon="bx:menu" />
               </IconButton>
+
+
             </Stack>
           </Box>
           {
@@ -97,16 +109,16 @@ export default function Navbar() {
                     key={route.path}
                     component={RouterLink}
                     to={route.path}
-                    sx={pathname === route.path ?{
+                    sx={pathname === route.path ? {
                       color: COLOR_PRIMARY,
                       fontWeight: 700,
                       textTransform: 'capitalize',
-                      display: { xs: 'none', sm: 'flex' },
+                      display: { xs: 'none', md: 'flex' },
                       mr: 3
                     } : {
                       color: COLOR_WHITE,
                       textTransform: 'capitalize',
-                      display: { xs: 'none', sm: 'flex' },
+                      display: { xs: 'none', md: 'flex' },
                       mr: 3
                     }}
                   >{route.name}</Button>
@@ -116,6 +128,18 @@ export default function Navbar() {
               }
             })
           }
+
+          {/* Cart button */}
+          <IconButton
+            size="large"
+            sx={{ color: '#FFFFFF' }}
+            component={RouterLink}
+            to="/cart"
+          >
+            <Badge badgeContent={quantityOfCart} color="primary">
+              <Icon icon="clarity:shopping-cart-solid" />
+            </Badge>
+          </IconButton>
         </ToolbarWithoutPaddingX>
       </Container>
     </AppBar>
