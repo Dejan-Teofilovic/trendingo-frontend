@@ -24,6 +24,7 @@ import NoData from "../../components/NoData";
 import useOrders from "../../hooks/useOrders";
 import { useState } from "react";
 import DialogConnectWallet from "./DialogConnectWallet";
+import useWallet from "../../hooks/useWallet";
 
 const validSchema = yup.object().shape({
   telegramUsername: yup.string().required('Please input your telegram username.')
@@ -31,6 +32,7 @@ const validSchema = yup.object().shape({
 
 export default function Cart() {
   const { cart } = useOrders()
+  const { currentAccount, currency, disconnectWallet } = useWallet()
 
   const [dialogOpened, setDialogOpened] = useState(false)
 
@@ -98,6 +100,7 @@ export default function Cart() {
               <Stack spacing={2}>
                 <TextField
                   name="telegramUsername"
+                  placeholder="@admin"
                   label="Telegram username"
                   InputProps={{
                     startAdornment: (
@@ -124,15 +127,52 @@ export default function Cart() {
                   }
                 />
 
-                <Button variant="outlined" onClick={() => setDialogOpened(true)}>
-                  Connect wallet
-                </Button>
+                {
+                  currentAccount ? (
+                    <>
+                      <Stack direction="row" alignItems="center">
+                        <Typography component="span" variant="body1" fontWeight={700}>
+                          Currency:&nbsp;&nbsp;&nbsp;
+                        </Typography>
+                        <Stack direction="row" alignItems="center" spacing={0.5}>
+                          <Box
+                            component="img"
+                            src={`assets/images/${currency.toLowerCase()}.png`}
+                            width={20}
+                          />
+
+                          <Typography component="span" variant="body1">
+                            {currency}
+                          </Typography>
+                        </Stack>
+                      </Stack>
+
+                      <Stack direction="row" alignItems="center">
+                        <Typography component="span" variant="body1" fontWeight={700}>
+                          Wallet address:&nbsp;&nbsp;&nbsp;
+                        </Typography>
+
+                        <Typography component="span" variant="body1">
+                          {currentAccount.slice(0, 15)}...{currentAccount.slice(-5)}
+                        </Typography>
+                      </Stack>
+
+                      <Button variant="outlined" onClick={() => disconnectWallet()}>
+                        Disconnect
+                      </Button>
+                    </>
+                  ) : (
+                    <Button variant="outlined" onClick={() => setDialogOpened(true)}>
+                      Connect wallet
+                    </Button>
+                  )
+                }
               </Stack>
             </Paper>
           </Grid>
         </Grid>
       </Box>
       <DialogConnectWallet isOpened={dialogOpened} handleClose={handleClose} />
-    </Container>
+    </Container >
   )
 }
