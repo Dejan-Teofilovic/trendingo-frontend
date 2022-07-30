@@ -13,9 +13,7 @@ import {
   IconButton,
   Stack,
   TextField,
-  InputAdornment,
   Typography,
-  Icon as MuiIcon,
   Button
 } from "@mui/material";
 import * as yup from 'yup';

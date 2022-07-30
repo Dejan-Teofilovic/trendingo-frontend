@@ -22,6 +22,7 @@ import { COLOR_PRIMARY } from '../../utils/constants'
 import { IMAGES, SELECTS, TRENDING_SERVICES } from '../../utils/data'
 import useOrders from '../../hooks/useOrders'
 import { IOrder } from '../../utils/interfaces'
+import DialogDexToolsOrder from './DialogDexToolsOrder'
 
 export default function TrendingService() {
   const { serviceName } = useParams()
@@ -32,6 +33,7 @@ export default function TrendingService() {
   const [period, setPeriod] = useState(0)
   const [region, setRegion] = useState('')
   const [chain, setChain] = useState('')
+  const [dialogOpened, setDialogOpened] = useState(false)
 
   const serviceData = useMemo(() => {
     let service = TRENDING_SERVICES.find(
@@ -98,6 +100,10 @@ export default function TrendingService() {
     }
     return false
   }, [cart, price])
+
+  const handleClose = () => {
+    setDialogOpened(false);
+  };
 
   const handleChangeSelect = (selectId: number, value: string) => {
     if (selectId === 1 || selectId === 5) {
@@ -278,13 +284,23 @@ export default function TrendingService() {
                 )
               }
 
-              <Button variant="contained" onClick={handleOrder} disabled={disableOrder}>
+              <Button variant="contained" onClick={() => setDialogOpened(true)} disabled={disableOrder}>
                 Order
               </Button>
             </Stack>
           </Card>
         </Stack>
       </Container>
-    </Box >
+      {
+        (() => {
+          if (serviceData && price) {
+            if (serviceData.id === 5) {
+              return <DialogDexToolsOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+            }
+          }
+          return <></>
+        })()
+      }
+    </Box>
   )
 }
