@@ -1,5 +1,5 @@
 import { useParams } from 'react-router'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Box,
   Button,
@@ -15,12 +15,12 @@ import parse from 'html-react-parser'
 import { COLOR_PRIMARY } from '../../utils/constants'
 import { IMAGES, LISTING_SERVICES } from '../../utils/data'
 import useOrders from '../../hooks/useOrders'
-import { IOrder } from '../../utils/interfaces'
+import DialogOrder from './DialogOrder'
 
 export default function ListingService() {
   const { serviceName } = useParams()
   const theme = useTheme();
-  const { cart, addOrderToCart } = useOrders()
+  const { cart } = useOrders()
 
   const serviceData = useMemo(() => {
     let service = LISTING_SERVICES.find(
@@ -55,16 +55,12 @@ export default function ListingService() {
     return false
   }, [cart, price])
 
-  const handleOrder = () => {
-    if (serviceData && price) {
-      let order: IOrder = {
-        serviceTitle: serviceData.title,
-        price
-      };
+  const [dialogOpened, setDialogOpened] = useState(false)
 
-      addOrderToCart(order)
-    }
-  }
+  const handleClose = () => {
+    setDialogOpened(false);
+  };
+
 
   return (
     <Container maxWidth="lg">
@@ -130,11 +126,16 @@ export default function ListingService() {
           justifyContent="end"
           width="100%"
         >
-          <Button variant="contained" disabled={disableOrder} onClick={handleOrder}>
+          <Button variant="contained" disabled={disableOrder} onClick={() => setDialogOpened(true)}>
             Order
           </Button>
         </Stack>
       </Stack>
+      {
+        serviceData && price && (
+          <DialogOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+        )
+      }
     </Container>
   )
 }

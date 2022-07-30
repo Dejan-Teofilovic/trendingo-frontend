@@ -114,6 +114,7 @@ export default function TrendingService() {
   const handleOrder = () => {
     if (serviceData && price) {
       let order: IOrder = {
+        serviceType: 'trending',
         serviceTitle: serviceData.title,
         price
       };

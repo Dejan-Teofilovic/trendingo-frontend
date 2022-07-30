@@ -244,6 +244,59 @@ export const SELECTS = [
   }
 ];
 
+export const REQUIRED_FIELDS = [
+  {
+    id: 3,
+    name: "telegramGroup",
+    placeholder: "",
+    label: "Telegram group",
+    message: "Please input your telegram group link"
+  },
+  {
+    id: 4,
+    name: "contractAddress",
+    placeholder: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
+    label: "Contract address",
+    message: "Please input the contract address."
+  },
+  {
+    id: 5,
+    name: "certikTokenLink",
+    placeholder: "https://www.certik.com/projects/binance",
+    label: "Token link of Certik",
+    message: "Please input the token link of certik.com."
+  },
+  {
+    id: 6,
+    name: "coingeckoTokenLink",
+    placeholder: "https://www.coingecko.com/en/coins/bitcoin",
+    label: "Token link of Coingecko",
+    message: "Please input the token link of coingecko.com."
+  },
+  {
+    id: 7,
+    name: "coinmarketcapTokenLink",
+    placeholder: "https://coinmarketcap.com/currencies/bitcoin/",
+    label: "Token link of Coinmarketcap",
+    message: "Please input the token link of coinmarketcap.com."
+  },
+  {
+    id: 8,
+    name: "cryptoTokenLink",
+    placeholder: "https://crypto.com/price/bnb",
+    label: "Token link of crypto",
+    message: "Please input the token link of crypto.com."
+  },
+  {
+    id: 9,
+    name: "dextoolsTokenPair",
+    placeholder:
+      "https://www.dextools.io/app/ether/pair-explorer/0x11cb9e028b82eee75443fdc27929b9c49736c552",
+    label: "Token pair of Dextools",
+    message: "Please input the token link of dextools.com."
+  }
+];
+
 export const TRENDING_SERVICES: Array<ITrendingService> = [
   {
     id: 1,

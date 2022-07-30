@@ -27,7 +27,8 @@ import DialogConnectWallet from "./DialogConnectWallet";
 import useWallet from "../../hooks/useWallet";
 
 const validSchema = yup.object().shape({
-  telegramUsername: yup.string().required('Please input your telegram username.')
+  telegramUsername: yup.string().required('Please input your telegram username.'),
+  alternativeTelegramUsername: yup.string().required('Please input your alternative telegram username.')
 });
 
 export default function Cart() {
@@ -42,7 +43,8 @@ export default function Cart() {
 
   const formik = useFormik({
     initialValues: {
-      telegramUsername: ''
+      telegramUsername: '',
+      alternativeTelegramUsername: ''
     },
     validationSchema: validSchema,
     onSubmit: (values) => {
@@ -102,15 +104,6 @@ export default function Cart() {
                   name="telegramUsername"
                   placeholder="@admin"
                   label="Telegram username"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <MuiIcon>
-                          <Icon icon="akar-icons:telegram-fill" />
-                        </MuiIcon>
-                      </InputAdornment>
-                    )
-                  }}
                   value={formik.values.telegramUsername}
                   onChange={formik.handleChange}
                   error={formik.touched.telegramUsername && Boolean(formik.errors.telegramUsername)}
@@ -122,6 +115,26 @@ export default function Cart() {
                       >
                         <Icon icon="bxs:error-alt" />&nbsp;
                         {formik.touched.telegramUsername && formik.errors.telegramUsername}
+                      </Typography>
+                    ) : (<></>)
+                  }
+                />
+
+                <TextField
+                  name="alternativeTelegramUsername"
+                  placeholder="@admin"
+                  label="Alternative telegram username"
+                  value={formik.values.alternativeTelegramUsername}
+                  onChange={formik.handleChange}
+                  error={formik.touched.alternativeTelegramUsername && Boolean(formik.errors.alternativeTelegramUsername)}
+                  helperText={
+                    formik.touched.alternativeTelegramUsername && formik.errors.alternativeTelegramUsername ? (
+                      <Typography
+                        component="span"
+                        sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
+                      >
+                        <Icon icon="bxs:error-alt" />&nbsp;
+                        {formik.touched.alternativeTelegramUsername && formik.errors.alternativeTelegramUsername}
                       </Typography>
                     ) : (<></>)
                   }

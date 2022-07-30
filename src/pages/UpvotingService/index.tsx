@@ -76,6 +76,7 @@ export default function UpvotingService() {
   const handleOrder = () => {
     if (serviceData && price) {
       let order: IOrder = {
+        serviceType: 'upvoting',
         serviceTitle: serviceData.title,
         price
       };

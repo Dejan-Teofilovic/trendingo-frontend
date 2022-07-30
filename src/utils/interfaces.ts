@@ -51,6 +51,7 @@ export interface IServiceCardItem {
 }
 
 export interface IOrder {
+  serviceType: string;
   serviceTitle: string;
   trendingType?: string;
   period?: string;
@@ -58,11 +59,17 @@ export interface IOrder {
   chain?: string;
   amount?: string;
   price: number;
+  telegramGroupLink?: string;
+  contractAddress?: string;
+  tokenLink?: string;
+  tokenPairLink?: string;
+  lunchpadLink?: string;
 }
 
 export interface IOrderRequest extends IOrder {
   walletAddress: string;
   telegramUsername: string;
+  alternativeTelegramUsername: string;
 }
 
 export interface IChain {
