@@ -1,4 +1,5 @@
 import {
+  IChain,
   IImage,
   IListService,
   ITrendingService,
@@ -766,5 +767,26 @@ export const UPVOTING_SERVICES: Array<IUpvotingService> = [
         price: 600
       }
     ]
+  }
+];
+
+export const CHAINS: Array<IChain> = [
+  {
+    chainId: 1,
+    name: "Ethereum Mainnet",
+    rpcUrls: ["https://mainnet.infura.io/v3/"],
+    blockExploreUrls: ["https://etherscan.io"],
+    nativeCurrencyName: "ETH",
+    nativeCurrencySymbol: "ETH",
+    decimals: 18
+  },
+  {
+    chainId: 56,
+    name: "Binance Smart Chain",
+    rpcUrls: ["https://bsc-dataseed1.binance.org/"],
+    blockExploreUrls: ["https://bscscan.com"],
+    nativeCurrencyName: "BNB",
+    nativeCurrencySymbol: "BNB",
+    decimals: 18
   }
 ];

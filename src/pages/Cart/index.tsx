@@ -1,9 +1,138 @@
-import { Box } from "@mui/material";
+import { Icon } from "@iconify/react";
+import {
+  Box,
+  Container,
+  Grid,
+  TableContainer,
+  Table,
+  Paper,
+  TableHead,
+  TableCell,
+  TableRow,
+  TableBody,
+  IconButton,
+  Stack,
+  TextField,
+  InputAdornment,
+  Typography,
+  Icon as MuiIcon,
+  Button
+} from "@mui/material";
+import * as yup from 'yup';
+import { useFormik } from "formik";
+import NoData from "../../components/NoData";
+import useOrders from "../../hooks/useOrders";
+import { useState } from "react";
+import DialogConnectWallet from "./DialogConnectWallet";
+
+const validSchema = yup.object().shape({
+  telegramUsername: yup.string().required('Please input your telegram username.')
+});
 
 export default function Cart() {
+  const { cart } = useOrders()
+
+  const [dialogOpened, setDialogOpened] = useState(false)
+
+  const handleClose = () => {
+    setDialogOpened(false);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      telegramUsername: ''
+    },
+    validationSchema: validSchema,
+    onSubmit: (values) => {
+
+    }
+  })
+
   return (
-    <Box>
-      Cart
-    </Box>
+    <Container maxWidth="xl">
+      <Box>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={8}>
+            <TableContainer component={Paper} elevation={12}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell sx={{ fontWeight: 900 }}>No</TableCell>
+                    <TableCell sx={{ fontWeight: 900 }}>Service name</TableCell>
+                    <TableCell sx={{ fontWeight: 900 }}>Price</TableCell>
+                    <TableCell sx={{ fontWeight: 900 }}>Action</TableCell>
+                  </TableRow>
+                </TableHead>
+
+                {
+                  cart && (
+                    <TableBody>
+                      {
+                        cart.map((order, index) => (
+                          <TableRow key={index}>
+                            <TableCell>{index + 1}</TableCell>
+                            <TableCell>{order.serviceTitle}</TableCell>
+                            <TableCell>${order.price}</TableCell>
+                            <TableCell>
+                              <IconButton>
+                                <Icon icon="entypo:circle-with-cross" />
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      }
+                    </TableBody>
+                  )
+                }
+              </Table>
+              {
+                !cart && (
+                  <NoData text="No Data." />
+                )
+              }
+            </TableContainer>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Paper elevation={12} sx={{ p: 3 }}>
+              <Stack spacing={2}>
+                <TextField
+                  name="telegramUsername"
+                  label="Telegram username"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <MuiIcon>
+                          <Icon icon="akar-icons:telegram-fill" />
+                        </MuiIcon>
+                      </InputAdornment>
+                    )
+                  }}
+                  value={formik.values.telegramUsername}
+                  onChange={formik.handleChange}
+                  error={formik.touched.telegramUsername && Boolean(formik.errors.telegramUsername)}
+                  helperText={
+                    formik.touched.telegramUsername && formik.errors.telegramUsername ? (
+                      <Typography
+                        component="span"
+                        sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
+                      >
+                        <Icon icon="bxs:error-alt" />&nbsp;
+                        {formik.touched.telegramUsername && formik.errors.telegramUsername}
+                      </Typography>
+                    ) : (<></>)
+                  }
+                />
+
+                <Button variant="outlined" onClick={() => setDialogOpened(true)}>
+                  Connect wallet
+                </Button>
+              </Stack>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Box>
+      <DialogConnectWallet isOpened={dialogOpened} handleClose={handleClose} />
+    </Container>
   )
 }

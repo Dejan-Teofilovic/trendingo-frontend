@@ -8,8 +8,8 @@ import Navbar from "./Navbar";
 
 export default function MainLayout() {
   return (
-    <Box sx={{ minHeight: '100vh' }} position="relative" bgcolor={COLOR_BACKGROUND}>
-      <Stack sx={{ minHeight: 'inherit' }} position="relative" zIndex={20}>
+    <Box sx={{ minHeight: '100vh' }} bgcolor={COLOR_BACKGROUND}>
+      <Stack sx={{ minHeight: 'inherit' }}>
         {/* Header */}
         <Navbar />
 
@@ -23,18 +23,6 @@ export default function MainLayout() {
       </Stack>
 
       <ScrollFab />
-
-      {/* <Box position="absolute" width={200} height={200} zIndex={10} top={0}>
-        <Player
-          autoplay
-          loop
-          src="https://assets9.lottiefiles.com/packages/lf20_2rv3cthg.json"
-          style={{ width: '100px', height: '100px' }}
-          speed={1}
-        >
-          <Controls visible={false} buttons={['play', 'repeat', 'frame', 'debug']} />
-        </Player>
-      </Box> */}
     </Box>
   )
 }

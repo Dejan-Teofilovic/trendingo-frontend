@@ -38,7 +38,7 @@ import { UPVOTING_SERVICES } from "../../utils/data"
 
 export default function Upvoting() {
   return (
-    <Box my={{ xs: 5, md: 10 }}>
+    <Box>
       <Container maxWidth="xl">
         <Typography textAlign="center" variant="h4" color={COLOR_PRIMARY}>
           Upvoting Services

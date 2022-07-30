@@ -64,3 +64,13 @@ export interface IOrderRequest extends IOrder {
   walletAddress: string;
   telegramUsername: string;
 }
+
+export interface IChain {
+  chainId: number;
+  name: string;
+  rpcUrls: Array<string>;
+  blockExploreUrls: Array<string>;
+  nativeCurrencyName: string;
+  nativeCurrencySymbol: string;
+  decimals: number;
+}
