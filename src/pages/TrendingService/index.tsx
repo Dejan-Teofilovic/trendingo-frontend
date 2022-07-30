@@ -24,6 +24,7 @@ import useOrders from '../../hooks/useOrders'
 import { IOrder } from '../../utils/interfaces'
 import DialogDexToolsOrder from './DialogDexToolsOrder'
 import DialogPoocoinOrder from './DialogPoocoinOrder'
+import DialogPinksaleOrder from './DialogPinksaleOrder'
 
 export default function TrendingService() {
   const { serviceName } = useParams()
@@ -295,12 +296,24 @@ export default function TrendingService() {
       {
         (() => {
           if (serviceData && price) {
+            // switch (serviceData.id) {
+            //   case 5:
+            //     return <DialogDexToolsOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+            //   case 6:
+            //     return <DialogPoocoinOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+            //   case 7:
+            //     return <DialogPinksaleOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+            // }
             if (serviceData.id === 5) {
               return <DialogDexToolsOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
             }
 
             if (serviceData.id === 6) {
               return <DialogPoocoinOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+            }
+
+            if (serviceData.id === 7) {
+              return <DialogPinksaleOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
             }
           }
           return <></>
