@@ -13,6 +13,7 @@ import { useFormik } from "formik";
 import { Icon } from "@iconify/react";
 import useOrders from "../../hooks/useOrders";
 import { ITrendingService } from '../../utils/interfaces'
+import { useMemo } from "react";
 
 interface IProps {
   isOpened: boolean;
@@ -22,28 +23,44 @@ interface IProps {
 }
 
 const validSchema = yup.object().shape({
-  lunchpadLink: yup.string().required('Please input the link of pinksale lunchpad.')
+  tokenLink: yup.string().required('Please input the link of token.')
 });
 
-export default function DialogPinksaleOrder({ isOpened, handleClose, price, serviceData }: IProps) {
+export default function DialogOrder({ isOpened, handleClose, price, serviceData }: IProps) {
   const { addOrderToCart } = useOrders()
 
   const formik = useFormik({
     initialValues: {
-      lunchpadLink: ''
+      tokenLink: ''
     },
     validationSchema: validSchema,
     onSubmit: (values) => {
-      let { lunchpadLink } = values
+      let { tokenLink } = values
       addOrderToCart({
         serviceType: 'trending',
         serviceTitle: serviceData.title,
         price,
-        lunchpadLink
+        tokenLink
       })
       handleClose()
     }
   })
+
+  const valueOfPlaceholder = useMemo(() => {
+    switch (serviceData.id) {
+      case 1:
+        return 'https://www.certik.com/projects/binance'
+      case 2:
+        return 'https://www.coingecko.com/en/coins/bitcoin'
+      case 3:
+        return 'https://coinmarketcap.com/currencies/bitcoin/'
+      case 4:
+        return 'https://crypto.com/price/bnb'
+      default:
+        return ''
+    }
+  }, [serviceData.id])
+
 
   return (
     <Dialog open={isOpened} onClose={() => handleClose()} fullWidth maxWidth="sm">
@@ -53,20 +70,20 @@ export default function DialogPinksaleOrder({ isOpened, handleClose, price, serv
       <DialogContent>
         <Stack spacing={2} py={2}>
           <TextField
-            name="lunchpadLink"
-            label="Pinksale lunchpad link"
-            placeholder="https://www.pinksale.finance/launchpad/0x020d4f67581c95bf9916592024b475410791b55b?chain=BSC"
-            value={formik.values.lunchpadLink}
+            name="tokenLink"
+            label="Token link"
+            placeholder={valueOfPlaceholder}
+            value={formik.values.tokenLink}
             onChange={formik.handleChange}
-            error={formik.touched.lunchpadLink && Boolean(formik.errors.lunchpadLink)}
+            error={formik.touched.tokenLink && Boolean(formik.errors.tokenLink)}
             helperText={
-              formik.touched.lunchpadLink && formik.errors.lunchpadLink ? (
+              formik.touched.tokenLink && formik.errors.tokenLink ? (
                 <Typography
                   component="span"
                   sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
                 >
                   <Icon icon="bxs:error-alt" />&nbsp;
-                  {formik.touched.lunchpadLink && formik.errors.lunchpadLink}
+                  {formik.touched.tokenLink && formik.errors.tokenLink}
                 </Typography>
               ) : (<></>)
             }
