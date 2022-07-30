@@ -6,10 +6,7 @@ import useAlertMessage from "../hooks/useAlertMessage";
 export default function AlertMessage() {
   const { isOpened, severity, message, closeAlert } = useAlertMessage();
 
-  const handleClose = (event: React.SyntheticEvent | Event, reason: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
+  const handleClose = () => {
     closeAlert();
   };
   return (
@@ -21,7 +18,7 @@ export default function AlertMessage() {
     >
       <Alert
         variant="filled"
-        onClose={() => handleClose}
+        onClose={() => handleClose()}
         severity={severity}
         sx={{
           width: "100%",

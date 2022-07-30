@@ -17,15 +17,16 @@ import { grey } from '@mui/material/colors'
 import parse from 'html-react-parser'
 import { COLOR_PRIMARY } from '../../utils/constants'
 import { IMAGES, SELECTS, UPVOTING_SERVICES } from '../../utils/data'
-import { IOrder } from '../../utils/interfaces'
 import useOrders from '../../hooks/useOrders'
+import DialogOrder from './DialogOrder'
 
 export default function UpvotingService() {
   const { serviceName } = useParams()
   const theme = useTheme()
-  const { cart, addOrderToCart } = useOrders()
+  const { cart } = useOrders()
 
   const [amount, setAmount] = useState(0)
+  const [dialogOpened, setDialogOpened] = useState(false)
 
   const serviceData = useMemo(() => {
     let service = UPVOTING_SERVICES.find(
@@ -51,7 +52,6 @@ export default function UpvotingService() {
         }
       }
     }
-
   }, [amount])
 
   const disableOrder = useMemo(() => {
@@ -73,20 +73,9 @@ export default function UpvotingService() {
     }
   }
 
-  const handleOrder = () => {
-    if (serviceData && price) {
-      let order: IOrder = {
-        serviceType: 'upvoting',
-        serviceTitle: serviceData.title,
-        price
-      };
-      if (amount) {
-        order.amount = `${amount} watchlist`
-      }
-
-      addOrderToCart(order)
-    }
-  }
+  const handleClose = () => {
+    setDialogOpened(false);
+  };
 
   return (
     <Box>
@@ -198,13 +187,18 @@ export default function UpvotingService() {
                 )
               }
 
-              <Button variant="contained" onClick={handleOrder} disabled={disableOrder}>
+              <Button variant="contained" onClick={() => setDialogOpened(true)} disabled={disableOrder}>
                 Order
               </Button>
             </Stack>
           </Card>
         </Stack>
       </Container>
+      {
+        serviceData && price && (
+          <DialogOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+        )
+      }
     </Box >
   )
 }

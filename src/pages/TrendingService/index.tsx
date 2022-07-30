@@ -21,7 +21,6 @@ import parse from 'html-react-parser'
 import { COLOR_PRIMARY } from '../../utils/constants'
 import { IMAGES, SELECTS, TRENDING_SERVICES } from '../../utils/data'
 import useOrders from '../../hooks/useOrders'
-import { IOrder } from '../../utils/interfaces'
 import DialogDexToolsOrder from './DialogDexToolsOrder'
 import DialogPoocoinOrder from './DialogPoocoinOrder'
 import DialogPinksaleOrder from './DialogPinksaleOrder'
@@ -117,30 +116,6 @@ export default function TrendingService() {
       setRegion(value)
     } else if (selectId === 6) {
       setChain(value)
-    }
-  }
-
-  const handleOrder = () => {
-    if (serviceData && price) {
-      let order: IOrder = {
-        serviceType: 'trending',
-        serviceTitle: serviceData.title,
-        price
-      };
-      if (trendingType) {
-        order.trendingType = trendingType
-      }
-      if (period) {
-        order.period = `${period} days`
-      }
-      if (region) {
-        order.region = region
-      }
-      if (chain) {
-        order.chain = chain
-      }
-
-      addOrderToCart(order)
     }
   }
 
