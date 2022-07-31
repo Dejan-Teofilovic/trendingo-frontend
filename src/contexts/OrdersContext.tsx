@@ -6,7 +6,7 @@ import { AlertMessageContext } from './AlertMessageContext';
 /* --------------------------------------------------------------- */
 
 interface IInitialState {
-  cart: Array<IOrder> | null
+  cart: Array<IOrder> | null,
 }
 
 interface IAction {
@@ -34,7 +34,7 @@ const handlers: IHandlers = {
       ...state,
       cart: action.payload
     };
-  }
+  },
 };
 
 const reducer = (state: object, action: IAction) =>
@@ -43,7 +43,8 @@ const reducer = (state: object, action: IAction) =>
 //  Context
 const OrdersContext = createContext({
   ...initialState,
-  addOrderToCart: (order: IOrder) => Promise.resolve()
+  addOrderToCart: (order: IOrder) => Promise.resolve(),
+  removeOrderFromCart: (index: number) => Promise.resolve(),
 });
 
 //  Provider
@@ -69,11 +70,21 @@ function OrdersProvider({ children }: IProps) {
     })
   }
 
+  const removeOrderFromCart = (index: number) => {
+    let orders = [...state.cart]
+    orders.splice(index, 1)
+    dispatch({
+      type: 'SET_CART',
+      payload: orders
+    })
+  }
+
   return (
     <OrdersContext.Provider
       value={{
         ...state,
         addOrderToCart,
+        removeOrderFromCart,
       }}
     >
       {children}

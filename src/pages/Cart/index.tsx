@@ -20,9 +20,11 @@ import * as yup from 'yup';
 import { useFormik } from "formik";
 import NoData from "../../components/NoData";
 import useOrders from "../../hooks/useOrders";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import DialogConnectWallet from "./DialogConnectWallet";
 import useWallet from "../../hooks/useWallet";
+import useAlertMessage from "../../hooks/useAlertMessage";
+import { MESSAGE_CART_EMPTY, WARNING } from "../../utils/constants";
 
 const validSchema = yup.object().shape({
   telegramUsername: yup.string().required('Please input your telegram username.'),
@@ -30,14 +32,29 @@ const validSchema = yup.object().shape({
 });
 
 export default function Cart() {
-  const { cart } = useOrders()
+  const { cart, removeOrderFromCart } = useOrders()
   const { currentAccount, currency, disconnectWallet } = useWallet()
+  const { openAlert } = useAlertMessage()
 
   const [dialogOpened, setDialogOpened] = useState(false)
 
-  const handleClose = () => {
-    setDialogOpened(false);
-  };
+  const totalPrice = useMemo(() => {
+    if (cart) {
+      let _totalPrice = 0
+      for (let i = 0; i < cart.length; i += 1) {
+        _totalPrice += cart[i].price
+      }
+      return _totalPrice
+    }
+    return 0
+  }, [cart?.length])
+
+  const discountPercentage = useMemo(() => {
+    if (totalPrice >= 4000) {
+      return 0.2
+    }
+    return 0
+  }, [totalPrice])
 
   const formik = useFormik({
     initialValues: {
@@ -46,53 +63,86 @@ export default function Cart() {
     },
     validationSchema: validSchema,
     onSubmit: (values) => {
-
+      if (!cart) {
+        return openAlert({
+          severity: WARNING,
+          message: MESSAGE_CART_EMPTY
+        })
+      }
     }
   })
+
+  const handleClose = () => {
+    setDialogOpened(false);
+  };
+
+  const handleRemoveOrder = (index: number) => {
+    removeOrderFromCart(index)
+  }
 
   return (
     <Container maxWidth="xl">
       <Box>
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
-            <TableContainer component={Paper} elevation={12}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 900 }}>No</TableCell>
-                    <TableCell sx={{ fontWeight: 900 }}>Service name</TableCell>
-                    <TableCell sx={{ fontWeight: 900 }}>Price</TableCell>
-                    <TableCell sx={{ fontWeight: 900 }}>Action</TableCell>
-                  </TableRow>
-                </TableHead>
+            <Stack spacing={4}>
+              <TableContainer component={Paper} elevation={12}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: 900 }}>No</TableCell>
+                      <TableCell sx={{ fontWeight: 900 }}>Service name</TableCell>
+                      <TableCell sx={{ fontWeight: 900 }}>Price</TableCell>
+                      <TableCell sx={{ fontWeight: 900 }}>Action</TableCell>
+                    </TableRow>
+                  </TableHead>
 
+                  {
+                    cart && (
+                      <TableBody>
+                        {
+                          cart.map((order, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{index + 1}</TableCell>
+                              <TableCell>{order.serviceTitle}</TableCell>
+                              <TableCell>${order.price}</TableCell>
+                              <TableCell>
+                                <IconButton onClick={() => handleRemoveOrder(index)}>
+                                  <Icon icon="entypo:circle-with-cross" />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        }
+                      </TableBody>
+                    )
+                  }
+                </Table>
                 {
-                  cart && (
-                    <TableBody>
-                      {
-                        cart.map((order, index) => (
-                          <TableRow key={index}>
-                            <TableCell>{index + 1}</TableCell>
-                            <TableCell>{order.serviceTitle}</TableCell>
-                            <TableCell>${order.price}</TableCell>
-                            <TableCell>
-                              <IconButton>
-                                <Icon icon="entypo:circle-with-cross" />
-                              </IconButton>
-                            </TableCell>
-                          </TableRow>
-                        ))
-                      }
-                    </TableBody>
+                  !cart || cart.length === 0 && (
+                    <NoData text="No Data." />
                   )
                 }
-              </Table>
-              {
-                !cart && (
-                  <NoData text="No Data." />
-                )
-              }
-            </TableContainer>
+              </TableContainer>
+
+              <Paper elevation={12}>
+                <Stack direction="row" justifyContent="center" alignItems="center" spacing={4} py={2}>
+                  <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
+                    <Typography variant="body1" component="span">Discount: </Typography>
+                    <Typography variant="h5" component="span">
+                      {discountPercentage * 100}%
+                    </Typography>
+                  </Stack>
+
+                  <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
+                    <Typography variant="body1" component="span">Total price: </Typography>
+                    <Typography variant="h4" component="span" fontWeight={700}>
+                      ${totalPrice - totalPrice * discountPercentage}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </Paper>
+            </Stack>
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -183,6 +233,11 @@ export default function Cart() {
           </Grid>
         </Grid>
       </Box>
+      <Stack direction="row" justifyContent="end" mt={4}>
+        <Button variant="contained" onClick={() => formik?.handleSubmit()}>
+          Pay now
+        </Button>
+      </Stack>
       <DialogConnectWallet isOpened={dialogOpened} handleClose={handleClose} />
     </Container >
   )

@@ -71,5 +71,6 @@
   },
   "devDependencies": {
     "@types/react-world-flags": "^1.4.2"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

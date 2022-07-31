@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { ethers } from 'ethers';
@@ -7,13 +7,18 @@ import {
   CONTRACT_ABI_BUSD,
   CONTRACT_ADDRESS_BUSD,
   ERROR,
+  INFO,
   MESSAGE_SWITCH_NETWORK,
+  MESSAGE_TRY_WALLET_CONNECT,
+  MESSAGE_USER_REGISTERED,
   MESSAGE_WALLET_CONNECT_ERROR,
+  SUCCESS,
   WALLET_CONNECT_INFURA_ID,
 } from '../utils/constants';
 import { CHAINS } from '../utils/data';
 import { AlertMessageContext } from './AlertMessageContext';
 import { TCurrency } from '../utils/types';
+import api from '../utils/api';
 
 interface IAction {
   type: string,
@@ -32,6 +37,11 @@ interface IProps {
   children: any
 }
 
+interface IRequestObject {
+  walletAddress: string;
+  influenceToken?: string;
+}
+
 // ----------------------------------------------------------------------
 
 const initialState = {
@@ -39,7 +49,8 @@ const initialState = {
   provider: null,
   signer: null,
   contract: null,
-  currency: ''
+  currency: '',
+  userId: 0
 };
 
 const handlers: IHandlers = {
@@ -71,6 +82,12 @@ const handlers: IHandlers = {
     return {
       ...state,
       currency: action.payload
+    };
+  },
+  SET_USER_ID: (state: object, action: IAction) => {
+    return {
+      ...state,
+      userId: action.payload
     };
   }
 };
@@ -107,7 +124,7 @@ function WalletProvider({ children }: IProps) {
   };
 
   /** Connect wallet */
-  const connectWallet = async (currency: TCurrency) => {
+  const connectWallet = async (currency: TCurrency, influenceToken?: string) => {
     let chain = null
 
     if (currency === 'ETH' || currency === 'BNB') {
@@ -134,6 +151,35 @@ function WalletProvider({ children }: IProps) {
           if (currency === 'BUSD') {
             contract = new ethers.Contract(CONTRACT_ADDRESS_BUSD, CONTRACT_ABI_BUSD, signer);
           }
+
+          let reqObject: IRequestObject = { walletAddress: accounts[0] }
+
+          if (influenceToken) {
+            reqObject.influenceToken = influenceToken
+          }
+
+          api.post('/user/add-user', reqObject)
+            .then(response => {
+              console.log('# response.data => ', response.data)
+              if (response.status === 200) {
+                openAlert({
+                  severity: INFO,
+                  message: response.data.message
+                })
+              } else {
+                openAlert({
+                  severity: SUCCESS,
+                  message: MESSAGE_USER_REGISTERED
+                })
+              }
+              dispatch({
+                type: 'SET_USER_ID',
+                payload: response.data.userId
+              })
+            })
+            .catch(error => {
+              console.log('# error => ', error)
+            })
 
           dispatch({
             type: 'SET_CURRENT_ACCOUNT',
@@ -166,6 +212,10 @@ function WalletProvider({ children }: IProps) {
                 method: 'wallet_switchEthereumChain',
                 params: [{ chainId: `0x${chain.chainId.toString(16)}` }],
               });
+              openAlert({
+                severity: INFO,
+                message: MESSAGE_TRY_WALLET_CONNECT
+              })
             } catch (error: IError | any | undefined) {
               if (error?.code === CODE_SWITCH_ERROR) {
                 /* ------------ Add new chain ------------- */
@@ -185,6 +235,10 @@ function WalletProvider({ children }: IProps) {
                     },
                   ],
                 });
+                openAlert({
+                  severity: INFO,
+                  message: MESSAGE_TRY_WALLET_CONNECT
+                })
                 /* ---------------------------------------- */
               } else {
                 throw error;

@@ -16,6 +16,10 @@ export const MESSAGE_WALLET_CONNECT_ERROR =
   "Wallet connect error. Try again, please.";
 export const MESSAGE_SWITCH_NETWORK =
   "Please switch the network to Binance Smart Chain.";
+export const MESSAGE_CART_EMPTY = "Cart is empty.";
+export const MESSAGE_TRY_WALLET_CONNECT = "Try connect wallet again, plz.";
+export const MESSAGE_USER_REGISTERED =
+  "You are registered! Enjoy our site, please!";
 
 export const CONTRACT_ADDRESS_BUSD =
   "0xe9e7cea3dedca5984780bafc599bd69add087d56";
