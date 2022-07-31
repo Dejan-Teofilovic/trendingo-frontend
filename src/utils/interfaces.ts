@@ -51,19 +51,19 @@ export interface IServiceCardItem {
 }
 
 export interface IOrder {
-  serviceType: string;
-  serviceTitle: string;
-  trendingType?: string;
+  service_type: string;
+  service_title: string;
+  trending_type?: string;
   period?: string;
   region?: string;
   chain?: string;
   amount?: string;
   price: number;
-  telegramGroupLink?: string;
-  contractAddress?: string;
-  tokenLink?: string;
-  tokenPairLink?: string;
-  lunchpadLink?: string;
+  group_link?: string;
+  contract_address?: string;
+  token_link?: string;
+  token_pair_link?: string;
+  lunchpad_link?: string;
 }
 
 export interface IOrderRequest extends IOrder {

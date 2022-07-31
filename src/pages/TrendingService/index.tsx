@@ -95,7 +95,7 @@ export default function TrendingService() {
       return true
     }
     if (cart) {
-      let orderExisted = cart.find(orderItem => orderItem.serviceTitle === serviceData?.title)
+      let orderExisted = cart.find(orderItem => orderItem.service_title === serviceData?.title)
       if (orderExisted) {
         return true
       }

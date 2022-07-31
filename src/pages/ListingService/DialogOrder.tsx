@@ -22,8 +22,8 @@ interface IProps {
 }
 
 const validSchema = yup.object().shape({
-  telegramGroupLink: yup.string().required('Please input the link of telegram group.'),
-  contractAddress: yup.string().required('Please input the address of contract.')
+  group_link: yup.string().required('Please input the link of telegram group.'),
+  contract_address: yup.string().required('Please input the address of contract.')
 });
 
 export default function DialogOrder({ isOpened, handleClose, price, serviceData }: IProps) {
@@ -31,18 +31,18 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
 
   const formik = useFormik({
     initialValues: {
-      telegramGroupLink: '',
-      contractAddress: ''
+      group_link: '',
+      contract_address: ''
     },
     validationSchema: validSchema,
     onSubmit: (values) => {
-      let { telegramGroupLink, contractAddress } = values
+      let { group_link, contract_address } = values
       addOrderToCart({
-        serviceType: 'listing',
-        serviceTitle: serviceData.title,
+        service_type: 'listing',
+        service_title: serviceData.title,
         price,
-        telegramGroupLink,
-        contractAddress
+        group_link,
+        contract_address
       })
       handleClose()
     }
@@ -56,38 +56,38 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
       <DialogContent>
         <Stack spacing={2} py={2}>
           <TextField
-            name="telegramGroupLink"
-            label="Telegram group link"
-            value={formik.values.telegramGroupLink}
+            name="group_link"
+            label="Group link"
+            value={formik.values.group_link}
             onChange={formik.handleChange}
-            error={formik.touched.telegramGroupLink && Boolean(formik.errors.telegramGroupLink)}
+            error={formik.touched.group_link && Boolean(formik.errors.group_link)}
             helperText={
-              formik.touched.telegramGroupLink && formik.errors.telegramGroupLink ? (
+              formik.touched.group_link && formik.errors.group_link ? (
                 <Typography
                   component="span"
                   sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
                 >
                   <Icon icon="bxs:error-alt" />&nbsp;
-                  {formik.touched.telegramGroupLink && formik.errors.telegramGroupLink}
+                  {formik.touched.group_link && formik.errors.group_link}
                 </Typography>
               ) : (<></>)
             }
           />
 
           <TextField
-            name="contractAddress"
+            name="contract_address"
             label="Contract address"
-            value={formik.values.contractAddress}
+            value={formik.values.contract_address}
             onChange={formik.handleChange}
-            error={formik.touched.contractAddress && Boolean(formik.errors.contractAddress)}
+            error={formik.touched.contract_address && Boolean(formik.errors.contract_address)}
             helperText={
-              formik.touched.contractAddress && formik.errors.contractAddress ? (
+              formik.touched.contract_address && formik.errors.contract_address ? (
                 <Typography
                   component="span"
                   sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
                 >
                   <Icon icon="bxs:error-alt" />&nbsp;
-                  {formik.touched.contractAddress && formik.errors.contractAddress}
+                  {formik.touched.contract_address && formik.errors.contract_address}
                 </Typography>
               ) : (<></>)
             }

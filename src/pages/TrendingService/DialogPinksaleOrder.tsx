@@ -22,7 +22,7 @@ interface IProps {
 }
 
 const validSchema = yup.object().shape({
-  lunchpadLink: yup.string().required('Please input the link of pinksale lunchpad.')
+  lunchpad_link: yup.string().required('Please input the link of pinksale lunchpad.')
 });
 
 export default function DialogPinksaleOrder({ isOpened, handleClose, price, serviceData }: IProps) {
@@ -30,16 +30,16 @@ export default function DialogPinksaleOrder({ isOpened, handleClose, price, serv
 
   const formik = useFormik({
     initialValues: {
-      lunchpadLink: ''
+      lunchpad_link: ''
     },
     validationSchema: validSchema,
     onSubmit: (values) => {
-      let { lunchpadLink } = values
+      let { lunchpad_link } = values
       addOrderToCart({
-        serviceType: 'trending',
-        serviceTitle: serviceData.title,
+        service_type: 'trending',
+        service_title: serviceData.title,
         price,
-        lunchpadLink
+        lunchpad_link
       })
       handleClose()
     }
@@ -53,20 +53,20 @@ export default function DialogPinksaleOrder({ isOpened, handleClose, price, serv
       <DialogContent>
         <Stack spacing={2} py={2}>
           <TextField
-            name="lunchpadLink"
+            name="lunchpad_link"
             label="Pinksale lunchpad link"
             placeholder="https://www.pinksale.finance/launchpad/0x020d4f67581c95bf9916592024b475410791b55b?chain=BSC"
-            value={formik.values.lunchpadLink}
+            value={formik.values.lunchpad_link}
             onChange={formik.handleChange}
-            error={formik.touched.lunchpadLink && Boolean(formik.errors.lunchpadLink)}
+            error={formik.touched.lunchpad_link && Boolean(formik.errors.lunchpad_link)}
             helperText={
-              formik.touched.lunchpadLink && formik.errors.lunchpadLink ? (
+              formik.touched.lunchpad_link && formik.errors.lunchpad_link ? (
                 <Typography
                   component="span"
                   sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
                 >
                   <Icon icon="bxs:error-alt" />&nbsp;
-                  {formik.touched.lunchpadLink && formik.errors.lunchpadLink}
+                  {formik.touched.lunchpad_link && formik.errors.lunchpad_link}
                 </Typography>
               ) : (<></>)
             }

@@ -104,7 +104,7 @@ export default function Cart() {
                           cart.map((order, index) => (
                             <TableRow key={index}>
                               <TableCell>{index + 1}</TableCell>
-                              <TableCell>{order.serviceTitle}</TableCell>
+                              <TableCell>{order.service_title}</TableCell>
                               <TableCell>${order.price}</TableCell>
                               <TableCell>
                                 <IconButton onClick={() => handleRemoveOrder(index)}>
@@ -119,7 +119,7 @@ export default function Cart() {
                   }
                 </Table>
                 {
-                  !cart || cart.length === 0 && (
+                  (!cart || cart.length === 0) && (
                     <NoData text="No Data." />
                   )
                 }

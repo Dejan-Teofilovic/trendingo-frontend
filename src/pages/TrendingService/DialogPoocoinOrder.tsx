@@ -22,7 +22,7 @@ interface IProps {
 }
 
 const validSchema = yup.object().shape({
-  contractAddress: yup.string().required('Please input the address of contract.')
+  contract_address: yup.string().required('Please input the address of contract.')
 });
 
 export default function DialogPoocoinOrder({ isOpened, handleClose, price, serviceData }: IProps) {
@@ -30,16 +30,16 @@ export default function DialogPoocoinOrder({ isOpened, handleClose, price, servi
 
   const formik = useFormik({
     initialValues: {
-      contractAddress: ''
+      contract_address: ''
     },
     validationSchema: validSchema,
     onSubmit: (values) => {
-      let { contractAddress } = values
+      let { contract_address } = values
       addOrderToCart({
-        serviceType: 'trending',
-        serviceTitle: serviceData.title,
+        service_type: 'trending',
+        service_title: serviceData.title,
         price,
-        contractAddress
+        contract_address
       })
       handleClose()
     }
@@ -53,19 +53,19 @@ export default function DialogPoocoinOrder({ isOpened, handleClose, price, servi
       <DialogContent>
         <Stack spacing={2} py={2}>
           <TextField
-            name="contractAddress"
+            name="contract_address"
             label="Contract address"
-            value={formik.values.contractAddress}
+            value={formik.values.contract_address}
             onChange={formik.handleChange}
-            error={formik.touched.contractAddress && Boolean(formik.errors.contractAddress)}
+            error={formik.touched.contract_address && Boolean(formik.errors.contract_address)}
             helperText={
-              formik.touched.contractAddress && formik.errors.contractAddress ? (
+              formik.touched.contract_address && formik.errors.contract_address ? (
                 <Typography
                   component="span"
                   sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
                 >
                   <Icon icon="bxs:error-alt" />&nbsp;
-                  {formik.touched.contractAddress && formik.errors.contractAddress}
+                  {formik.touched.contract_address && formik.errors.contract_address}
                 </Typography>
               ) : (<></>)
             }
