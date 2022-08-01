@@ -32,6 +32,15 @@ export interface IUpvotingService {
   prices: Array<IPrice>;
 }
 
+export interface IDevelopmentService {
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  imageId: number;
+  price: number;
+}
+
 export interface IImage {
   id: number;
   value: string;

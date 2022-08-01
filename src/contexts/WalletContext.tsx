@@ -154,6 +154,7 @@ function WalletProvider({ children }: IProps) {
         const web3Modal = await getWeb3Modal();
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
+        console.log('# provider => ', provider)
         let accounts = null;
         let signer = null;
         let contract = null;
@@ -201,7 +202,7 @@ function WalletProvider({ children }: IProps) {
 
           dispatch({
             type: 'SET_PROVIDER',
-            payload: provider
+            payload: provider.provider
           });
 
           dispatch({

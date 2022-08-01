@@ -1,5 +1,6 @@
 import {
   IChain,
+  IDevelopmentService,
   IImage,
   IListService,
   ITrendingService,
@@ -70,6 +71,34 @@ export const IMAGES: Array<IImage> = [
   {
     id: 16,
     value: "/assets/images/watcher.webp"
+  },
+  {
+    id: 17,
+    value: '/assets/images/nft-design.jpg'
+  },
+  {
+    id: 18,
+    value: '/assets/images/nft-minting.jpg'
+  },
+  {
+    id: 19,
+    value: '/assets/images/nft-marketplace.jpg'
+  },
+  {
+    id: 20,
+    value: '/assets/images/nft-contract.jpg'
+  },
+  {
+    id: 21,
+    value: '/assets/images/make-ftoken.jpg'
+  },
+  {
+    id: 22,
+    value: '/assets/images/dex-swap.jpg'
+  },
+  {
+    id: 23,
+    value: '/assets/images/whitepaper.jpg'
   }
 ];
 
@@ -823,6 +852,25 @@ export const UPVOTING_SERVICES: Array<IUpvotingService> = [
     ]
   }
 ];
+
+export const DEVELOPMENT_SERVICES: Array<IDevelopmentService> = [
+  {
+    id: 1,
+    name: 'nft-design',
+    title: 'NFT design',
+    description: ``,
+    imageId: 17,
+    price: 1000
+  },
+  {
+    id: 2,
+    name: 'nft-minting',
+    title: 'NFT minting site',
+    description: ``,
+    imageId: 17,
+    price: 1000
+  }
+]
 
 export const CHAINS: Array<IChain> = [
   {

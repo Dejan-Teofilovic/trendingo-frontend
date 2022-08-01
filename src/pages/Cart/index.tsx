@@ -26,6 +26,7 @@ import useWallet from "../../hooks/useWallet";
 import useAlertMessage from "../../hooks/useAlertMessage";
 import {
   ADMIN_BSC_WALLET_ADDRESS,
+  ADMIN_ETH_WALLET_ADDRESS,
   API_ID_OF_BNB,
   API_ID_OF_BUSD,
   API_ID_OF_ETHEREUM,
@@ -38,7 +39,7 @@ import {
   WARNING
 } from "../../utils/constants";
 import useLoading from "../../hooks/useLoading";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import Web3 from "web3";
 import { IError } from "../../utils/interfaces";
 import useUser from "../../hooks/useUser";
@@ -57,6 +58,7 @@ export default function Cart() {
 
   const [dialogOpened, setDialogOpened] = useState(false)
 
+  //  Get total price(origin)
   const totalPrice = useMemo(() => {
     if (cart) {
       let _totalPrice = 0
@@ -68,12 +70,13 @@ export default function Cart() {
     return 0
   }, [cart?.length])
 
+  //  Discount percentage
   const discountPercentage = useMemo(() => {
     let percentage = defaultDiscountPercentage;
     if (totalPrice >= 4000) {
       percentage += DISCOUNT_PERCENTAGE_FOR_PRICE
     }
-    return percentage
+    return Number(percentage.toFixed(2))
   }, [totalPrice, defaultDiscountPercentage])
 
   const formik = useFormik({
@@ -97,63 +100,68 @@ export default function Cart() {
         try {
           transaction = await contract.transfer(
             ADMIN_BSC_WALLET_ADDRESS,
-            BigNumber.from(ethers.utils.parseEther(
+            ethers.utils.parseEther(
               String((totalPrice - totalPrice * discountPercentage) / Number(usd))
-            )),
+            ).toString(),
             { from: currentAccount }
           );
           await transaction.wait()
+
+          addNewOrder(
+            userId,
+            values.telegramUsername,
+            values.alternativeTelegramUsername,
+            totalPrice,
+            discountPercentage,
+            totalPrice - totalPrice * discountPercentage
+          )
+          closeLoading()
         } catch (error: IError | any) {
           if (error.code === -32603) {
             return openAlert({
               severity: WARNING,
               message: MESSAGE_NOT_ENOUGH_BALANCE
             })
+          } else {
+            return openAlert({
+              severity: WARNING,
+              message: MESSAGE_TX_FAILED
+            })
           }
-          return openAlert({
-            severity: WARNING,
-            message: MESSAGE_TX_FAILED
-          })
         }
       } else {
         if (provider) {
           let { market_data: { current_price: { usd } } } = await (await fetch(`${API_TO_GET_PRICE_OF_TOKEN}${currency === 'BNB' ? API_ID_OF_BNB : API_ID_OF_ETHEREUM}${API_PARAMETERS}`)).json()
 
-          console.log('# usd => ', usd)
           let web3 = new Web3(provider)
-          let web3_signer = new Web3(signer.provider)
-          console.log('# web3 => ', web3)
-          console.log('# web3_signer => ', web3_signer)
-          try {
-            // transaction = await web3.eth.sendTransaction({
-            //   from: currentAccount,
-            //   to: ADMIN_ETH_WALLET_ADDRESS,
-            //   value: web3.utils.toHex(web3.utils.toWei(((totalPrice - totalPrice * discountPercentage) / Number(usd)).toFixed(5)))
-            //   // parseInt(String((totalPrice - totalPrice * discountPercentage) / Number(usd)))
+          const priceByCrypto = ethers.utils.parseEther(
+            String((totalPrice - totalPrice * discountPercentage) / Number(usd))
+          )
 
-            // })
-            // window.ethereum.request({
-            //   method: 'eth_sendTransaction',
-            //   params: [{
-            //     to: ADMIN_ETH_WALLET_ADDRESS,
-            //     from: currentAccount,
-            //     value: web3.utils.toHex(web3.utils.toWei("0.5")),
-            //   }],
-            // })
-          } catch (error) {
-            console.log('# error => ', error)
-          }
+          transaction = await web3.eth.sendTransaction({
+            from: currentAccount,
+            to: ADMIN_ETH_WALLET_ADDRESS,
+            value: priceByCrypto.toString(),
+          }, (error, result) => {
+            if (error) {
+              return openAlert({
+                severity: WARNING,
+                message: MESSAGE_TX_FAILED
+              })
+            }
+
+            addNewOrder(
+              userId,
+              values.telegramUsername,
+              values.alternativeTelegramUsername,
+              totalPrice,
+              discountPercentage,
+              totalPrice - totalPrice * discountPercentage
+            )
+            closeLoading()
+          })
         }
       }
-      // addNewOrder(
-      //   userId,
-      //   values.telegramUsername,
-      //   values.alternativeTelegramUsername,
-      //   totalPrice,
-      //   discountPercentage,
-      //   totalPrice - totalPrice * discountPercentage
-      // )
-      closeLoading()
     }
   })
 

@@ -18,7 +18,6 @@ export default function Influence() {
   const { influenceToken } = useParams()
   const { currentAccount, connectWallet, disconnectWallet } = useWallet()
 
-
   const [currency, setCurrency] = useState<TCurrency>('ETH')
 
   const handleChangeCurrency = (value: string | undefined) => {
