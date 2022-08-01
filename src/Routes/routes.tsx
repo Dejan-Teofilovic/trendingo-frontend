@@ -8,6 +8,7 @@ import ListingService from "../pages/ListingService";
 import UpvotingService from "../pages/UpvotingService";
 import Cart from "../pages/Cart";
 import { Navigate } from "react-router";
+import Influence from "../pages/Influence";
 
 export const routes = [
   {
@@ -50,6 +51,10 @@ export const routes = [
   {
     path: '/cart',
     element: <Cart />
+  },
+  {
+    path: '/influence/:influenceToken',
+    element: <Influence />
   },
   {
     path: '*',

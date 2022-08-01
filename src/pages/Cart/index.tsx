@@ -20,7 +20,7 @@ import * as yup from 'yup';
 import { useFormik } from "formik";
 import NoData from "../../components/NoData";
 import useOrders from "../../hooks/useOrders";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import DialogConnectWallet from "./DialogConnectWallet";
 import useWallet from "../../hooks/useWallet";
 import useAlertMessage from "../../hooks/useAlertMessage";
@@ -32,6 +32,7 @@ import {
   API_ID_OF_ETHEREUM,
   API_PARAMETERS,
   API_TO_GET_PRICE_OF_TOKEN,
+  DISCOUNT_PERCENTAGE_FOR_PRICE,
   MESSAGE_CART_EMPTY,
   MESSAGE_NOT_ENOUGH_BALANCE,
   MESSAGE_TX_FAILED,
@@ -51,7 +52,7 @@ const validSchema = yup.object().shape({
 export default function Cart() {
   const { cart, removeOrderItemFromCart, addNewOrder } = useOrders()
   const { currentAccount, currency, disconnectWallet, contract, provider, signer } = useWallet()
-  const { userId } = useUser()
+  const { userId, defaultDiscountPercentage, checkWhetherInfluencer } = useUser()
   const { openAlert } = useAlertMessage()
   const { openLoading, closeLoading } = useLoading()
 
@@ -69,11 +70,12 @@ export default function Cart() {
   }, [cart?.length])
 
   const discountPercentage = useMemo(() => {
+    let percentage = defaultDiscountPercentage;
     if (totalPrice >= 4000) {
-      return 0.2
+      percentage += DISCOUNT_PERCENTAGE_FOR_PRICE
     }
-    return 0
-  }, [totalPrice])
+    return percentage
+  }, [totalPrice, defaultDiscountPercentage])
 
   const formik = useFormik({
     initialValues: {
@@ -163,6 +165,12 @@ export default function Cart() {
   const handleRemoveOrder = (index: number) => {
     removeOrderItemFromCart(index)
   }
+
+  useEffect(() => {
+    if (userId) {
+      checkWhetherInfluencer(userId)
+    }
+  }, [userId])
 
   return (
     <Container maxWidth="xl">

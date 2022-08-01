@@ -11,6 +11,7 @@ import { COLOR_BACKGROUND, COLOR_BLACK, COLOR_PRIMARY } from './utils/constants'
 import { OrdersProvider } from './contexts/OrdersContext';
 import { WalletProvider } from './contexts/WalletContext';
 import { UserProvider } from './contexts/UserContext';
+import { LoadingProvider } from './contexts/LoadingContext';
 
 let theme = createTheme({
   palette: {
@@ -29,19 +30,21 @@ theme = responsiveFontSizes(theme)
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <AlertMessageProvider>
-        <OrdersProvider>
-          <UserProvider>
-            <WalletProvider>
-              <BrowserRouter>
-                <Routes />
-                <Loading />
-                <AlertMessage />
-              </BrowserRouter>
-            </WalletProvider>
-          </UserProvider>
-        </OrdersProvider>
-      </AlertMessageProvider>
+      <LoadingProvider>
+        <AlertMessageProvider>
+          <OrdersProvider>
+            <UserProvider>
+              <WalletProvider>
+                <BrowserRouter>
+                  <Routes />
+                  <Loading />
+                  <AlertMessage />
+                </BrowserRouter>
+              </WalletProvider>
+            </UserProvider>
+          </OrdersProvider>
+        </AlertMessageProvider>
+      </LoadingProvider>
     </ThemeProvider>
   )
 }
