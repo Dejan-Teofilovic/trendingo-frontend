@@ -25,6 +25,7 @@ export const MESSAGE_TX_FAILED = "Transaction is failed.";
 export const MESSAGE_NOT_ENOUGH_BALANCE = "Your balance isn't enough.";
 export const MESSAGE_INFLUENCE_SUCCESS =
   "Your influence has been submitted to your friend.";
+export const MESSAGE_INFLUENCE_FAILED = "Your influence has been failed.";
 
 export const CONTRACT_ADDRESS_BUSD =
   "0xe9e7cea3dedca5984780bafc599bd69add087d56";

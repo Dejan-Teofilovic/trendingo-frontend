@@ -1,7 +1,6 @@
 import { createContext, useContext, useReducer } from 'react';
-import { number } from 'yup/lib/locale';
 import api from '../utils/api';
-import { DISCOUNT_PERCENTAGE_FOR_INFLUENCER, MESSAGE_INFLUENCE_SUCCESS, SUCCESS } from '../utils/constants';
+import { DISCOUNT_PERCENTAGE_FOR_INFLUENCER, ERROR, MESSAGE_INFLUENCE_FAILED, MESSAGE_INFLUENCE_SUCCESS, SUCCESS } from '../utils/constants';
 import { AlertMessageContext } from './AlertMessageContext';
 import { LoadingContext } from './LoadingContext';
 
@@ -13,16 +12,16 @@ interface IInitialState {
 }
 
 interface IAction {
-  type: string,
-  payload: any
+  type: string;
+  payload: any;
 }
 
 interface IProps {
-  children: any
+  children: any;
 }
 
 interface IHandlers {
-  [key: string]: Function,
+  [key: string]: Function;
 }
 
 /* --------------------------------------------------------------- */
@@ -99,6 +98,10 @@ function UserProvider({ children }: IProps) {
       })
       .catch(error => {
         console.log('# error => ', error)
+        openAlert({
+          severity: ERROR,
+          message: MESSAGE_INFLUENCE_FAILED
+        })
         closeLoading()
       })
   }
