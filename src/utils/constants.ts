@@ -20,6 +20,11 @@ export const MESSAGE_CART_EMPTY = "Cart is empty.";
 export const MESSAGE_TRY_WALLET_CONNECT = "Try connect wallet again, plz.";
 export const MESSAGE_USER_REGISTERED =
   "You are registered! Enjoy our site, please!";
+export const MESSAGE_ORDER_SAVED = "Order has been saved.";
+export const MESSAGE_TX_FAILED = "Transaction is failed.";
+export const MESSAGE_NOT_ENOUGH_BALANCE = "Your balance isn't enough.";
+export const MESSAGE_INFLUENCE_SUCCESS =
+  "Your influence has been submitted to your friend.";
 
 export const CONTRACT_ADDRESS_BUSD =
   "0xe9e7cea3dedca5984780bafc599bd69add087d56";
@@ -289,3 +294,18 @@ export const CONTRACT_ABI_BUSD = [
     type: "function"
   }
 ];
+
+export const ADMIN_ETH_WALLET_ADDRESS =
+  "0x394fBf94bba4Ec473dc8Ce9Ad849869324481A90";
+export const ADMIN_BSC_WALLET_ADDRESS =
+  "0x394fBf94bba4Ec473dc8Ce9Ad849869324481A90";
+
+export const API_TO_GET_PRICE_OF_TOKEN =
+  "https://api.coingecko.com/api/v3/coins/";
+export const API_PARAMETERS =
+  "?localization=false&tickers=false&community_data=false&sparkline=false&developer_data=false";
+export const API_ID_OF_ETHEREUM = "ethereum";
+export const API_ID_OF_BNB = "binancecoin";
+export const API_ID_OF_BUSD = "binance-usd";
+
+export const DISCOUNT_PERCENTAGE_FOR_INFLUENCER = 0.1;

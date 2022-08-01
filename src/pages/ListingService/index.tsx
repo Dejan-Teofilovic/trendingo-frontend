@@ -61,7 +61,6 @@ export default function ListingService() {
     setDialogOpened(false);
   };
 
-
   return (
     <Container maxWidth="lg">
       <Stack spacing={{ xs: 6, md: 12 }}>

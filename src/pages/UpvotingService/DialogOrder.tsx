@@ -26,7 +26,7 @@ const validSchema = yup.object().shape({
 });
 
 export default function DialogOrder({ isOpened, handleClose, price, serviceData }: IProps) {
-  const { addOrderToCart } = useOrders()
+  const { addOrderItemToCart } = useOrders()
 
   const formik = useFormik({
     initialValues: {
@@ -35,7 +35,7 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
     validationSchema: validSchema,
     onSubmit: (values) => {
       let { token_link } = values
-      addOrderToCart({
+      addOrderItemToCart({
         service_type: 'trending',
         service_title: serviceData.title,
         price,

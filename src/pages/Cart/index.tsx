@@ -24,7 +24,24 @@ import { useMemo, useState } from "react";
 import DialogConnectWallet from "./DialogConnectWallet";
 import useWallet from "../../hooks/useWallet";
 import useAlertMessage from "../../hooks/useAlertMessage";
-import { MESSAGE_CART_EMPTY, WARNING } from "../../utils/constants";
+import {
+  ADMIN_BSC_WALLET_ADDRESS,
+  ADMIN_ETH_WALLET_ADDRESS,
+  API_ID_OF_BNB,
+  API_ID_OF_BUSD,
+  API_ID_OF_ETHEREUM,
+  API_PARAMETERS,
+  API_TO_GET_PRICE_OF_TOKEN,
+  MESSAGE_CART_EMPTY,
+  MESSAGE_NOT_ENOUGH_BALANCE,
+  MESSAGE_TX_FAILED,
+  WARNING
+} from "../../utils/constants";
+import useLoading from "../../hooks/useLoading";
+import { BigNumber, ethers } from "ethers";
+import Web3 from "web3";
+import { IError } from "../../utils/interfaces";
+import useUser from "../../hooks/useUser";
 
 const validSchema = yup.object().shape({
   telegramUsername: yup.string().required('Please input your telegram username.'),
@@ -32,9 +49,11 @@ const validSchema = yup.object().shape({
 });
 
 export default function Cart() {
-  const { cart, removeOrderFromCart } = useOrders()
-  const { currentAccount, currency, disconnectWallet } = useWallet()
+  const { cart, removeOrderItemFromCart, addNewOrder } = useOrders()
+  const { currentAccount, currency, disconnectWallet, contract, provider, signer } = useWallet()
+  const { userId } = useUser()
   const { openAlert } = useAlertMessage()
+  const { openLoading, closeLoading } = useLoading()
 
   const [dialogOpened, setDialogOpened] = useState(false)
 
@@ -62,13 +81,78 @@ export default function Cart() {
       alternativeTelegramUsername: ''
     },
     validationSchema: validSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (!cart) {
         return openAlert({
           severity: WARNING,
           message: MESSAGE_CART_EMPTY
         })
       }
+      let transaction = null
+      openLoading()
+      if (currency === 'BUSD' && contract) {
+        let { market_data: { current_price: { usd } } } = await (await fetch(`${API_TO_GET_PRICE_OF_TOKEN}${API_ID_OF_BUSD}${API_PARAMETERS}`)).json()
+
+        try {
+          transaction = await contract.transfer(
+            ADMIN_BSC_WALLET_ADDRESS,
+            BigNumber.from(ethers.utils.parseEther(
+              String((totalPrice - totalPrice * discountPercentage) / Number(usd))
+            )),
+            { from: currentAccount }
+          );
+          await transaction.wait()
+        } catch (error: IError | any) {
+          if (error.code === -32603) {
+            return openAlert({
+              severity: WARNING,
+              message: MESSAGE_NOT_ENOUGH_BALANCE
+            })
+          }
+          return openAlert({
+            severity: WARNING,
+            message: MESSAGE_TX_FAILED
+          })
+        }
+      } else {
+        if (provider) {
+          let { market_data: { current_price: { usd } } } = await (await fetch(`${API_TO_GET_PRICE_OF_TOKEN}${currency === 'BNB' ? API_ID_OF_BNB : API_ID_OF_ETHEREUM}${API_PARAMETERS}`)).json()
+
+          console.log('# usd => ', usd)
+          let web3 = new Web3(provider)
+          let web3_signer = new Web3(signer.provider)
+          console.log('# web3 => ', web3)
+          console.log('# web3_signer => ', web3_signer)
+          try {
+            // transaction = await web3.eth.sendTransaction({
+            //   from: currentAccount,
+            //   to: ADMIN_ETH_WALLET_ADDRESS,
+            //   value: web3.utils.toHex(web3.utils.toWei(((totalPrice - totalPrice * discountPercentage) / Number(usd)).toFixed(5)))
+            //   // parseInt(String((totalPrice - totalPrice * discountPercentage) / Number(usd)))
+
+            // })
+            // window.ethereum.request({
+            //   method: 'eth_sendTransaction',
+            //   params: [{
+            //     to: ADMIN_ETH_WALLET_ADDRESS,
+            //     from: currentAccount,
+            //     value: web3.utils.toHex(web3.utils.toWei("0.5")),
+            //   }],
+            // })
+          } catch (error) {
+            console.log('# error => ', error)
+          }
+        }
+      }
+      // addNewOrder(
+      //   userId,
+      //   values.telegramUsername,
+      //   values.alternativeTelegramUsername,
+      //   totalPrice,
+      //   discountPercentage,
+      //   totalPrice - totalPrice * discountPercentage
+      // )
+      closeLoading()
     }
   })
 
@@ -77,7 +161,7 @@ export default function Cart() {
   };
 
   const handleRemoveOrder = (index: number) => {
-    removeOrderFromCart(index)
+    removeOrderItemFromCart(index)
   }
 
   return (

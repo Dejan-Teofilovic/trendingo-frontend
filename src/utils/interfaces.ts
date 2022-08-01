@@ -50,15 +50,15 @@ export interface IServiceCardItem {
   dataItem: ITrendingService | IListService | IUpvotingService;
 }
 
-export interface IOrder {
+export interface IOrderItem {
   service_type: string;
   service_title: string;
+  price: number;
   trending_type?: string;
   period?: string;
   region?: string;
   chain?: string;
   amount?: string;
-  price: number;
   group_link?: string;
   contract_address?: string;
   token_link?: string;
@@ -66,10 +66,14 @@ export interface IOrder {
   lunchpad_link?: string;
 }
 
-export interface IOrderRequest extends IOrder {
+export interface IOrder {
   walletAddress: string;
   telegramUsername: string;
   alternativeTelegramUsername: string;
+  orderItems: Array<IOrderItem>;
+  originPrice: number;
+  discountPercentage: number;
+  realPrice: number;
 }
 
 export interface IChain {
@@ -80,4 +84,8 @@ export interface IChain {
   nativeCurrencyName: string;
   nativeCurrencySymbol: string;
   decimals: number;
+}
+
+export interface IError {
+  code: number
 }

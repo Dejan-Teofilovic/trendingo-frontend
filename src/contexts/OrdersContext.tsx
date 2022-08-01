@@ -1,12 +1,14 @@
 import { createContext, useContext, useReducer } from 'react';
-import { INFO } from '../utils/constants';
-import { IOrder } from '../utils/interfaces';
+import api from '../utils/api';
+import { INFO, MESSAGE_ORDER_SAVED, SUCCESS } from '../utils/constants';
+import { IOrderItem } from '../utils/interfaces';
 import { AlertMessageContext } from './AlertMessageContext';
+import { LoadingContext } from './LoadingContext';
 
 /* --------------------------------------------------------------- */
 
 interface IInitialState {
-  cart: Array<IOrder> | null,
+  cart: Array<IOrderItem> | null,
 }
 
 interface IAction {
@@ -43,16 +45,25 @@ const reducer = (state: object, action: IAction) =>
 //  Context
 const OrdersContext = createContext({
   ...initialState,
-  addOrderToCart: (order: IOrder) => Promise.resolve(),
-  removeOrderFromCart: (index: number) => Promise.resolve(),
+  addOrderItemToCart: (order: IOrderItem) => Promise.resolve(),
+  removeOrderItemFromCart: (index: number) => Promise.resolve(),
+  addNewOrder: (
+    userId: number,
+    telegramUsername: string,
+    alternativeUsername: string,
+    originPrice: number,
+    discountPercentage: number,
+    realPrice: number
+  ) => Promise.resolve(),
 });
 
 //  Provider
 function OrdersProvider({ children }: IProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { openAlert } = useContext(AlertMessageContext);
+  const { openLoading, closeLoading } = useContext(LoadingContext)
 
-  const addOrderToCart = (order: IOrder) => {
+  const addOrderItemToCart = (order: IOrderItem) => {
     if (state.cart) {
       dispatch({
         type: 'SET_CART',
@@ -70,7 +81,7 @@ function OrdersProvider({ children }: IProps) {
     })
   }
 
-  const removeOrderFromCart = (index: number) => {
+  const removeOrderItemFromCart = (index: number) => {
     let orders = [...state.cart]
     orders.splice(index, 1)
     dispatch({
@@ -79,12 +90,40 @@ function OrdersProvider({ children }: IProps) {
     })
   }
 
+  const addNewOrder = (
+    userId: number,
+    telegramUsername: string,
+    alternativeUsername: string,
+    originPrice: number,
+    discountPercentage: number,
+    realPrice: number
+  ) => {
+    api.post('/order/add-new-order', {
+      userId, telegramUsername, alternativeUsername, originPrice, discountPercentage, realPrice,
+      orderItems: state.cart
+    })
+      .then(() => {
+        openAlert({
+          severity: SUCCESS,
+          message: MESSAGE_ORDER_SAVED
+        })
+        dispatch({
+          type: 'SET_CART',
+          payload: null
+        })
+      })
+      .catch((error) => {
+        console.log('# error => ', error)
+      })
+  }
+
   return (
     <OrdersContext.Provider
       value={{
         ...state,
-        addOrderToCart,
-        removeOrderFromCart,
+        addOrderItemToCart,
+        removeOrderItemFromCart,
+        addNewOrder
       }}
     >
       {children}

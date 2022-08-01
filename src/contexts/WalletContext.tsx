@@ -19,6 +19,8 @@ import { CHAINS } from '../utils/data';
 import { AlertMessageContext } from './AlertMessageContext';
 import { TCurrency } from '../utils/types';
 import api from '../utils/api';
+import { IError } from '../utils/interfaces';
+import { UserContext } from './UserContext';
 
 interface IAction {
   type: string,
@@ -27,10 +29,6 @@ interface IAction {
 
 interface IHandlers {
   [key: string]: Function,
-}
-
-interface IError {
-  code: number
 }
 
 interface IProps {
@@ -42,15 +40,38 @@ interface IRequestObject {
   influenceToken?: string;
 }
 
+interface IContract {
+  transfer: Function;
+  [key: string]: any;
+}
+
+export type ExternalProvider = {
+  isMetaMask?: boolean;
+  isStatus?: boolean;
+  host?: string;
+  path?: string;
+  sendAsync?: (request: { method: string, params?: Array<any> }, callback: (error: any, response: any) => void) => void
+  send?: (request: { method: string, params?: Array<any> }, callback: (error: any, response: any) => void) => void
+  request?: (request: { method: string, params?: Array<any> }) => Promise<any>
+}
+
+interface IInitialState {
+  currentAccount: string;
+  // provider: ExternalProvider | null;
+  provider: any;
+  signer: any;
+  contract: IContract | null;
+  currency: string;
+}
+
 // ----------------------------------------------------------------------
 
-const initialState = {
+const initialState: IInitialState = {
   currentAccount: '',
   provider: null,
   signer: null,
   contract: null,
   currency: '',
-  userId: 0
 };
 
 const handlers: IHandlers = {
@@ -84,12 +105,6 @@ const handlers: IHandlers = {
       currency: action.payload
     };
   },
-  SET_USER_ID: (state: object, action: IAction) => {
-    return {
-      ...state,
-      userId: action.payload
-    };
-  }
 };
 
 const reducer = (state: object, action: IAction) =>
@@ -106,6 +121,7 @@ const WalletContext = createContext({
 function WalletProvider({ children }: IProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { openAlert } = useContext(AlertMessageContext);
+  const { setUserId } = useContext(UserContext)
 
   const getWeb3Modal = async () => {
     const web3Modal = new Web3Modal({
@@ -172,10 +188,7 @@ function WalletProvider({ children }: IProps) {
                   message: MESSAGE_USER_REGISTERED
                 })
               }
-              dispatch({
-                type: 'SET_USER_ID',
-                payload: response.data.userId
-              })
+              setUserId(response.data.userId)
             })
             .catch(error => {
               console.log('# error => ', error)

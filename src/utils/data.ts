@@ -690,7 +690,8 @@ export const LISTING_SERVICES: Array<IListService> = [
       Pricing: 3500$
     `,
     imageId: 3,
-    price: 3500
+    // price: 3500
+    price: 1
   },
   {
     id: 2,

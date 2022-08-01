@@ -10,40 +10,31 @@ import {
 } from "@mui/material";
 import * as yup from 'yup';
 import { useFormik } from "formik";
-import useOrders from "../../hooks/useOrders";
-import { IListService } from '../../utils/interfaces'
 import { Icon } from "@iconify/react";
+import useUser from "../hooks/useUser";
 
 interface IProps {
   isOpened: boolean;
   handleClose: Function;
-  price: number;
-  serviceData: IListService
 }
 
 const validSchema = yup.object().shape({
-  group_link: yup.string().required('Please input the link of telegram group.'),
-  contract_address: yup.string().required('Please input the address of contract.')
+  yourEmail: yup.string().email('Please follow the style of email.').required('Please input your email.'),
+  friendEmail: yup.string().email('Please follow the style of email.').required("Please input your friend's email.")
 });
 
-export default function DialogOrder({ isOpened, handleClose, price, serviceData }: IProps) {
-  const { addOrderItemToCart } = useOrders()
+export default function DialogInfluence({ isOpened, handleClose }: IProps) {
+  const { userId, influence } = useUser()
 
   const formik = useFormik({
     initialValues: {
-      group_link: '',
-      contract_address: ''
+      yourEmail: '',
+      friendEmail: ''
     },
     validationSchema: validSchema,
     onSubmit: (values) => {
-      let { group_link, contract_address } = values
-      addOrderItemToCart({
-        service_type: 'listing',
-        service_title: serviceData.title,
-        price,
-        group_link,
-        contract_address
-      })
+      let { yourEmail, friendEmail } = values
+      influence(userId, yourEmail, friendEmail)
       handleClose()
     }
   })
@@ -56,38 +47,38 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
       <DialogContent>
         <Stack spacing={2} py={2}>
           <TextField
-            name="group_link"
-            label="Group link"
-            value={formik.values.group_link}
+            name="yourEmail"
+            label="Your email"
+            value={formik.values.yourEmail}
             onChange={formik.handleChange}
-            error={formik.touched.group_link && Boolean(formik.errors.group_link)}
+            error={formik.touched.yourEmail && Boolean(formik.errors.yourEmail)}
             helperText={
-              formik.touched.group_link && formik.errors.group_link ? (
+              formik.touched.yourEmail && formik.errors.yourEmail ? (
                 <Typography
                   component="span"
                   sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
                 >
                   <Icon icon="bxs:error-alt" />&nbsp;
-                  {formik.touched.group_link && formik.errors.group_link}
+                  {formik.touched.yourEmail && formik.errors.yourEmail}
                 </Typography>
               ) : (<></>)
             }
           />
 
           <TextField
-            name="contract_address"
-            label="Contract address"
-            value={formik.values.contract_address}
+            name="friendEmail"
+            label="Your friend's email"
+            value={formik.values.friendEmail}
             onChange={formik.handleChange}
-            error={formik.touched.contract_address && Boolean(formik.errors.contract_address)}
+            error={formik.touched.friendEmail && Boolean(formik.errors.friendEmail)}
             helperText={
-              formik.touched.contract_address && formik.errors.contract_address ? (
+              formik.touched.friendEmail && formik.errors.friendEmail ? (
                 <Typography
                   component="span"
                   sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
                 >
                   <Icon icon="bxs:error-alt" />&nbsp;
-                  {formik.touched.contract_address && formik.errors.contract_address}
+                  {formik.touched.friendEmail && formik.errors.friendEmail}
                 </Typography>
               ) : (<></>)
             }
@@ -96,7 +87,7 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
       </DialogContent>
       <DialogActions sx={{ py: 2, px: 3 }}>
         <Button onClick={() => formik?.handleSubmit()} variant="contained">
-          Order
+          Invite
         </Button>
       </DialogActions>
     </Dialog>

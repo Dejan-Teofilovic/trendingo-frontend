@@ -29,7 +29,7 @@ import DialogOrder from './DialogOrder'
 export default function TrendingService() {
   const { serviceName } = useParams()
   const theme = useTheme()
-  const { cart, addOrderToCart } = useOrders()
+  const { cart, addOrderItemToCart } = useOrders()
 
   const [trendingType, setTrendingType] = useState('')
   const [period, setPeriod] = useState(0)
