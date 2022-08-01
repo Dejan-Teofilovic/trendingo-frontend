@@ -26,7 +26,6 @@ import useWallet from "../../hooks/useWallet";
 import useAlertMessage from "../../hooks/useAlertMessage";
 import {
   ADMIN_BSC_WALLET_ADDRESS,
-  ADMIN_ETH_WALLET_ADDRESS,
   API_ID_OF_BNB,
   API_ID_OF_BUSD,
   API_ID_OF_ETHEREUM,

@@ -113,7 +113,7 @@ const reducer = (state: object, action: IAction) =>
 //  Context
 const WalletContext = createContext({
   ...initialState,
-  connectWallet: (currency: TCurrency) => Promise.resolve(),
+  connectWallet: (currency: TCurrency, influenceToken?: string) => Promise.resolve(),
   disconnectWallet: () => Promise.resolve(),
 });
 
