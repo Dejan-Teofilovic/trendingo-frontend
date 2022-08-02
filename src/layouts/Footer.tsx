@@ -1,11 +1,11 @@
-import { 
-  Box, 
-  Container, 
-  Fab, 
-  Link, 
-  Stack, 
-  Typography, 
-  useTheme, 
+import {
+  Box,
+  Container,
+  Fab,
+  Link,
+  Stack,
+  Typography,
+  useTheme,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { COLOR_WHITE } from "../utils/constants";
@@ -36,14 +36,20 @@ const SOCIAL_LINKS = [
 export default function Footer() {
   const theme = useTheme();
   return (
-    <Box py={12} bgcolor={theme.palette.background.paper}>
+    <Box py={{ xs: 6, md: 12 }} bgcolor={theme.palette.background.paper}>
       <Container maxWidth="xl">
         <Stack
-          direction="row"
-          alignItems="center"
+          direction={{ xs: 'column', md: 'row' }}
+          alignItems={{ xs: 'start', md: 'center' }}
           justifyContent="space-between"
+          spacing={3}
         >
-          <Stack direction="row" alignItems="center" spacing={6}>
+          <Stack 
+            direction={{ xs: 'column', md: 'row' }} 
+            alignItems={{ xs: 'start', md: 'center' }}
+            spacing={6} 
+            width={{ md: '60%' }}
+          >
             <Box
               component="img"
               src="/assets/images/logo.png"
@@ -51,22 +57,34 @@ export default function Footer() {
               width={200}
             />
 
-            <Stack direction="row" alignItems="center" spacing={1}>
-              {
-                SOCIAL_LINKS.map(socialLink => (
-                  <Fab
-                    size="small"
-                    component={Link}
-                    target="_blank"
-                    href={socialLink.url}
-                    sx={{ fontSize: 24 }}
-                    color="primary"
-                  >
-                    <Icon icon={socialLink.icon} />
-                  </Fab>
-                ))
-              }
+            <Stack spacing={3}>
+              <Box>
+                <Typography variant="h6" fontWeight={700} color={COLOR_WHITE}>
+                  TRENDINGO KEEPS YOU ON TREND
+                </Typography>
+                <Typography variant="body1" color={COLOR_WHITE} sx={{ mt: 1 }}>
+                  Trendingo provides projects within the blockchain ecosystem with crypto marketing and specialist blockchain development services.
+                </Typography>
+              </Box>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                {
+                  SOCIAL_LINKS.map(socialLink => (
+                    <Fab
+                      size="small"
+                      component={Link}
+                      target="_blank"
+                      href={socialLink.url}
+                      sx={{ fontSize: 24 }}
+                      color="primary"
+                    >
+                      <Icon icon={socialLink.icon} />
+                    </Fab>
+                  ))
+                }
+              </Stack>
             </Stack>
+
+
           </Stack>
           <Typography textAlign="center" color={COLOR_WHITE}>
             © {new Date().getFullYear()} Trendingo
