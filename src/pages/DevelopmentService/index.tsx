@@ -16,7 +16,7 @@ import {
 import { grey } from '@mui/material/colors'
 import parse from 'html-react-parser'
 import { COLOR_PRIMARY } from '../../utils/constants'
-import { DEVELOPMENT_SERVICES, IMAGES, LISTING_SERVICES, SELECTS } from '../../utils/data'
+import { DEVELOPMENT_SERVICES, IMAGES, SELECTS } from '../../utils/data'
 import useOrders from '../../hooks/useOrders'
 import DialogOrder from './DialogOrder'
 
@@ -205,7 +205,20 @@ export default function DevelopmentService() {
       </Container>
       {
         serviceData && price && (
-          <DialogOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+          <DialogOrder
+            isOpened={dialogOpened}
+            handleClose={handleClose}
+            orderData={devPart ? {
+              service_type: 'development',
+              service_title: serviceData.title,
+              dev_part: devPart,
+              price
+            } : {
+              service_type: 'development',
+              service_title: serviceData.title,
+              price
+            }}
+          />
         )
       }
     </Box>

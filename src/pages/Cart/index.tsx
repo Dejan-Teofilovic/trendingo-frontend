@@ -144,6 +144,7 @@ export default function Cart() {
             value: priceByCrypto.toString(),
           }, (error, result) => {
             if (error) {
+              closeLoading()
               return openAlert({
                 severity: WARNING,
                 message: MESSAGE_TX_FAILED

@@ -12,20 +12,19 @@ import * as yup from 'yup';
 import { useFormik } from "formik";
 import { Icon } from "@iconify/react";
 import useOrders from "../../hooks/useOrders";
-import { IDevelopmentService } from '../../utils/interfaces'
+import { IOrderItem } from '../../utils/interfaces'
 
 interface IProps {
   isOpened: boolean;
   handleClose: Function;
-  price: number;
-  serviceData: IDevelopmentService;
+  orderData: IOrderItem;
 }
 
 const validSchema = yup.object().shape({
   dev_order_description: yup.string().required('Please input your request detailer.')
 });
 
-export default function DialogOrder({ isOpened, handleClose, price, serviceData }: IProps) {
+export default function DialogOrder({ isOpened, handleClose, orderData }: IProps) {
   const { addOrderItemToCart } = useOrders()
 
   const formik = useFormik({
@@ -36,9 +35,7 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
     onSubmit: (values) => {
       let { dev_order_description } = values
       addOrderItemToCart({
-        service_type: 'development',
-        service_title: serviceData.title,
-        price,
+        ...orderData,
         dev_order_description
       })
       handleClose()
@@ -54,6 +51,7 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
         <Stack spacing={2} py={2}>
           <TextField
             multiline
+            rows={10}
             name="dev_order_description"
             label="Your request"
             value={formik.values.dev_order_description}

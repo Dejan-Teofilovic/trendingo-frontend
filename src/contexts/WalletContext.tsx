@@ -3,17 +3,17 @@ import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { ethers } from 'ethers';
 import {
-  CODE_SWITCH_ERROR,
   CONTRACT_ABI_BUSD,
   CONTRACT_ADDRESS_BUSD,
   ERROR,
   INFO,
-  MESSAGE_SWITCH_NETWORK,
-  MESSAGE_TRY_WALLET_CONNECT,
+  MESSAGE_SWITCH_NETWORK_TO_BSC,
+  MESSAGE_SWITCH_NETWORK_TO_ETH,
   MESSAGE_USER_REGISTERED,
   MESSAGE_WALLET_CONNECT_ERROR,
   SUCCESS,
   WALLET_CONNECT_INFURA_ID,
+  WARNING,
 } from '../utils/constants';
 import { CHAINS } from '../utils/data';
 import { AlertMessageContext } from './AlertMessageContext';
@@ -154,7 +154,8 @@ function WalletProvider({ children }: IProps) {
         const web3Modal = await getWeb3Modal();
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
-        console.log('# provider => ', provider)
+        console.log('>>>>>>> provider => ', provider)
+        console.log('>>>>>>> provider.provider => ', provider.provider)
         let accounts = null;
         let signer = null;
         let contract = null;
@@ -175,7 +176,7 @@ function WalletProvider({ children }: IProps) {
             reqObject.influenceToken = influenceToken
           }
 
-          api.post('/user/add-user', reqObject)
+          await api.post('/user/add-user', reqObject)
             .then(response => {
               console.log('# response.data => ', response.data)
               if (response.status === 200) {
@@ -220,48 +221,15 @@ function WalletProvider({ children }: IProps) {
             payload: currency
           });
         } else {
-          if (window.ethereum) {
-            try {
-              await window.ethereum.request({
-                method: 'wallet_switchEthereumChain',
-                params: [{ chainId: `0x${chain.chainId.toString(16)}` }],
-              });
-              openAlert({
-                severity: INFO,
-                message: MESSAGE_TRY_WALLET_CONNECT
-              })
-            } catch (error: IError | any | undefined) {
-              if (error?.code === CODE_SWITCH_ERROR) {
-                /* ------------ Add new chain ------------- */
-                await window.ethereum.request({
-                  method: 'wallet_addEthereumChain',
-                  params: [
-                    {
-                      chainId: `0x${chain.chainId.toString(16)}`,
-                      chainName: chain.name,
-                      rpcUrls: chain.rpcUrls,
-                      blockExplorerUrls: chain.blockExploreUrls,
-                      nativeCurrency: {
-                        name: chain.nativeCurrencyName,
-                        symbol: chain.nativeCurrencySymbol, // 2-6 characters length
-                        decimals: chain.decimals,
-                      }
-                    },
-                  ],
-                });
-                openAlert({
-                  severity: INFO,
-                  message: MESSAGE_TRY_WALLET_CONNECT
-                })
-                /* ---------------------------------------- */
-              } else {
-                throw error;
-              }
-            }
+          if (currency === 'ETH') {
+            openAlert({
+              severity: WARNING,
+              message: MESSAGE_SWITCH_NETWORK_TO_ETH
+            });
           } else {
             openAlert({
-              severity: ERROR,
-              message: MESSAGE_SWITCH_NETWORK
+              severity: WARNING,
+              message: MESSAGE_SWITCH_NETWORK_TO_BSC
             });
           }
         }

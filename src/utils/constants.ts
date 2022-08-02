@@ -14,8 +14,10 @@ export const CODE_SWITCH_ERROR = 4902;
 
 export const MESSAGE_WALLET_CONNECT_ERROR =
   "Wallet connect error. Try again, please.";
-export const MESSAGE_SWITCH_NETWORK =
+export const MESSAGE_SWITCH_NETWORK_TO_BSC =
   "Please switch the network to Binance Smart Chain.";
+  export const MESSAGE_SWITCH_NETWORK_TO_ETH =
+  "Please switch the network to Ethereum mainnet.";
 export const MESSAGE_CART_EMPTY = "Cart is empty.";
 export const MESSAGE_TRY_WALLET_CONNECT = "Try connect wallet again, plz.";
 export const MESSAGE_USER_REGISTERED =
