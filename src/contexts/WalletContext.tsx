@@ -154,8 +154,6 @@ function WalletProvider({ children }: IProps) {
         const web3Modal = await getWeb3Modal();
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
-        console.log('>>>>>>> provider => ', provider)
-        console.log('>>>>>>> provider.provider => ', provider.provider)
         let accounts = null;
         let signer = null;
         let contract = null;
