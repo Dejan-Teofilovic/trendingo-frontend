@@ -1,3 +1,4 @@
+import { Navigate } from "react-router";
 import Home from "../pages/Home";
 import Listing from "../pages/Listing";
 import Trending from "../pages/Trending";
@@ -7,7 +8,6 @@ import TrendingService from "../pages/TrendingService";
 import ListingService from "../pages/ListingService";
 import UpvotingService from "../pages/UpvotingService";
 import Cart from "../pages/Cart";
-import { Navigate } from "react-router";
 import Influence from "../pages/Influence";
 import DevelopmentService from "../pages/DevelopmentService";
 
