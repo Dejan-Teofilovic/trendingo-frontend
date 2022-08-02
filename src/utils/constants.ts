@@ -314,3 +314,6 @@ export const API_ID_OF_BUSD = "binance-usd";
 
 export const DISCOUNT_PERCENTAGE_FOR_INFLUENCER = 0.1;
 export const DISCOUNT_PERCENTAGE_FOR_PRICE = 0.2;
+
+export const URL_TELEGRAM_ADMIN_1 = "https://t.me/sagarnaik1";
+export const URL_TELEGRAM_ADMIN_2 = "https://t.me/GibonDEXT";

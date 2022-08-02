@@ -6,6 +6,7 @@ import {
   Card,
   Container,
   Grid,
+  Link,
   MenuItem,
   Paper,
   Stack,
@@ -15,7 +16,7 @@ import {
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import parse from 'html-react-parser'
-import { COLOR_PRIMARY } from '../../utils/constants'
+import { COLOR_PRIMARY, URL_TELEGRAM_ADMIN_1, URL_TELEGRAM_ADMIN_2 } from '../../utils/constants'
 import { DEVELOPMENT_SERVICES, IMAGES, SELECTS } from '../../utils/data'
 import useOrders from '../../hooks/useOrders'
 import DialogOrder from './DialogOrder'
@@ -98,7 +99,6 @@ export default function DevelopmentService() {
                       />
                     )
                   }
-
                 </Stack>
               </Grid>
 
@@ -134,6 +134,31 @@ export default function DevelopmentService() {
                     </Box>
                   )
                 }
+
+                <Box mt={3}>
+                  <Typography
+                    variant="body1"
+                    textAlign="justify"
+                    color={grey[400]}
+                    fontWeight={700}
+                  >
+                    Do you have any questions before ordering?
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    textAlign="justify"
+                    color={grey[400]}
+                    sx={{
+                      '& a': {
+                        textDecoration: 'none',
+                        color: theme.palette.primary.main
+                      }
+                    }}
+                    lineHeight={2}
+                  >
+                    Contact <Link target="_blank" href={URL_TELEGRAM_ADMIN_1}>@sagarnaik1</Link> or <Link target="_blank" href={URL_TELEGRAM_ADMIN_2}>@GibonDEXT</Link>
+                  </Typography>
+                </Box>
               </Grid>
             </Grid>
           </Box>
