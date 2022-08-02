@@ -132,7 +132,15 @@ export default function ListingService() {
       </Stack>
       {
         serviceData && price && (
-          <DialogOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+          <DialogOrder
+            isOpened={dialogOpened}
+            handleClose={handleClose}
+            orderData={{
+              service_type: 'listing',
+              service_title: serviceData.title,
+              price
+            }}
+          />
         )
       }
     </Container>

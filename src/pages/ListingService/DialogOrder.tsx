@@ -11,14 +11,13 @@ import {
 import * as yup from 'yup';
 import { useFormik } from "formik";
 import useOrders from "../../hooks/useOrders";
-import { IListService } from '../../utils/interfaces'
+import { IOrderItem } from '../../utils/interfaces'
 import { Icon } from "@iconify/react";
 
 interface IProps {
   isOpened: boolean;
   handleClose: Function;
-  price: number;
-  serviceData: IListService
+  orderData: IOrderItem
 }
 
 const validSchema = yup.object().shape({
@@ -26,7 +25,7 @@ const validSchema = yup.object().shape({
   contract_address: yup.string().required('Please input the address of contract.')
 });
 
-export default function DialogOrder({ isOpened, handleClose, price, serviceData }: IProps) {
+export default function DialogOrder({ isOpened, handleClose, orderData }: IProps) {
   const { addOrderItemToCart } = useOrders()
 
   const formik = useFormik({
@@ -38,9 +37,7 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
     onSubmit: (values) => {
       let { group_link, contract_address } = values
       addOrderItemToCart({
-        service_type: 'listing',
-        service_title: serviceData.title,
-        price,
+        ...orderData,
         group_link,
         contract_address
       })
