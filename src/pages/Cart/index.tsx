@@ -122,12 +122,12 @@ export default function Cart() {
               severity: WARNING,
               message: MESSAGE_NOT_ENOUGH_BALANCE
             })
-          } else {
-            return openAlert({
-              severity: WARNING,
-              message: MESSAGE_TX_FAILED
-            })
           }
+          closeLoading()
+          return openAlert({
+            severity: WARNING,
+            message: MESSAGE_TX_FAILED
+          })
         }
       } else {
         if (provider) {

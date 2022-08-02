@@ -12,21 +12,21 @@ import * as yup from 'yup';
 import { useFormik } from "formik";
 import { Icon } from "@iconify/react";
 import useOrders from "../../hooks/useOrders";
-import { ITrendingService } from '../../utils/interfaces'
+import { IOrderItem } from '../../utils/interfaces'
 import { useMemo } from "react";
 
 interface IProps {
   isOpened: boolean;
   handleClose: Function;
-  price: number;
-  serviceData: ITrendingService;
+  orderData: IOrderItem;
+  serviceDataId: number;
 }
 
 const validSchema = yup.object().shape({
   token_link: yup.string().required('Please input the link of token.')
 });
 
-export default function DialogOrder({ isOpened, handleClose, price, serviceData }: IProps) {
+export default function DialogOrder({ isOpened, handleClose, orderData, serviceDataId }: IProps) {
   const { addOrderItemToCart } = useOrders()
 
   const formik = useFormik({
@@ -37,9 +37,7 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
     onSubmit: (values) => {
       let { token_link } = values
       addOrderItemToCart({
-        service_type: 'trending',
-        service_title: serviceData.title,
-        price,
+        ...orderData,
         token_link
       })
       handleClose()
@@ -47,7 +45,7 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
   })
 
   const valueOfPlaceholder = useMemo(() => {
-    switch (serviceData.id) {
+    switch (serviceDataId) {
       case 1:
         return 'https://www.certik.com/projects/binance'
       case 2:
@@ -59,7 +57,7 @@ export default function DialogOrder({ isOpened, handleClose, price, serviceData 
       default:
         return ''
     }
-  }, [serviceData.id])
+  }, [serviceDataId])
 
 
   return (

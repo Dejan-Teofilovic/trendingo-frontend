@@ -64,6 +64,7 @@ function OrdersProvider({ children }: IProps) {
   const { openLoading, closeLoading } = useContext(LoadingContext)
 
   const addOrderItemToCart = (order: IOrderItem) => {
+    console.log('# order => ', order)
     if (state.cart) {
       dispatch({
         type: 'SET_CART',

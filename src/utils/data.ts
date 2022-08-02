@@ -74,31 +74,35 @@ export const IMAGES: Array<IImage> = [
   },
   {
     id: 17,
-    value: '/assets/images/nft-design.jpg'
+    value: "/assets/images/nft-design.jpg"
   },
   {
     id: 18,
-    value: '/assets/images/nft-minting.jpg'
+    value: "/assets/images/nft-minting.jpg"
   },
   {
     id: 19,
-    value: '/assets/images/nft-marketplace.jpg'
+    value: "/assets/images/nft-marketplace.jpg"
   },
   {
     id: 20,
-    value: '/assets/images/nft-contract.jpg'
+    value: "/assets/images/nft-contract.jpg"
   },
   {
     id: 21,
-    value: '/assets/images/make-ftoken.jpg'
+    value: "/assets/images/fungible-token.jpg"
   },
   {
     id: 22,
-    value: '/assets/images/dex-swap.jpg'
+    value: "/assets/images/dex-swap.jpg"
   },
   {
     id: 23,
-    value: '/assets/images/whitepaper.jpg'
+    value: "/assets/images/whitepaper.jpg"
+  },
+  {
+    id: 24,
+    value: "/assets/images/dao.jpg"
   }
 ];
 
@@ -268,6 +272,50 @@ export const SELECTS = [
       {
         label: "50,000 watchlist",
         value: 50000
+      }
+    ]
+  },
+  {
+    id: 9,
+    label: "Development part",
+    options: [
+      {
+        label: "All",
+        value: "all"
+      },
+      {
+        label: "Frontend",
+        value: "frontend"
+      },
+      {
+        label: "Smart contract",
+        value: "smart_contract"
+      }
+    ]
+  },
+  {
+    id: 10,
+    label: "Development part",
+    options: [
+      {
+        label: "All",
+        value: "all"
+      },
+      {
+        label: "Site",
+        value: "frontend_&_backend"
+      },
+      {
+        label: "Frontend",
+        value: "frontend"
+      },
+      {
+        label: "Backend",
+        value: "backend"
+      },
+      {
+        label: "Smart contract",
+        value: "smart_contract"
       }
     ]
   }
@@ -856,21 +904,175 @@ export const UPVOTING_SERVICES: Array<IUpvotingService> = [
 export const DEVELOPMENT_SERVICES: Array<IDevelopmentService> = [
   {
     id: 1,
-    name: 'nft-design',
-    title: 'NFT design',
+    name: "nft-design",
+    title: "NFT design",
     description: ``,
     imageId: 17,
     price: 1000
   },
   {
     id: 2,
-    name: 'nft-minting',
-    title: 'NFT minting site',
+    name: "nft-minting",
+    title: "NFT minting site",
+    description: `
+      We are very professional in building NFT minting site.<br />
+      We can build whole site, only frontend, only smart contract by your choice.<br/>
+      Your NFT design layouts are necessary.<br />
+      Please order "NFT design" service if you don't have any NFT design layout.
+
+      <b>Descriptions of each option</b><br />
+      Frontend: Please select this option if you have only smart contract. We will build the frontend and connect it with your smart contract perfect.<br />
+      Smart contract: Please select this option if you have only frontend. We will develop the smart contract under your requests perfect. Unfortunately, the integration with the frontend can't be supported.<br>
+      All: Please select this option if you have nothing but idea and NFT design layouts. We will make the whole site perfect.
+    `,
+    imageId: 18,
+    selectIds: [9],
+    prices: [
+      {
+        devPart: "all",
+        price: 2500
+      },
+      {
+        devPart: "frontend",
+        price: 1500
+      },
+      {
+        devPart: "smart_contract",
+        price: 1500
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: "nft-marketplace",
+    title: "NFT marketplace",
+    description: `
+      You wanna have a NFT marketplace like Opensea, don't you? We can drive your dream up perfect.<br />
+      
+      <b>Descriptions of each option</b><br />
+      Frontend: Please select this option if you have smart contract and backend. We will build frontend as you want and connect it with the APIs your backend supports.<br />
+      Backend: Please select this option if you have frontend and smart contract. We will build backend and make APIs to connect with frontend.<br />
+      Smart contract: Please select this option if you need only smart contract.<br />
+      Site: Please select this option if you have only smart contract. We will make the site and connect it with your smart contract.<br />
+      All: Please select this option if you need to build a marketplace from scratch.
+    `,
+    imageId: 19,
+    selectIds: [10],
+    prices: [
+      {
+        devPart: 'all',
+        price: 10000
+      },
+      {
+        devPart: 'frontend_&_backend',
+        price: 8000
+      },
+      {
+        devPart: 'frontend',
+        price: 4500
+      },
+      {
+        devPart: 'backend',
+        price: 4500
+      },
+      {
+        devPart: 'smart_contract',
+        price: 3000
+      }
+    ]
+  },
+  {
+    id: 4,
+    name: "dex-swap",
+    title: "DEX / SWAP",
+    description: `
+      DEX / SWAP is a good platform for you to get a lot of profits. Of course, it seems little for users but every "little" fee builds up huge profit, and you get it.<br />
+      Interesting? Please order this service if you wanna that huge profit.
+
+      <b>Descriptions of each option</b><br />
+      Frontend: Please select this option if you have only smart contract. We will build the frontend and connect it with your smart contract perfect.<br />
+      Smart contract: Please select this option if you have only frontend. We will develop the smart contract under your requests perfect. Unfortunately, the integration with the frontend can't be supported.<br>
+      All: Please select this option if you have nothing but idea and NFT design layouts. We will make the whole site perfect.
+    `,
+    imageId: 22,
+    selectIds: [9],
+    prices: [
+      {
+        devPart: "all",
+        price: 5500
+      },
+      {
+        devPart: "frontend",
+        price: 3000
+      },
+      {
+        devPart: "smart_contract",
+        price: 3000
+      }
+    ]
+  },
+  {
+    id: 5,
+    name: "dao",
+    title: "DAO",
+    description: `
+      DAO is called corporation on blockchain because its working logic is very similiar with that.<br /> 
+      If you wanna be a CEO of this corporation, please order this.<br />
+
+      <b>Descriptions of each option</b><br />
+      Frontend: Please select this option if you have smart contract and backend. We will build frontend as you want and connect it with the APIs your backend supports.<br />
+      Backend: Please select this option if you have frontend and smart contract. We will build backend and make APIs to connect with frontend.<br />
+      Smart contract: Please select this option if you need only smart contract.<br />
+      Site: Please select this option if you have only smart contract. We will make the site and connect it with your smart contract.<br />
+      All: Please select this option if you need to build a marketplace from scratch.
+    `,
+    imageId: 24,
+    selectIds: [10],
+    prices: [
+      {
+        devPart: 'all',
+        price: 15000
+      },
+      {
+        devPart: 'frontend_&_backend',
+        price: 11000
+      },
+      {
+        devPart: 'frontend',
+        price: 6000
+      },
+      {
+        devPart: 'backend',
+        price: 6000
+      },
+      {
+        devPart: 'smart_contract',
+        price: 5000
+      }
+    ]
+
+  },
+  {
+    id: 6,
+    name: "fungible-token",
+    title: "Fungible token",
+    description: `
+      Do you wanna have your own token like "KPAC" or "Shiba"?<br /> 
+      If yes, don't hesitate to order this service please.<br />
+      <b>Price: </b> $1000
+    `,
+    imageId: 21,
+    price: 1000
+  },
+  {
+    id: 7,
+    name: "whitepaper",
+    title: "Whitepaper",
     description: ``,
-    imageId: 17,
+    imageId: 23,
     price: 1000
   }
-]
+];
 
 export const CHAINS: Array<IChain> = [
   {

@@ -16,24 +16,38 @@ import {
 import { grey } from '@mui/material/colors'
 import parse from 'html-react-parser'
 import { COLOR_PRIMARY } from '../../utils/constants'
-import { IMAGES, SELECTS, UPVOTING_SERVICES } from '../../utils/data'
+import { DEVELOPMENT_SERVICES, IMAGES, LISTING_SERVICES, SELECTS } from '../../utils/data'
 import useOrders from '../../hooks/useOrders'
 import DialogOrder from './DialogOrder'
 
-export default function UpvotingService() {
+export default function DevelopmentService() {
   const { serviceName } = useParams()
-  const theme = useTheme()
+  const theme = useTheme();
   const { cart } = useOrders()
 
-  const [amount, setAmount] = useState(0)
+  const [devPart, setDevPart] = useState('all')
   const [dialogOpened, setDialogOpened] = useState(false)
 
   const serviceData = useMemo(() => {
-    let service = UPVOTING_SERVICES.find(
+    let service = DEVELOPMENT_SERVICES.find(
       element => element.name === serviceName
     )
     return service
   }, [serviceName])
+
+  const price = useMemo(() => {
+    if (serviceData) {
+      if (serviceData.price) {
+        return serviceData.price
+      } else {
+        let priceData = null
+        if (devPart) {
+          priceData = serviceData?.prices?.find(priceItem => priceItem.devPart === devPart)
+          return priceData?.price
+        }
+      }
+    }
+  }, [serviceData, devPart])
 
   const imageUrl = useMemo(() => {
     if (serviceData) {
@@ -41,18 +55,6 @@ export default function UpvotingService() {
       return imageData?.value
     }
   }, [serviceData?.imageId])
-
-  const price = useMemo(() => {
-    if (serviceData) {
-      if (amount) {
-        let priceData = serviceData.prices.find(priceItem => priceItem.amount === amount)
-
-        if (priceData) {
-          return priceData.price
-        }
-      }
-    }
-  }, [amount])
 
   const disableOrder = useMemo(() => {
     if (!price) {
@@ -67,15 +69,14 @@ export default function UpvotingService() {
     return false
   }, [cart, price])
 
-  const handleChangeSelect = (selectId: number, value: string) => {
-    if (selectId === 8) {
-      setAmount(Number(value))
-    }
-  }
 
   const handleClose = () => {
     setDialogOpened(false);
   };
+
+  const handleChangeSelect = (value: string) => {
+    setDevPart(value)
+  }
 
   return (
     <Box>
@@ -137,75 +138,74 @@ export default function UpvotingService() {
             </Grid>
           </Box>
 
-          <Card sx={{ p: 3 }}>
-            <Stack
-              direction={{ xs: 'column', md: 'row' }}
-              justifyContent="space-between"
-              alignItems="center"
-              spacing={3}
-            >
-              <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={4}>
-                {
-                  serviceData?.selectIds && (
-                    <>
-                      {
-                        serviceData.selectIds.map(id => {
-                          let selectData = SELECTS.find(element => element.id === id);
-                          if (selectData) {
-                            return (
-                              <TextField
-                                select
-                                name="chain"
-                                label={selectData.label}
-                                sx={{ width: '25ch' }}
-                                key={id}
-                                onChange={(e) => handleChangeSelect(id, e?.target?.value)}
-                              >
-                                {
-                                  selectData.options.map(optionItem => (
-                                    <MenuItem value={optionItem.value} key={optionItem.value}>
-                                      {optionItem.label}
-                                    </MenuItem>
-                                  ))
-                                }
-                              </TextField>
-                            )
-                          }
-                          return <Fragment key={id} />
-                        })
-                      }
-                    </>
-                  )
-                }
+          {
+            serviceData?.selectIds ? (
+              <Card sx={{ p: 3 }}>
+                <Stack
+                  direction={{ xs: 'column', md: 'row' }}
+                  justifyContent="space-between"
+                  alignItems="center"
+                  spacing={3}
+                >
+                  <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={4}>
+                    {
+                      serviceData.selectIds.map(id => {
+                        let selectData = SELECTS.find(element => element.id === id);
+                        if (selectData) {
+                          return (
+                            <TextField
+                              select
+                              name="chain"
+                              label={selectData.label}
+                              sx={{ width: '25ch' }}
+                              key={id}
+                              onChange={(e) => handleChangeSelect(e?.target?.value)}
+                            >
+                              {
+                                selectData.options.map(optionItem => (
+                                  <MenuItem value={optionItem.value} key={optionItem.value}>
+                                    {optionItem.label}
+                                  </MenuItem>
+                                ))
+                              }
+                            </TextField>
+                          )
+                        }
+                        return <Fragment key={id} />
+                      })
+                    }
+                  </Stack>
+
+                  {
+                    price && (
+                      <Typography variant="h5" color="white">
+                        {price} $
+                      </Typography>
+                    )
+                  }
+
+                  <Button variant="contained" onClick={() => setDialogOpened(true)} disabled={disableOrder}>
+                    Order
+                  </Button>
+                </Stack>
+              </Card>
+            ) : (
+              <Stack
+                direction="row"
+                justifyContent="end"
+                width="100%"
+              >
+                <Button variant="contained" disabled={disableOrder} onClick={() => setDialogOpened(true)}>
+                  Order
+                </Button>
               </Stack>
-
-              {
-                price && (
-                  <Typography variant="h5" color="white">
-                    {price} $
-                  </Typography>
-                )
-              }
-
-              <Button variant="contained" onClick={() => setDialogOpened(true)} disabled={disableOrder}>
-                Order
-              </Button>
-            </Stack>
-          </Card>
+            )
+          }
         </Stack>
       </Container>
       {
         serviceData && price && (
-          <DialogOrder
-            isOpened={dialogOpened}
-            handleClose={handleClose}
-            orderData={{
-              service_type: 'upvoting',
-              service_title: serviceData.title,
-              amount: amount + ' watchlist',
-              price: price
-            }}
-          />
+          <DialogOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
         )
       }
     </Box>

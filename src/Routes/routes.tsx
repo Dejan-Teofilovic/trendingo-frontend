@@ -9,6 +9,7 @@ import UpvotingService from "../pages/UpvotingService";
 import Cart from "../pages/Cart";
 import { Navigate } from "react-router";
 import Influence from "../pages/Influence";
+import DevelopmentService from "../pages/DevelopmentService";
 
 export const routes = [
   {
@@ -47,6 +48,10 @@ export const routes = [
   {
     path: '/upvoting/:serviceName',
     element: <UpvotingService />
+  },
+  {
+    path: '/development/:serviceName',
+    element: <DevelopmentService />
   },
   {
     path: '/cart',

@@ -12,31 +12,34 @@ import * as yup from 'yup';
 import { useFormik } from "formik";
 import { Icon } from "@iconify/react";
 import useOrders from "../../hooks/useOrders";
-import { IOrderItem } from '../../utils/interfaces'
+import { IDevelopmentService } from '../../utils/interfaces'
 
 interface IProps {
   isOpened: boolean;
   handleClose: Function;
-  orderData: IOrderItem;
+  price: number;
+  serviceData: IDevelopmentService;
 }
 
 const validSchema = yup.object().shape({
-  lunchpad_link: yup.string().required('Please input the link of pinksale lunchpad.')
+  dev_order_description: yup.string().required('Please input your request detailer.')
 });
 
-export default function DialogPinksaleOrder({ isOpened, handleClose, orderData }: IProps) {
+export default function DialogOrder({ isOpened, handleClose, price, serviceData }: IProps) {
   const { addOrderItemToCart } = useOrders()
 
   const formik = useFormik({
     initialValues: {
-      lunchpad_link: ''
+      dev_order_description: ''
     },
     validationSchema: validSchema,
     onSubmit: (values) => {
-      let { lunchpad_link } = values
+      let { dev_order_description } = values
       addOrderItemToCart({
-        ...orderData,
-        lunchpad_link
+        service_type: 'development',
+        service_title: serviceData.title,
+        price,
+        dev_order_description
       })
       handleClose()
     }
@@ -50,20 +53,20 @@ export default function DialogPinksaleOrder({ isOpened, handleClose, orderData }
       <DialogContent>
         <Stack spacing={2} py={2}>
           <TextField
-            name="lunchpad_link"
-            label="Pinksale lunchpad link"
-            placeholder="https://www.pinksale.finance/launchpad/0x020d4f67581c95bf9916592024b475410791b55b?chain=BSC"
-            value={formik.values.lunchpad_link}
+            multiline
+            name="dev_order_description"
+            label="Your request"
+            value={formik.values.dev_order_description}
             onChange={formik.handleChange}
-            error={formik.touched.lunchpad_link && Boolean(formik.errors.lunchpad_link)}
+            error={formik.touched.dev_order_description && Boolean(formik.errors.dev_order_description)}
             helperText={
-              formik.touched.lunchpad_link && formik.errors.lunchpad_link ? (
+              formik.touched.dev_order_description && formik.errors.dev_order_description ? (
                 <Typography
                   component="span"
                   sx={{ display: 'flex', alignItems: 'center', mx: 0 }}
                 >
                   <Icon icon="bxs:error-alt" />&nbsp;
-                  {formik.touched.lunchpad_link && formik.errors.lunchpad_link}
+                  {formik.touched.dev_order_description && formik.errors.dev_order_description}
                 </Typography>
               ) : (<></>)
             }

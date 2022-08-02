@@ -108,7 +108,8 @@ export default function TrendingService() {
   };
 
   const handleChangeSelect = (selectId: number, value: string) => {
-    if (selectId === 1 || selectId === 5) {
+    console.log('>>>>>> selectId > ', selectId)
+    if (selectId === 1 || selectId === 5 || selectId === 7) {
       setTrendingType(value)
     } else if (selectId === 2 || selectId === 3) {
       setPeriod(Number(value))
@@ -274,13 +275,53 @@ export default function TrendingService() {
           if (serviceData && price) {
             switch (serviceData.id) {
               case 5:
-                return <DialogDexToolsOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+                return <DialogDexToolsOrder
+                  isOpened={dialogOpened}
+                  handleClose={handleClose}
+                  orderData={{
+                    service_type: 'trending',
+                    service_title: serviceData.title,
+                    chain,
+                    period: `${period} day${period > 1 && 's'}`,
+                    price
+                  }}
+                />
               case 6:
-                return <DialogPoocoinOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+                return <DialogPoocoinOrder
+                  isOpened={dialogOpened}
+                  handleClose={handleClose}
+                  orderData={{
+                    service_type: 'trending',
+                    service_title: serviceData.title,
+                    trending_type: trendingType,
+                    period: `${period} day${period > 1 && 's'}`,
+                    price
+                  }}
+                />
               case 7:
-                return <DialogPinksaleOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+                return <DialogPinksaleOrder
+                  isOpened={dialogOpened}
+                  handleClose={handleClose}
+                  orderData={{
+                    service_type: 'trending',
+                    service_title: serviceData.title,
+                    period: `${period} day${period > 1 && 's'}`,
+                    price
+                  }}
+                />
               default:
-                return <DialogOrder isOpened={dialogOpened} handleClose={handleClose} price={price} serviceData={serviceData} />
+                return <DialogOrder
+                  isOpened={dialogOpened}
+                  handleClose={handleClose}
+                  serviceDataId={serviceData.id}
+                  orderData={{
+                    service_type: 'trending',
+                    service_title: serviceData.title,
+                    trending_type: trendingType,
+                    period: `${period} day${period > 1 && 's'}`,
+                    price
+                  }}
+                />
             }
           }
           return <></>

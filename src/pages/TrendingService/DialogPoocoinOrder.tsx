@@ -12,20 +12,19 @@ import * as yup from 'yup';
 import { useFormik } from "formik";
 import { Icon } from "@iconify/react";
 import useOrders from "../../hooks/useOrders";
-import { ITrendingService } from '../../utils/interfaces'
+import { IOrderItem } from '../../utils/interfaces'
 
 interface IProps {
   isOpened: boolean;
   handleClose: Function;
-  price: number;
-  serviceData: ITrendingService;
+  orderData: IOrderItem;
 }
 
 const validSchema = yup.object().shape({
   contract_address: yup.string().required('Please input the address of contract.')
 });
 
-export default function DialogPoocoinOrder({ isOpened, handleClose, price, serviceData }: IProps) {
+export default function DialogPoocoinOrder({ isOpened, handleClose, orderData }: IProps) {
   const { addOrderItemToCart } = useOrders()
 
   const formik = useFormik({
@@ -36,9 +35,7 @@ export default function DialogPoocoinOrder({ isOpened, handleClose, price, servi
     onSubmit: (values) => {
       let { contract_address } = values
       addOrderItemToCart({
-        service_type: 'trending',
-        service_title: serviceData.title,
-        price,
+        ...orderData,
         contract_address
       })
       handleClose()

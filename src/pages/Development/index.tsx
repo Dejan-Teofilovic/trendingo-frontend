@@ -1,9 +1,67 @@
-import { Box } from "@mui/material";
+import { Box, Container, Typography, Grid } from "@mui/material"
+import ServiceCardItem from "../../components/ServiceCardItem"
+import { COLOR_WHITE, COLOR_PRIMARY } from "../../utils/constants"
+import { DEVELOPMENT_SERVICES, TRENDING_SERVICES } from "../../utils/data"
+
+/* ----------------------------------------------------------------- */
+
+// const SLIDE_SETTINGS = {
+//   dots: true,
+//   arrows: false,
+//   infinite: true,
+//   speed: 500,
+//   slidesToShow: 4,
+//   slidesToScroll: 1,
+//   initialSlide: 0,
+//   autoplay: true,
+//   autoplaySpeed: 9000,
+//   responsive: [
+//     {
+//       breakpoint: 1280,
+//       settings: { slidesToShow: 4 }
+//     },
+//     {
+//       breakpoint: 1024,
+//       settings: { slidesToShow: 3 }
+//     },
+//     {
+//       breakpoint: 960,
+//       settings: { slidesToShow: 2 }
+//     },
+//     {
+//       breakpoint: 480,
+//       settings: { slidesToShow: 1, centerPadding: '0' }
+//     }
+//   ]
+// }
 
 export default function Development() {
+
   return (
     <Box>
-      Development
+      <Container maxWidth="xl">
+        <Typography textAlign="center" variant="h4" color={COLOR_PRIMARY}>
+          Development Services
+        </Typography>
+        <Typography textAlign="center" variant="h6" color={COLOR_WHITE}>
+          Comprehensive chat! Fast pace of development! Strict check of quality! Perfect result!
+        </Typography>
+
+        <Box mt={{ xs: 3, md: 6 }}>
+          {/* <Carousel
+            slideSettings={SLIDE_SETTINGS}
+            carouselItemComponent={ServiceCardItem}
+            data={sites}
+          /> */}
+          <Grid container spacing={{ xs: 1, sm: 2, md: 4 }}>
+            {DEVELOPMENT_SERVICES.map((dataItem, index) => (
+              <Grid item xs={6} sm={4} md={3} key={dataItem.title}>
+                <ServiceCardItem key={index} dataItem={dataItem} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
     </Box>
   )
 }

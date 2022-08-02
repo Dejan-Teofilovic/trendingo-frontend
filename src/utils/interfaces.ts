@@ -38,7 +38,9 @@ export interface IDevelopmentService {
   title: string;
   description: string;
   imageId: number;
-  price: number;
+  price?: number;
+  selectIds?: Array<number>;
+  prices?: Array<IPrice>;
 }
 
 export interface IImage {
@@ -51,12 +53,13 @@ export interface IPrice {
   chain?: string;
   amount?: number;
   period?: number;
+  devPart?: string;
   price: number;
 }
 
 export interface IServiceCardItem {
   key: number;
-  dataItem: ITrendingService | IListService | IUpvotingService;
+  dataItem: ITrendingService | IListService | IUpvotingService | IDevelopmentService;
 }
 
 export interface IOrderItem {
@@ -73,6 +76,8 @@ export interface IOrderItem {
   token_link?: string;
   token_pair_link?: string;
   lunchpad_link?: string;
+  dev_part?: string;
+  dev_order_description?: string;
 }
 
 export interface IOrder {
@@ -96,5 +101,5 @@ export interface IChain {
 }
 
 export interface IError {
-  code: number
+  code: number;
 }
