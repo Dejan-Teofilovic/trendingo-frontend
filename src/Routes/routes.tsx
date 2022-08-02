@@ -20,22 +20,26 @@ export const routes = [
   {
     name: 'Development services',
     path: '/development',
-    element: <Development />
+    element: <Development />,
+    image: '/assets/images/development.jpg'
   },
   {
     name: 'Trending services',
     path: '/trending',
-    element: <Trending />
+    element: <Trending />,
+    image: '/assets/images/trending.jpg'
   },
   {
     name: 'Listing services',
     path: '/listing',
-    element: <Listing />
+    element: <Listing />,
+    image: '/assets/images/listing.jpg'
   },
   {
     name: 'Upvoting services',
     path: '/upvoting',
-    element: <Upvoting />
+    element: <Upvoting />,
+    image: '/assets/images/upvoting.jpg'
   },
   {
     path: '/trending/:serviceName',

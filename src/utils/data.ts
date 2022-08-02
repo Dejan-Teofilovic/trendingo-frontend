@@ -905,8 +905,13 @@ export const DEVELOPMENT_SERVICES: Array<IDevelopmentService> = [
   {
     id: 1,
     name: "nft-design",
-    title: "NFT design",
-    description: ``,
+    title: "NFTs custom",
+    description: `
+      The hustle of getting NFT art done from 1 seller and then looking for other sellers to get minting website and smart contract is gone.<br />
+      Order today to get started on NFT project.<br />
+      We have your all needs covered from NFT art to Minting website and smart contract, You won't need to worry about finding various people to take care of stuff.<br />
+      In the mean time all you can focus on is marketing and your group to make your NFT collection booming.
+    `,
     imageId: 17,
     price: 1000
   },
@@ -960,23 +965,23 @@ export const DEVELOPMENT_SERVICES: Array<IDevelopmentService> = [
     selectIds: [10],
     prices: [
       {
-        devPart: 'all',
+        devPart: "all",
         price: 10000
       },
       {
-        devPart: 'frontend_&_backend',
+        devPart: "frontend_&_backend",
         price: 8000
       },
       {
-        devPart: 'frontend',
+        devPart: "frontend",
         price: 4500
       },
       {
-        devPart: 'backend',
+        devPart: "backend",
         price: 4500
       },
       {
-        devPart: 'smart_contract',
+        devPart: "smart_contract",
         price: 3000
       }
     ]
@@ -1030,27 +1035,26 @@ export const DEVELOPMENT_SERVICES: Array<IDevelopmentService> = [
     selectIds: [10],
     prices: [
       {
-        devPart: 'all',
+        devPart: "all",
         price: 15000
       },
       {
-        devPart: 'frontend_&_backend',
+        devPart: "frontend_&_backend",
         price: 11000
       },
       {
-        devPart: 'frontend',
+        devPart: "frontend",
         price: 6000
       },
       {
-        devPart: 'backend',
+        devPart: "backend",
         price: 6000
       },
       {
-        devPart: 'smart_contract',
+        devPart: "smart_contract",
         price: 5000
       }
     ]
-
   },
   {
     id: 6,
@@ -1068,7 +1072,14 @@ export const DEVELOPMENT_SERVICES: Array<IDevelopmentService> = [
     id: 7,
     name: "whitepaper",
     title: "Whitepaper",
-    description: ``,
+    description: `
+      <b>What you will get:<b />
+      1. A high-quality and professional written white paper for your ICO or blockchain development project.<br />
+      2. A solid, detailed plan that covers the entire project.<br />
+      3. Clarity about your goal.<br />
+      4. 100% Unique content. <br />
+      5. 100% plagiarism-free content.<br />
+    `,
     imageId: 23,
     price: 1000
   }

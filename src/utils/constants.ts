@@ -16,14 +16,15 @@ export const MESSAGE_WALLET_CONNECT_ERROR =
   "Wallet connect error. Try again, please.";
 export const MESSAGE_SWITCH_NETWORK_TO_BSC =
   "Please switch the network to Binance Smart Chain.";
-  export const MESSAGE_SWITCH_NETWORK_TO_ETH =
+export const MESSAGE_SWITCH_NETWORK_TO_ETH =
   "Please switch the network to Ethereum mainnet.";
 export const MESSAGE_CART_EMPTY = "Cart is empty.";
 export const MESSAGE_TRY_WALLET_CONNECT = "Try connect wallet again, plz.";
 export const MESSAGE_USER_REGISTERED =
   "You are registered! Enjoy our site, please!";
 export const MESSAGE_ORDER_SAVED = "Order has been saved.";
-export const MESSAGE_TX_FAILED = "Transaction is failed.";
+export const MESSAGE_TX_FAILED =
+  "You wallet does not have sufficient balance, Transaction Failed.";
 export const MESSAGE_NOT_ENOUGH_BALANCE = "Your balance isn't enough.";
 export const MESSAGE_INFLUENCE_SUCCESS =
   "Your influence has been submitted to your friend.";

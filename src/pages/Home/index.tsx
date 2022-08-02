@@ -6,7 +6,8 @@ import {
   Container,
   Grid,
   Typography,
-  Stack
+  Stack,
+  CardMedia
 } from "@mui/material"
 import { Fragment } from "react"
 import { useNavigate } from "react-router"
@@ -36,7 +37,12 @@ export default function Home() {
                     <Grid item xs={6} sm={4} md={3} key={routeItem.path}>
                       <Card sx={{ height: '100%' }}>
                         <CardActionArea onClick={() => navigate(routeItem.path)}>
-                          <CardContent sx={{ py: { lg: 20, md: 15, sm: 15, xs: 10 } }}>
+                          <CardMedia
+                            component="img"
+                            src={routeItem.image}
+                            alt={routeItem.name}
+                          />
+                          <CardContent>
                             <Typography variant="h5" textAlign="center">
                               {routeItem.name}
                             </Typography>
