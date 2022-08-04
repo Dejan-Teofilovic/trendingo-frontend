@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import parse from 'html-react-parser'
-import { COLOR_PRIMARY, URL_TELEGRAM_ADMIN_1, URL_TELEGRAM_ADMIN_2 } from '../../utils/constants'
+import { COLOR_PRIMARY, COLOR_WHITE, URL_TELEGRAM_ADMIN_1, URL_TELEGRAM_ADMIN_2 } from '../../utils/constants'
 import { IMAGES, LISTING_SERVICES } from '../../utils/data'
 import useOrders from '../../hooks/useOrders'
 import DialogOrder from './DialogOrder'
@@ -142,19 +142,26 @@ export default function ListingService() {
                   Contact <Link target="_blank" href={URL_TELEGRAM_ADMIN_1}>@sagarnaik1</Link> or <Link target="_blank" href={URL_TELEGRAM_ADMIN_2}>@GibonDEXT</Link>
                 </Typography>
               </Box>
+
+              <Typography variant="h5" fontWeight={700} mt={5} color={COLOR_WHITE}>
+                Price: <Typography component="span" variant="h4" fontWeight={900}>
+                  ${price}
+                </Typography>
+              </Typography>
+
+              <Button
+                size="large"
+                variant="contained"
+                disabled={disableOrder}
+                onClick={() => setDialogOpened(true)}
+                sx={{ mt: 4, minWidth: 300, fontWeight: 900 }}
+              >
+                Order
+              </Button>
             </Grid>
           </Grid>
         </Box>
 
-        <Stack
-          direction="row"
-          justifyContent="end"
-          width="100%"
-        >
-          <Button variant="contained" disabled={disableOrder} onClick={() => setDialogOpened(true)}>
-            Order
-          </Button>
-        </Stack>
       </Stack>
       {
         serviceData && price && (

@@ -45,7 +45,7 @@ export default function DialogOrder({ isOpened, handleClose, orderData }: IProps
   return (
     <Dialog open={isOpened} onClose={() => handleClose()} fullWidth maxWidth="sm">
       <DialogTitle sx={{ py: 2, px: 3 }}>
-        Please fill in the input fields
+        Please fill in the input field
       </DialogTitle>
       <DialogContent>
         <Stack spacing={2} py={2}>

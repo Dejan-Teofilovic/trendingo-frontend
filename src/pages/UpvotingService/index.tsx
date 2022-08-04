@@ -44,8 +44,10 @@ export default function UpvotingService() {
   }, [serviceData?.imageId])
 
   const price = useMemo(() => {
+    console.log('>>>>> serviceData: ', serviceData);
     if (serviceData) {
       if (amount) {
+        console.log('>>>>>>> amount ', amount)
         let priceData = serviceData.prices.find(priceItem => priceItem.amount === amount)
 
         if (priceData) {
@@ -69,9 +71,7 @@ export default function UpvotingService() {
   }, [cart, price])
 
   const handleChangeSelect = (selectId: number, value: string) => {
-    if (selectId === 8) {
-      setAmount(Number(value))
-    }
+    setAmount(Number(value))
   }
 
   const handleClose = () => {
@@ -228,7 +228,7 @@ export default function UpvotingService() {
             orderData={{
               service_type: 'upvoting',
               service_title: serviceData.title,
-              amount: amount + ' watchlist',
+              amount: `${amount} ${serviceData.title === 'coinmarketcap' ? 'watchlist' : serviceData.title === 'coingecko' ? 'likes' : 'views'}'`,
               price: price
             }}
           />

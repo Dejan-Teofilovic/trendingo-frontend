@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react"
 import {
   Box,
   Card,
@@ -7,7 +8,9 @@ import {
   Grid,
   Typography,
   Stack,
-  CardMedia
+  CardMedia,
+  Link,
+  Button
 } from "@mui/material"
 import { Fragment } from "react"
 import { useNavigate } from "react-router"
@@ -18,14 +21,40 @@ export default function Home() {
   const navigate = useNavigate();
   return (
     <Container maxWidth="xl">
-      <Stack spacing={{ md: 12, xs: 6 }}>
+      <Stack spacing={6}>
         <Stack spacing={1}>
           <Typography textAlign="center" variant="h4" color={COLOR_PRIMARY}>
-            Leading Marketing Services In The Crypto Industry
+            Trendingo Keeps you on Trend
           </Typography>
           <Typography textAlign="center" variant="h6" color={COLOR_WHITE}>
             All-in-one crypto services with the most effective marketing solution from the marketplace.
           </Typography>
+        </Stack>
+
+        <Stack direction="row" justifyContent="center">
+          <Box
+            component="div"
+            className="trustpilot-widget"
+            data-locale="en-US"
+            data-template-id="5419b6a8b0d04a076446a9ad"
+            data-businessunit-id="62dab4e724137f4533e59d0b"
+            data-style-height="24px"
+            data-style-width="100%"
+            data-theme="dark"
+            data-without-reviews-preferred-string-id="1"
+          >
+            <Button
+              component={Link}
+              href="https://www.trustpilot.com/review/trendingo.cc"
+              target="_blank"
+              rel="noopener"
+              variant="outlined"
+              startIcon={<Icon icon="simple-icons:trustpilot" />}
+              endIcon={<Icon icon="simple-icons:trustpilot" />}
+            >
+              Trustpilot
+            </Button>
+          </Box>
         </Stack>
 
         <Box>

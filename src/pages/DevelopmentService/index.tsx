@@ -159,11 +159,20 @@ export default function DevelopmentService() {
                     Contact <Link target="_blank" href={URL_TELEGRAM_ADMIN_1}>@sagarnaik1</Link> or <Link target="_blank" href={URL_TELEGRAM_ADMIN_2}>@GibonDEXT</Link>
                   </Typography>
                 </Box>
+
+                <Button
+                  variant="contained"
+                  disabled={disableOrder}
+                  onClick={() => setDialogOpened(true)}
+                  sx={{ mt: 4, minWidth: 300, fontWeight: 900 }}
+                >
+                  Get a quote
+                </Button>
               </Grid>
             </Grid>
           </Box>
 
-          {
+          {/* {
             serviceData?.selectIds ? (
               <Card sx={{ p: 3 }}>
                 <Stack
@@ -225,7 +234,9 @@ export default function DevelopmentService() {
                 </Button>
               </Stack>
             )
-          }
+          } */}
+
+
         </Stack>
       </Container>
       {

@@ -318,6 +318,50 @@ export const SELECTS = [
         value: "smart_contract"
       }
     ]
+  },
+  {
+    id: 11,
+    label: "Amount",
+    options: [
+      {
+        label: "1,000 likes",
+        value: 1000
+      },
+      {
+        label: "5,000 likes",
+        value: 5000
+      },
+      {
+        label: "10,000 likes",
+        value: 10000
+      },
+      {
+        label: "50,000 likes",
+        value: 50000
+      }
+    ]
+  },
+  {
+    id: 12,
+    label: "Amount",
+    options: [
+      {
+        label: "1,000 views",
+        value: 1000
+      },
+      {
+        label: "5,000 views",
+        value: 5000
+      },
+      {
+        label: "10,000 views",
+        value: 10000
+      },
+      {
+        label: "50,000 views",
+        value: 50000
+      }
+    ]
   }
 ];
 
@@ -414,6 +458,7 @@ export const TRENDING_SERVICES: Array<ITrendingService> = [
     name: "coingecko",
     title: "Coingecko Trending",
     description: `
+      Coingecko shows top cryptocurrency prices live, crypto charts, market cap, and trading volume. Discover Everyday’s new and trending coins, top crypto gainers and losers in real-time.<br />
       Get Coingecko Trending to promote your token on either <a target="_blank" href="https://www.coingecko.com/en/watchlists">Trending Search</a> Or <a target="_blank" href="https://www.coingecko.com/en/watchlists/trending-crypto/united-states">Trending Region</a>.
     `,
     imageId: 3,
@@ -476,6 +521,7 @@ export const TRENDING_SERVICES: Array<ITrendingService> = [
     name: "coinmarketcap",
     title: "Coinmarketcap Trending",
     description: `
+      Coinmarketcap provides access to current and historic data for Bitcoin and thousands of altcoins.<br />
       Get your token/ Coin trending on Coinmarketcap on <a target="_blank" href="https://coinmarketcap.com/trending-cryptocurrencies/">Trending Search</a> or <a target="_blank" href="https://coinmarketcap.com/most-viewed-pages/">Most Visited</a>.
     `,
     imageId: 6,
@@ -761,24 +807,23 @@ export const LISTING_SERVICES: Array<IListService> = [
     name: "coingecko",
     title: "Coingecko Listing",
     description: `
+      Coingecko shows top cryptocurrency prices live, crypto charts, market cap, and trading volume. Discover Everyday’s new and trending coins, top crypto gainers and losers in real-time.<br />
       Get your token or Coin listed on <a target="_blank" href="https://coingecko.com">Coingecko.com</a>.<br />
       Time Frame: 24-48 Hours<br />
       Please Provide your telegram Username Correctly, We will reach out to you for more information.<br />
-      Pricing: 3500$
     `,
     imageId: 3,
-    // price: 3500
-    price: 1
+    price: 3500
   },
   {
     id: 2,
     name: "coinmarketcap",
     title: "CoinMarketCap listing",
     description: `
+      Coinmarketcap provides access to current and historic data for Bitcoin and thousands of altcoins.<br />
       Get your token or Coin listed on <a target="_blank" href="https://coinmarketcap.com">Coinmarketcap.com</a>.<br />
       Time Frame: 24-48 Hours<br />
       Please Provide your telegram Username Correctly, We will reach out to you for more information.<br />
-      Pricing: 4500$
     `,
     imageId: 6,
     price: 4500
@@ -804,7 +849,6 @@ export const LISTING_SERVICES: Array<IListService> = [
     description: `
       Discount Package for Listing on <a target="_blank" href="https://coinmarketcap.com">Coinmarketcap.com</a>, <a target="_blank" href="https://coingecko.com">Coingecko.com</a> and Trustwallet.<br />
       Please Provide your telegram Username Correctly, We will reach out to you for more information.<br>
-      Pricing: 7500$
     `,
     imageId: 3,
     price: 7500
@@ -850,7 +894,7 @@ export const UPVOTING_SERVICES: Array<IUpvotingService> = [
       Get Authentic Likes for your token/ Coin to drive investors attention.
     `,
     imageId: 3,
-    selectIds: [8],
+    selectIds: [11],
     prices: [
       {
         amount: 1000,
@@ -879,7 +923,7 @@ export const UPVOTING_SERVICES: Array<IUpvotingService> = [
       Get more views on your <a target="_blank" href="https://crypto.com">crypto.com</a> minted NFTs, so you’ll get more bids and buyers for the NFT.
     `,
     imageId: 10,
-    selectIds: [8],
+    selectIds: [12],
     prices: [
       {
         amount: 1000,
@@ -1018,11 +1062,10 @@ export const DEVELOPMENT_SERVICES: Array<IDevelopmentService> = [
   },
   {
     id: 5,
-    name: "dao",
-    title: "DAO",
+    name: "token-a-to-z",
+    title: "Token's A To Z",
     description: `
-      DAO is called corporation on blockchain because its working logic is very similiar with that.<br /> 
-      If you wanna be a CEO of this corporation, please order this.<br />
+      We provides various websites using cryptocurrency.<br /> 
 
       <b>Descriptions of each option</b><br />
       Frontend: Please select this option if you have smart contract and backend. We will build frontend as you want and connect it with the APIs your backend supports.<br />
