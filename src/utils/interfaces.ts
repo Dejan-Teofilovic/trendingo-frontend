@@ -59,7 +59,11 @@ export interface IPrice {
 
 export interface IServiceCardItem {
   key: number;
-  dataItem: ITrendingService | IListService | IUpvotingService | IDevelopmentService;
+  dataItem:
+    | ITrendingService
+    | IListService
+    | IUpvotingService
+    | IDevelopmentService;
 }
 
 export interface IOrderItem {
@@ -102,4 +106,10 @@ export interface IChain {
 
 export interface IError {
   code: number;
+}
+
+export interface IDevOrderData {
+  dev_order_description: string;
+  telegram_username: string;
+  email: string;
 }

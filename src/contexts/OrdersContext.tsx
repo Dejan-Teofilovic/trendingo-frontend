@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from 'react';
 import api from '../utils/api';
 import { INFO, MESSAGE_ORDER_SAVED, SUCCESS } from '../utils/constants';
-import { IOrderItem } from '../utils/interfaces';
+import { IDevOrderData, IOrderItem } from '../utils/interfaces';
 import { AlertMessageContext } from './AlertMessageContext';
 import { LoadingContext } from './LoadingContext';
 
@@ -55,6 +55,7 @@ const OrdersContext = createContext({
     discountPercentage: number,
     realPrice: number
   ) => Promise.resolve(),
+  orderDevService: (orderData: IDevOrderData) => Promise.resolve()
 });
 
 //  Provider
@@ -118,13 +119,30 @@ function OrdersProvider({ children }: IProps) {
       })
   }
 
+  const orderDevService = (orderData: IDevOrderData) => {
+    openLoading()
+    api.post('/order/order-dev-service', orderData)
+      .then(() => {
+        openAlert({
+          severity: SUCCESS,
+          message: MESSAGE_ORDER_SAVED
+        })
+        closeLoading()
+      })
+      .catch((error) => {
+        console.log('# error => ', error)
+        closeLoading()
+      })
+  }
+
   return (
     <OrdersContext.Provider
       value={{
         ...state,
         addOrderItemToCart,
         removeOrderItemFromCart,
-        addNewOrder
+        addNewOrder,
+        orderDevService
       }}
     >
       {children}

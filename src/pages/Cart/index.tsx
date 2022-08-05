@@ -43,6 +43,7 @@ import { ethers } from "ethers";
 import Web3 from "web3";
 import { IError } from "../../utils/interfaces";
 import useUser from "../../hooks/useUser";
+import { removeAtMarkPrefix } from "../../utils/functions";
 
 const validSchema = yup.object().shape({
   telegramUsername: yup.string().required('Please input your telegram username.'),
@@ -93,7 +94,11 @@ export default function Cart() {
         })
       }
       let transaction = null
+      let telegramUsername = removeAtMarkPrefix(values.telegramUsername)
+      let alternativeTelegramUsername = removeAtMarkPrefix(values.alternativeTelegramUsername)
+
       openLoading()
+      
       if (currency === 'BUSD' && contract) {
         let { market_data: { current_price: { usd } } } = await (await fetch(`${API_TO_GET_PRICE_OF_TOKEN}${API_ID_OF_BUSD}${API_PARAMETERS}`)).json()
 
@@ -109,8 +114,8 @@ export default function Cart() {
 
           addNewOrder(
             userId,
-            values.telegramUsername,
-            values.alternativeTelegramUsername,
+            telegramUsername,
+            alternativeTelegramUsername,
             totalPrice,
             discountPercentage,
             totalPrice - totalPrice * discountPercentage
@@ -153,8 +158,8 @@ export default function Cart() {
 
             addNewOrder(
               userId,
-              values.telegramUsername,
-              values.alternativeTelegramUsername,
+              telegramUsername,
+              alternativeTelegramUsername,
               totalPrice,
               discountPercentage,
               totalPrice - totalPrice * discountPercentage
