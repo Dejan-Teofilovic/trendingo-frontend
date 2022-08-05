@@ -204,7 +204,7 @@ function WalletProvider({ children }: IProps) {
 
           dispatch({
             type: 'SET_PROVIDER',
-            payload: provider.provider
+            payload: provider
           });
 
           dispatch({
