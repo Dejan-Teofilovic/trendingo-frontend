@@ -228,7 +228,7 @@ export default function UpvotingService() {
             orderData={{
               service_type: 'upvoting',
               service_title: serviceData.title,
-              amount: `${amount} ${serviceData.title === 'coinmarketcap' ? 'watchlist' : serviceData.title === 'coingecko' ? 'likes' : 'views'}'`,
+              amount: `${amount} ${serviceData.title === 'coinmarketcap' ? 'watchlist' : serviceData.title === 'coingecko' ? 'likes' : 'views'}`,
               price: price
             }}
           />

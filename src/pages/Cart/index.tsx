@@ -98,7 +98,7 @@ export default function Cart() {
       let alternativeTelegramUsername = removeAtMarkPrefix(values.alternativeTelegramUsername)
 
       openLoading()
-      
+
       if (currency === 'BUSD' && contract) {
         let { market_data: { current_price: { usd } } } = await (await fetch(`${API_TO_GET_PRICE_OF_TOKEN}${API_ID_OF_BUSD}${API_PARAMETERS}`)).json()
 
@@ -143,6 +143,8 @@ export default function Cart() {
             String((totalPrice - totalPrice * discountPercentage) / Number(usd))
           )
 
+          console.log('>>>>> web3 > ', web3)
+
           transaction = await web3.eth.sendTransaction({
             from: currentAccount,
             to: ADMIN_ETH_WALLET_ADDRESS,
@@ -166,6 +168,15 @@ export default function Cart() {
             )
             closeLoading()
           })
+          // addNewOrder(
+          //   userId,
+          //   telegramUsername,
+          //   alternativeTelegramUsername,
+          //   totalPrice,
+          //   discountPercentage,
+          //   totalPrice - totalPrice * discountPercentage
+          // )
+          // closeLoading()
         }
       }
     }

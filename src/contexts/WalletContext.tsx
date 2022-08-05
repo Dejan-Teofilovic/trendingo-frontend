@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer } from 'react';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { ethers } from 'ethers';
+import Web3 from 'web3';
 import {
   CONTRACT_ABI_BUSD,
   CONTRACT_ADDRESS_BUSD,
@@ -155,6 +156,8 @@ function WalletProvider({ children }: IProps) {
         const web3Modal = await getWeb3Modal();
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
+        console.log('>>>>>> provider > ', provider)
+
         let accounts = null;
         let signer = null;
         let contract = null;
@@ -204,7 +207,8 @@ function WalletProvider({ children }: IProps) {
 
           dispatch({
             type: 'SET_PROVIDER',
-            payload: provider
+            // payload: provider
+            payload: provider.provider
           });
 
           dispatch({
@@ -237,6 +241,7 @@ function WalletProvider({ children }: IProps) {
         }
         /* ---------------------------------------------- */
       } catch (error) {
+        console.log('>>>>>>> error > ', error)
         dispatch({
           type: 'SET_CURRENT_ACCOUNT',
           payload: ''
