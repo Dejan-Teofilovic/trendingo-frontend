@@ -21,6 +21,7 @@ import { TCurrency } from '../utils/types';
 import api from '../utils/api';
 import { IError } from '../utils/interfaces';
 import { UserContext } from './UserContext';
+import { LoadingContext } from './LoadingContext';
 
 interface IAction {
   type: string,
@@ -122,6 +123,7 @@ function WalletProvider({ children }: IProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { openAlert } = useContext(AlertMessageContext);
   const { setUserId } = useContext(UserContext)
+  const { openLoading, closeLoading } = useContext(LoadingContext)
 
   const getWeb3Modal = async () => {
     const web3Modal = new Web3Modal({
@@ -142,7 +144,6 @@ function WalletProvider({ children }: IProps) {
   /** Connect wallet */
   const connectWallet = async (currency: TCurrency, influenceToken?: string) => {
     let chain = null
-
     if (currency === 'ETH' || currency === 'BNB') {
       chain = CHAINS.find(chainItem => chainItem.nativeCurrencySymbol === currency)
     } else {
@@ -158,7 +159,7 @@ function WalletProvider({ children }: IProps) {
         let signer = null;
         let contract = null;
         const { chainId } = await provider.getNetwork();
-
+        openLoading()
         /* --------------- Switch network --------------- */
         if (chainId === chain.chainId) {
           accounts = await provider.listAccounts();
@@ -188,10 +189,12 @@ function WalletProvider({ children }: IProps) {
                   message: MESSAGE_USER_REGISTERED
                 })
               }
+              closeLoading()
               setUserId(response.data.userId)
             })
             .catch(error => {
               console.log('# error => ', error)
+              closeLoading()
             })
 
           dispatch({
@@ -230,6 +233,7 @@ function WalletProvider({ children }: IProps) {
               message: MESSAGE_SWITCH_NETWORK_TO_BSC
             });
           }
+          closeLoading()
         }
         /* ---------------------------------------------- */
       } catch (error) {

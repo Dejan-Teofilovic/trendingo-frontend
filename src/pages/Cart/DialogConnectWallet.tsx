@@ -27,8 +27,8 @@ export default function DialogConnectWallet({ isOpened, handleClose }: IProps) {
   }
 
   const handleConenctWallet = () => {
-    handleClose()
     connectWallet(currency)
+    handleClose()
   }
 
   return (
