@@ -1,4 +1,4 @@
-# Trendingo - Ordering service related to crypto side
+# The frontend of Trendingo - Ordering service related to crypto side
 
 ## Live site
 [![Live site](readme_images/guide-site.png)](https://trendingo.cc)
