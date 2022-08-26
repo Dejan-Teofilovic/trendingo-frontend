@@ -840,7 +840,7 @@ export const LISTING_SERVICES: Array<IListService> = [
       Please Provide your telegram Username Correctly, We will reach out to you for more information.
     `,
     imageId: 15,
-    price: 5500
+    price: 1500
   },
   {
     id: 4,

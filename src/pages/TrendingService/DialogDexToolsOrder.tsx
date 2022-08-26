@@ -12,7 +12,7 @@ import * as yup from 'yup';
 import { useFormik } from "formik";
 import { Icon } from "@iconify/react";
 import useOrders from "../../hooks/useOrders";
-import { IOrderItem } from '../../utils/interfaces'
+import { IOrderItem } from '../../utils/interfaces';
 
 interface IProps {
   isOpened: boolean;

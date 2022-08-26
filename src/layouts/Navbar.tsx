@@ -97,8 +97,6 @@ export default function Navbar() {
               >
                 <Icon icon="bx:menu" />
               </IconButton>
-
-
             </Stack>
           </Box>
           {
