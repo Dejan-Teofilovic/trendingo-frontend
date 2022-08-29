@@ -31,7 +31,7 @@ export default function Home() {
           </Typography>
         </Stack>
 
-        <Stack direction="row" justifyContent="center">
+        {/* <Stack direction="row" justifyContent="center">
           <Box
             component="div"
             className="trustpilot-widget"
@@ -55,7 +55,7 @@ export default function Home() {
               Trustpilot
             </Button>
           </Box>
-        </Stack>
+        </Stack> */}
 
         <Box>
           <Grid container spacing={{ xs: 1, sm: 2, md: 4 }}>
